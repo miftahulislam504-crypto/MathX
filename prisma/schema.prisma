@@ -1,0 +1,166 @@
+// This is your Prisma schema file
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── User ───────────────────────────────────────────────────────────
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  firebaseUid   String?   @unique
+  role          Role      @default(STUDENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  progress      Progress[]
+  achievements  Achievement[]
+  sessions      StudySession[]
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  RESEARCHER
+  ADMIN
+}
+
+// ─── Topics ─────────────────────────────────────────────────────────
+model Topic {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  titleBn     String?
+  description String?
+  branch      Branch    @relation(fields: [branchId], references: [id])
+  branchId    String
+  level       Level
+  order       Int       @default(0)
+  parentId    String?
+  parent      Topic?    @relation("TopicHierarchy", fields: [parentId], references: [id])
+  children    Topic[]   @relation("TopicHierarchy")
+  createdAt   DateTime  @default(now())
+
+  formulas    Formula[]
+  theorems    Theorem[]
+  problems    Problem[]
+  progress    Progress[]
+}
+
+model Branch {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  nameBn      String?
+  description String?
+  icon        String?
+  color       String?
+  topics      Topic[]
+}
+
+enum Level {
+  SCHOOL
+  COLLEGE
+  UNIVERSITY
+  ADVANCED
+  RESEARCH
+}
+
+// ─── Formula ────────────────────────────────────────────────────────
+model Formula {
+  id          String   @id @default(cuid())
+  title       String
+  latex       String
+  description String?
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  topicId     String
+  tags        String[]
+  createdAt   DateTime @default(now())
+}
+
+// ─── Theorem ────────────────────────────────────────────────────────
+model Theorem {
+  id          String   @id @default(cuid())
+  title       String
+  statement   String
+  proof       String?
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  topicId     String
+  tags        String[]
+  createdAt   DateTime @default(now())
+}
+
+// ─── Problem ────────────────────────────────────────────────────────
+model Problem {
+  id          String      @id @default(cuid())
+  title       String
+  statement   String
+  solution    String?
+  difficulty  Difficulty
+  type        ProblemType
+  topic       Topic       @relation(fields: [topicId], references: [id])
+  topicId     String
+  tags        String[]
+  source      String?
+  createdAt   DateTime    @default(now())
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  OLYMPIAD
+  RESEARCH
+}
+
+enum ProblemType {
+  MCQ
+  SHORT_ANSWER
+  PROOF
+  GRAPH_BASED
+  INTERACTIVE
+  PUZZLE
+}
+
+// ─── Progress ────────────────────────────────────────────────────────
+model Progress {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  topic       Topic    @relation(fields: [topicId], references: [id])
+  topicId     String
+  mastery     Float    @default(0) // 0–100
+  lastStudied DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, topicId])
+}
+
+// ─── Achievement ─────────────────────────────────────────────────────
+model Achievement {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  type        String
+  label       String
+  earnedAt    DateTime @default(now())
+}
+
+// ─── StudySession ─────────────────────────────────────────────────────
+model StudySession {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  topicSlug   String
+  duration    Int      // seconds
+  score       Float?
+  startedAt   DateTime @default(now())
+}
