@@ -1,7 +1,5 @@
 'use client'
 import { useState, lazy, Suspense } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 const ScientificCalculator = lazy(() => import('@/components/tools/ScientificCalculator').then(m=>({default:m.ScientificCalculator})))
 const EquationSolver        = lazy(() => import('@/components/tools/EquationSolver').then(m=>({default:m.EquationSolver})))
@@ -30,7 +28,7 @@ export default function ToolsPage() {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-5xl mx-auto">
 
@@ -70,7 +68,7 @@ export default function ToolsPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

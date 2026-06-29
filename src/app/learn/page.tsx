@@ -1,8 +1,6 @@
 'use client'
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { TopicCard } from '@/components/math/TopicCard'
 import { SearchBar } from '@/components/shared/SearchBar'
 import { LevelFilter } from '@/components/shared/LevelFilter'
@@ -29,8 +27,8 @@ export default function LearnPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+
+      <main className="min-h-screen pt-20 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
@@ -132,7 +130,7 @@ export default function LearnPage() {
           )}
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

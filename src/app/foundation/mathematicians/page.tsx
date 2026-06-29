@@ -1,8 +1,6 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { MATHEMATICIANS, ERAS, Mathematician } from '@/lib/data/mathematicians'
 
 function MathCard({ m }: { m: Mathematician }) {
@@ -80,7 +78,7 @@ export default function MathematiciansPage() {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
@@ -129,7 +127,7 @@ export default function MathematiciansPage() {
           )}
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

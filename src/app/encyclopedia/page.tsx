@@ -1,7 +1,5 @@
 'use client'
 import { useState, useMemo } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { SearchBar } from '@/components/shared/SearchBar'
 import { LevelFilter } from '@/components/shared/LevelFilter'
 import { TOPICS } from '@/lib/data/topics'
@@ -54,7 +52,7 @@ export default function EncyclopediaPage() {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
 
@@ -203,7 +201,7 @@ export default function EncyclopediaPage() {
           )}
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

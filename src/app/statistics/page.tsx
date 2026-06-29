@@ -1,7 +1,5 @@
 'use client'
 import { useState, lazy, Suspense } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 const DistributionVisualizer = lazy(() =>
   import('@/components/statistics/DistributionVisualizer').then(m => ({ default: m.DistributionVisualizer })))
@@ -30,7 +28,7 @@ export default function StatisticsPage() {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
@@ -67,7 +65,7 @@ export default function StatisticsPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

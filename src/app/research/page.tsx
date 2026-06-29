@@ -1,5 +1,3 @@
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
 
 const OPEN_PROBLEMS = [
@@ -97,7 +95,7 @@ const ROADMAPS = [
 export default function ResearchPage() {
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-6xl mx-auto">
 
@@ -218,7 +216,7 @@ export default function ResearchPage() {
           </section>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

@@ -1,5 +1,3 @@
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import Link from 'next/link'
 
 const AREAS = [
@@ -110,7 +108,7 @@ const AREAS = [
 export default function AppliedPage() {
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-6xl mx-auto">
 
@@ -183,7 +181,7 @@ export default function AppliedPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

@@ -1,7 +1,5 @@
 'use client'
 import { useState, lazy, Suspense } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 // Lazy load each visualizer — they're heavy (D3)
 const FunctionPlotter    = lazy(() => import('@/components/visualizer/FunctionPlotter').then(m => ({ default: m.FunctionPlotter })))
@@ -79,8 +77,8 @@ export default function VisualizePage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+
+      <main className="min-h-screen pt-20 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
@@ -146,7 +144,7 @@ export default function VisualizePage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

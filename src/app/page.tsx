@@ -1,9 +1,32 @@
+'use client'
+import { useState } from 'react'
 import Link from 'next/link'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { MATH_BRANCHES } from '@/lib/data/branches'
+import { AuthModal } from '@/components/auth/AuthModal'
+import { useAuth } from '@/hooks/useAuth'
+import { useRouter } from 'next/navigation'
 
-function Hero() {
+// ─── Minimal Top Nav (Landing only) ───────────────────────────────────
+function LandingNav() {
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/60 backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex h-16 items-center justify-center">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-2xl font-bold tracking-tight">
+              <span className="text-white">Math</span>
+              <span className="text-violet-400">X</span>
+            </span>
+            <span className="text-xs text-white/25 font-mono mt-1 hidden sm:block">∑ ecosystem</span>
+          </Link>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+// ─── Hero ──────────────────────────────────────────────────────────────
+function Hero({ onStartLearning }: { onStartLearning: () => void }) {
   return (
     <section className="relative min-h-screen flex items-center justify-center math-grid overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -11,11 +34,13 @@ function Hero() {
       </div>
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-24 pb-16">
+        {/* Badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/5 px-4 py-1.5 text-xs text-violet-300 mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
           Wikipedia + Khan Academy + GeoGebra + Wolfram Alpha — unified
         </div>
 
+        {/* Headline */}
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
           <span className="text-white">Learn.</span>{' '}
           <span className="text-violet-400">Explore.</span>{' '}
@@ -30,17 +55,17 @@ function Hero() {
           Visualize, experiment, practice, and discover.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/learn"
-            className="rounded-lg bg-violet-600 hover:bg-violet-500 px-8 py-3.5 text-base font-semibold text-white transition-all hover:scale-105">
-            Start Learning
-          </Link>
-          <Link href="/visualizer"
-            className="rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 px-8 py-3.5 text-base font-semibold text-white transition-all">
-            Open Visualizer →
-          </Link>
+        {/* CTA — Start Learning only (no Visualizer button) */}
+        <div className="flex justify-center">
+          <button
+            onClick={onStartLearning}
+            className="rounded-lg bg-violet-600 hover:bg-violet-500 px-10 py-4 text-base font-semibold text-white transition-all hover:scale-105 shadow-lg shadow-violet-600/25"
+          >
+            Start Learning →
+          </button>
         </div>
 
+        {/* Floating math symbols */}
         <div className="mt-16 flex justify-center gap-6 sm:gap-8 text-2xl sm:text-3xl text-white/10 font-mono select-none flex-wrap">
           {['∑','∫','∂','π','∞','√','Δ','ℝ','ℂ'].map((sym, i) => (
             <span key={sym} className="animate-float" style={{ animationDelay: `${i * 0.3}s` }}>
@@ -53,18 +78,22 @@ function Hero() {
   )
 }
 
-function BranchesGrid() {
+// ─── Branches Grid ─────────────────────────────────────────────────────
+function BranchesGrid({ onStartLearning }: { onStartLearning: () => void }) {
   return (
-    <section className="py-20 px-4">
+    <section className="py-20 px-4 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-white mb-2">Explore All Branches</h2>
-          <p className="text-white/30 text-sm">{MATH_BRANCHES.length} branches — click any to dive in</p>
+          <p className="text-white/30 text-sm">{MATH_BRANCHES.length} branches — login to dive in</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
           {MATH_BRANCHES.map(branch => (
-            <Link key={branch.slug} href={`/learn/${branch.slug}`}
-              className="group flex flex-col items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] p-4 text-center transition-all hover:border-white/10 hover:scale-105">
+            <button
+              key={branch.slug}
+              onClick={onStartLearning}
+              className="group flex flex-col items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] p-4 text-center transition-all hover:border-white/10 hover:scale-105"
+            >
               <span className="text-2xl">{branch.icon}</span>
               <span className="text-[11px] text-white/60 group-hover:text-white/90 transition-colors leading-tight">
                 {branch.name}
@@ -72,7 +101,7 @@ function BranchesGrid() {
               {branch.nameBn && (
                 <span className="text-[9px] text-white/20">{branch.nameBn}</span>
               )}
-            </Link>
+            </button>
           ))}
         </div>
       </div>
@@ -80,22 +109,23 @@ function BranchesGrid() {
   )
 }
 
+// ─── Features Grid ─────────────────────────────────────────────────────
 const FEATURES = [
-  { icon:'∫',  color:'text-amber-400',  bg:'bg-amber-500/5 border-amber-500/10',   title:'Interactive Visualizer',    desc:'Plot functions, animate derivatives, explore integrals — all live.',       href:'/visualizer' },
-  { icon:'🧪', color:'text-cyan-400',   bg:'bg-cyan-500/5 border-cyan-500/10',     title:'Mathematics Lab',           desc:'Monte Carlo, fractals, chaos theory — run real experiments.',             href:'/lab' },
-  { icon:'🤖', color:'text-violet-400', bg:'bg-violet-500/5 border-violet-500/10', title:'AI Math Tutor',             desc:'Step-by-step explanations with LaTeX, examples, and practice.',           href:'/ai-tutor' },
-  { icon:'📚', color:'text-emerald-400',bg:'bg-emerald-500/5 border-emerald-500/10',title:'Encyclopedia',            desc:'Every definition, theorem, and formula — with proofs.',                   href:'/encyclopedia' },
-  { icon:'🏆', color:'text-rose-400',   bg:'bg-rose-500/5 border-rose-500/10',     title:'Problem Hub',              desc:'Beginner to Olympiad problems with hints and solutions.',                  href:'/problems' },
-  { icon:'🎮', color:'text-sky-400',    bg:'bg-sky-500/5 border-sky-500/10',       title:'Math Games',               desc:'Number guessing, Nim, logic puzzles — math as play.',                    href:'/games' },
-  { icon:'📊', color:'text-fuchsia-400',bg:'bg-fuchsia-500/5 border-fuchsia-500/10',title:'Statistics Center',      desc:'Distribution visualizer, regression explorer, hypothesis testing.',       href:'/statistics' },
-  { icon:'🌍', color:'text-orange-400', bg:'bg-orange-500/5 border-orange-500/10', title:'Applied Mathematics',      desc:'Engineering, Finance, AI, Biology — math in the real world.',            href:'/applied' },
-  { icon:'🔭', color:'text-indigo-400', bg:'bg-indigo-500/5 border-indigo-500/10', title:'Research Center',          desc:'Open problems, research areas, roadmaps, and resources.',                 href:'/research' },
-  { icon:'📜', color:'text-yellow-400', bg:'bg-yellow-500/5 border-yellow-500/10', title:'Foundation',               desc:'History, philosophy, and the greatest mathematicians.',                   href:'/foundation' },
-  { icon:'🗺️', color:'text-teal-400',  bg:'bg-teal-500/5 border-teal-500/10',     title:'Knowledge Map',            desc:'Visualize how every topic connects. Navigate your path.',                 href:'/map' },
-  { icon:'📈', color:'text-lime-400',   bg:'bg-lime-500/5 border-lime-500/10',     title:'Dashboard',                desc:'Track progress, earn achievements, visualize mastery.',                   href:'/dashboard' },
+  { icon:'∫',  color:'text-amber-400',  bg:'bg-amber-500/5 border-amber-500/10',    title:'Interactive Visualizer',   desc:'Plot functions, animate derivatives, explore integrals — all live.' },
+  { icon:'🧪', color:'text-cyan-400',   bg:'bg-cyan-500/5 border-cyan-500/10',      title:'Mathematics Lab',          desc:'Monte Carlo, fractals, chaos theory — run real experiments.' },
+  { icon:'🤖', color:'text-violet-400', bg:'bg-violet-500/5 border-violet-500/10',  title:'AI Math Tutor',            desc:'Step-by-step explanations with LaTeX, examples, and practice.' },
+  { icon:'📚', color:'text-emerald-400',bg:'bg-emerald-500/5 border-emerald-500/10',title:'Encyclopedia',             desc:'Every definition, theorem, and formula — with proofs.' },
+  { icon:'🏆', color:'text-rose-400',   bg:'bg-rose-500/5 border-rose-500/10',      title:'Problem Hub',              desc:'Beginner to Olympiad problems with hints and solutions.' },
+  { icon:'🎮', color:'text-sky-400',    bg:'bg-sky-500/5 border-sky-500/10',        title:'Math Games',               desc:'Number guessing, Nim, logic puzzles — math as play.' },
+  { icon:'📊', color:'text-fuchsia-400',bg:'bg-fuchsia-500/5 border-fuchsia-500/10',title:'Statistics Center',        desc:'Distribution visualizer, regression explorer, hypothesis testing.' },
+  { icon:'🌍', color:'text-orange-400', bg:'bg-orange-500/5 border-orange-500/10',  title:'Applied Mathematics',      desc:'Engineering, Finance, AI, Biology — math in the real world.' },
+  { icon:'🔭', color:'text-indigo-400', bg:'bg-indigo-500/5 border-indigo-500/10',  title:'Research Center',          desc:'Open problems, research areas, roadmaps, and resources.' },
+  { icon:'📜', color:'text-yellow-400', bg:'bg-yellow-500/5 border-yellow-500/10',  title:'Foundation',               desc:'History, philosophy, and the greatest mathematicians.' },
+  { icon:'🗺️', color:'text-teal-400',  bg:'bg-teal-500/5 border-teal-500/10',      title:'Knowledge Map',            desc:'Visualize how every topic connects. Navigate your path.' },
+  { icon:'📈', color:'text-lime-400',   bg:'bg-lime-500/5 border-lime-500/10',      title:'Dashboard',                desc:'Track progress, earn achievements, visualize mastery.' },
 ]
 
-function FeaturesGrid() {
+function FeaturesGrid({ onStartLearning }: { onStartLearning: () => void }) {
   return (
     <section className="py-20 px-4 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
@@ -105,15 +135,15 @@ function FeaturesGrid() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {FEATURES.map(f => (
-            <Link key={f.href} href={f.href}
-              className={`group rounded-xl border ${f.bg} p-5 transition-all hover:scale-[1.02]`}>
+            <button key={f.title} onClick={onStartLearning}
+              className={`group rounded-xl border ${f.bg} p-5 transition-all hover:scale-[1.02] text-left w-full`}>
               <div className={`text-2xl mb-3 ${f.color}`}>{f.icon}</div>
               <h3 className="text-sm font-semibold text-white mb-1.5">{f.title}</h3>
               <p className="text-xs text-white/40 leading-relaxed">{f.desc}</p>
               <span className="mt-3 inline-block text-[10px] text-white/20 group-hover:text-white/40 transition-colors">
-                Explore →
+                Login to explore →
               </span>
-            </Link>
+            </button>
           ))}
         </div>
       </div>
@@ -121,14 +151,15 @@ function FeaturesGrid() {
   )
 }
 
+// ─── Stats ─────────────────────────────────────────────────────────────
 function Stats() {
   const stats = [
-    { value:'14+',  label:'Math Branches' },
-    { value:'45+',  label:'Topics' },
-    { value:'46+',  label:'Formulas' },
-    { value:'22+',  label:'Problems' },
-    { value:'12',   label:'Visualizers' },
-    { value:'25',   label:'Achievements' },
+    { value:'14+', label:'Math Branches' },
+    { value:'45+', label:'Topics' },
+    { value:'46+', label:'Formulas' },
+    { value:'22+', label:'Problems' },
+    { value:'12',  label:'Visualizers' },
+    { value:'25',  label:'Achievements' },
   ]
   return (
     <section className="py-16 px-4 border-t border-white/5">
@@ -144,7 +175,8 @@ function Stats() {
   )
 }
 
-function CTABanner() {
+// ─── CTA Banner ────────────────────────────────────────────────────────
+function CTABanner({ onStartLearning }: { onStartLearning: () => void }) {
   return (
     <section className="py-20 px-4 border-t border-white/5">
       <div className="max-w-3xl mx-auto text-center">
@@ -157,34 +189,56 @@ function CTABanner() {
             Join the most complete mathematics learning platform ever built.
             From school to research — all in one place.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/learn"
-              className="rounded-lg bg-violet-600 hover:bg-violet-500 px-8 py-3 text-sm font-semibold text-white transition-all">
-              Start Learning Free
-            </Link>
-            <Link href="/ai-tutor"
-              className="rounded-lg border border-white/15 hover:border-white/25 bg-white/5 px-8 py-3 text-sm font-semibold text-white transition-all">
-              Try AI Tutor
-            </Link>
-          </div>
+          <button
+            onClick={onStartLearning}
+            className="rounded-lg bg-violet-600 hover:bg-violet-500 px-10 py-3.5 text-sm font-semibold text-white transition-all hover:scale-105"
+          >
+            Get Started Free →
+          </button>
         </div>
       </div>
     </section>
   )
 }
 
+// ─── Main Page ─────────────────────────────────────────────────────────
 export default function HomePage() {
+  const [authOpen, setAuthOpen] = useState(false)
+  const [authTab, setAuthTab] = useState<'login'|'signup'>('login')
+  const { isAuthenticated } = useAuth()
+  const router = useRouter()
+
+  const handleStartLearning = () => {
+    if (isAuthenticated) {
+      router.push('/dashboard')
+    } else {
+      setAuthOpen(true)
+    }
+  }
+
   return (
     <>
-      <Navbar />
-      <main>
-        <Hero />
-        <BranchesGrid />
-        <FeaturesGrid />
+      <LandingNav />
+      <main className="pb-10">
+        <Hero onStartLearning={handleStartLearning} />
+        <BranchesGrid onStartLearning={handleStartLearning} />
+        <FeaturesGrid onStartLearning={handleStartLearning} />
         <Stats />
-        <CTABanner />
+        <CTABanner onStartLearning={handleStartLearning} />
       </main>
-      <Footer />
+
+      {/* Login/Signup Modal */}
+      {authOpen && (
+        <AuthModal
+          tab={authTab}
+          onTabChange={setAuthTab}
+          onClose={() => setAuthOpen(false)}
+          onSuccess={() => {
+            setAuthOpen(false)
+            router.push('/dashboard')
+          }}
+        />
+      )}
     </>
   )
 }

@@ -1,5 +1,3 @@
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 const TIMELINE = [
   {
@@ -118,7 +116,7 @@ const TIMELINE = [
 export default function HistoryPage() {
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-4xl mx-auto">
 
@@ -179,7 +177,7 @@ export default function HistoryPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

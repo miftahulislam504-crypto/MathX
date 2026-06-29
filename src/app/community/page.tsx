@@ -1,7 +1,5 @@
 'use client'
 import { useState, useMemo } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { PostCard } from '@/components/community/PostCard'
 import { StudyGroupCard } from '@/components/community/StudyGroupCard'
 import { NewPostModal } from '@/components/community/NewPostModal'
@@ -69,7 +67,7 @@ export default function CommunityPage() {
 
   return (
     <>
-      <Navbar />
+
       <NewPostModal open={modalOpen} onClose={() => setModalOpen(false)} onPost={handleNewPost} />
 
       <main className="min-h-screen pt-24 pb-20 px-4">
@@ -320,7 +318,7 @@ export default function CommunityPage() {
           )}
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

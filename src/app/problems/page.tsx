@@ -1,7 +1,5 @@
 'use client'
 import { useState, useMemo } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { SearchBar } from '@/components/shared/SearchBar'
 import { PROBLEMS, searchProblems, Difficulty, ProblemCategory, Problem } from '@/lib/data/problems'
 
@@ -105,7 +103,7 @@ export default function ProblemsPage() {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-6xl mx-auto">
 
@@ -184,7 +182,7 @@ export default function ProblemsPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

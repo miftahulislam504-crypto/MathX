@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 const SECTIONS = [
   {
@@ -32,8 +30,8 @@ const SECTIONS = [
 export default function FoundationPage() {
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+
+      <main className="min-h-screen pt-20 pb-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-10">
             <p className="text-violet-400 text-sm font-mono mb-2">// Foundation</p>
@@ -64,7 +62,7 @@ export default function FoundationPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

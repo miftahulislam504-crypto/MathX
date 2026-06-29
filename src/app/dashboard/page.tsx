@@ -1,8 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { StatsRow } from '@/components/dashboard/StatsRow'
 import { ActivityHeatmap } from '@/components/dashboard/ActivityHeatmap'
 import { BranchMasteryChart } from '@/components/dashboard/BranchMasteryChart'
@@ -64,8 +62,8 @@ export default function DashboardPage() {
 
   if (!analytics) {
     return (
-      <><Navbar />
-      <main className="min-h-screen pt-24 flex items-center justify-center">
+      <>
+      <main className="min-h-screen pt-20 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-white/10 border-t-violet-500 rounded-full animate-spin"/>
       </main></>
     )
@@ -87,8 +85,8 @@ export default function DashboardPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+
+      <main className="min-h-screen pt-20 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
@@ -235,7 +233,7 @@ export default function DashboardPage() {
           )}
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

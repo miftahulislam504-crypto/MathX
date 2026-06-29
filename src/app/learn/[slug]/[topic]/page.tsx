@@ -1,5 +1,3 @@
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { DisplayMath, InlineMath } from '@/components/math/LatexRenderer'
 import { FormulaCard } from '@/components/math/FormulaCard'
 import { MATH_BRANCHES } from '@/lib/data/branches'
@@ -37,7 +35,7 @@ export default async function TopicPage({ params }: Props) {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-5xl mx-auto">
 
@@ -241,7 +239,7 @@ export default async function TopicPage({ params }: Props) {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

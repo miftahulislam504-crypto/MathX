@@ -1,7 +1,5 @@
 'use client'
 import { useState, lazy, Suspense } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 const MonteCarlo      = lazy(() => import('@/components/lab/MonteCarlo').then(m => ({ default: m.MonteCarlo })))
 const RandomWalk      = lazy(() => import('@/components/lab/RandomWalk').then(m => ({ default: m.RandomWalk })))
@@ -34,8 +32,8 @@ export default function LabPage() {
 
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-20 px-4">
+
+      <main className="min-h-screen pt-20 pb-20 px-4">
         <div className="max-w-6xl mx-auto">
 
           <div className="mb-8">
@@ -81,7 +79,7 @@ export default function LabPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

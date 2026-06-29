@@ -1,7 +1,5 @@
 'use client'
 import { useState, lazy, Suspense } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 
 const NumberGame  = lazy(() => import('@/components/games/NumberGame').then(m => ({ default: (props: any) => <m.NumberGame {...props}/> })))
 const LogicPuzzles= lazy(() => import('@/components/games/LogicPuzzles').then(m => ({ default: m.LogicPuzzles })))
@@ -34,7 +32,7 @@ export default function GamesPage() {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-5xl mx-auto">
 
@@ -98,7 +96,7 @@ export default function GamesPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

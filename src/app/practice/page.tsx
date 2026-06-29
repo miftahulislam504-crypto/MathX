@@ -1,7 +1,5 @@
 'use client'
 import { useState, useRef } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { DisplayMath } from '@/components/math/LatexRenderer'
 import { TOPICS } from '@/lib/data/topics'
 import { MATH_BRANCHES } from '@/lib/data/branches'
@@ -68,7 +66,7 @@ export default function PracticePage() {
 
   return (
     <>
-      <Navbar />
+
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-4xl mx-auto">
 
@@ -227,7 +225,7 @@ export default function PracticePage() {
           )}
         </div>
       </main>
-      <Footer />
+
     </>
   )
 }

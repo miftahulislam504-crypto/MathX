@@ -1,6 +1,5 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
-import { Navbar } from '@/components/layout/Navbar'
 import { TOPICS } from '@/lib/data/topics'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { TutorMessage } from '@/types'
@@ -127,7 +126,7 @@ export default function AITutorPage() {
 
   return (
     <>
-      <Navbar />
+
       <div className="flex h-screen pt-16">
 
         {/* Sidebar */}
