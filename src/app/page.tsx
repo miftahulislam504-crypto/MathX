@@ -35,7 +35,7 @@ function Hero() {
             className="rounded-lg bg-violet-600 hover:bg-violet-500 px-8 py-3.5 text-base font-semibold text-white transition-all hover:scale-105">
             Start Learning
           </Link>
-          <Link href="/visualize"
+          <Link href="/visualizer"
             className="rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 px-8 py-3.5 text-base font-semibold text-white transition-all">
             Open Visualizer →
           </Link>
@@ -81,7 +81,7 @@ function BranchesGrid() {
 }
 
 const FEATURES = [
-  { icon:'∫',  color:'text-amber-400',  bg:'bg-amber-500/5 border-amber-500/10',   title:'Interactive Visualizer',    desc:'Plot functions, animate derivatives, explore integrals — all live.',       href:'/visualize' },
+  { icon:'∫',  color:'text-amber-400',  bg:'bg-amber-500/5 border-amber-500/10',   title:'Interactive Visualizer',    desc:'Plot functions, animate derivatives, explore integrals — all live.',       href:'/visualizer' },
   { icon:'🧪', color:'text-cyan-400',   bg:'bg-cyan-500/5 border-cyan-500/10',     title:'Mathematics Lab',           desc:'Monte Carlo, fractals, chaos theory — run real experiments.',             href:'/lab' },
   { icon:'🤖', color:'text-violet-400', bg:'bg-violet-500/5 border-violet-500/10', title:'AI Math Tutor',             desc:'Step-by-step explanations with LaTeX, examples, and practice.',           href:'/ai-tutor' },
   { icon:'📚', color:'text-emerald-400',bg:'bg-emerald-500/5 border-emerald-500/10',title:'Encyclopedia',            desc:'Every definition, theorem, and formula — with proofs.',                   href:'/encyclopedia' },

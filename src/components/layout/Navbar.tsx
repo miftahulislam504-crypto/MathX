@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils/cn'
 
 const NAV_LINKS = [
   { href: '/learn',      label: 'Learn' },
-  { href: '/visualize',  label: 'Visualize' },
+  { href: '/visualizer',  label: 'Visualize' },
   { href: '/practice',   label: 'Practice' },
   { href: '/problems',   label: 'Problems' },
   { href: '/lab',        label: 'Lab' },
