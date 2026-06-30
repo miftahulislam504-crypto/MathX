@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useAuth } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
+import { PWAInstallBanner } from '@/components/layout/PWAInstallBanner'
 
 type Theme = 'dark' | 'midnight' | 'deep'
 type Lang  = 'en' | 'bn'
@@ -34,6 +35,9 @@ export default function SettingsPage() {
           <p className="text-violet-400 text-xs font-mono mb-1">// Settings</p>
           <h1 className="text-2xl font-bold text-white">Settings</h1>
         </div>
+
+        {/* PWA Install Banner */}
+        <PWAInstallBanner className="mb-6" />
 
         {/* Account Section */}
         <section className="mb-6">
@@ -134,13 +138,14 @@ export default function SettingsPage() {
           </div>
         </section>
 
-        {/* About */}
+        {/* App Info */}
         <section className="mb-6">
           <h2 className="text-xs font-semibold text-white/30 uppercase tracking-widest mb-3">About</h2>
           <div className="rounded-2xl border border-white/8 bg-white/[0.02] divide-y divide-white/5">
             {[
               ['Version', 'MathX v2.0'],
               ['Build', '2025 Edition'],
+              ['PWA', 'Offline Ready ✓'],
               ['License', 'Educational Use'],
             ].map(([label, value]) => (
               <div key={label} className="flex items-center justify-between px-5 py-3.5">
@@ -153,11 +158,14 @@ export default function SettingsPage() {
 
         {/* MathX branding */}
         <div className="text-center mt-10">
-          <span className="text-xl font-bold">
-            <span className="text-white">Math</span>
-            <span className="text-violet-400">X</span>
-          </span>
-          <p className="text-xs text-white/20 mt-1">Learn. Explore. Experience Mathematics.</p>
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <img src="/icons/icon-96x96.png" alt="MathX" className="w-8 h-8 rounded-lg" />
+            <span className="text-xl font-bold">
+              <span className="text-white">Math</span>
+              <span className="text-violet-400">X</span>
+            </span>
+          </div>
+          <p className="text-xs text-white/20">Learn. Explore. Experience Mathematics.</p>
         </div>
       </div>
 
