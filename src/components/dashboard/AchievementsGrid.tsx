@@ -13,8 +13,8 @@ export function AchievementsGrid({ earned, onlyEarned = false }: Props) {
 
   const categories = ['learning', 'practice', 'explorer', 'streak', 'mastery'] as const
   const CAT_LABELS: Record<string, string> = {
-    learning: '📚 Learning', practice: '✏️ Practice',
-    explorer: '🔭 Explorer', streak: '🔥 Streak', mastery: '🏆 Mastery',
+    learning: 'Learning', practice: 'Practice',
+    explorer: 'Explorer', streak: 'Streak', mastery: 'Mastery',
   }
 
   return (
@@ -40,8 +40,8 @@ export function AchievementsGrid({ earned, onlyEarned = false }: Props) {
                         : 'border-white/5 bg-white/[0.01] opacity-40 grayscale'
                     }`}
                   >
-                    <div className="text-2xl mb-2" style={{ filter: isEarned ? 'none' : 'grayscale(1)' }}>
-                      {a.icon}
+                    <div className="mb-2" style={{ filter: isEarned ? 'none' : 'grayscale(1)' }}>
+                      <a.icon className={`w-6 h-6 ${isEarned ? style.color : 'text-white/30'}`} />
                     </div>
                     <p className={`text-xs font-semibold mb-1 ${isEarned ? style.color : 'text-white/30'}`}>
                       {a.title}

@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
+import { Coins, Dices, Cake, DoorOpen, ArrowLeftRight, Ban, type LucideIcon } from 'lucide-react'
 
 type ExpType = 'coinflip' | 'dice' | 'birthday' | 'montyhall'
 
@@ -127,11 +128,11 @@ export function ProbabilityLab() {
     }
   }
 
-  const EXP_TABS: {key:ExpType;label:string;icon:string}[] = [
-    {key:'coinflip', label:'Coin Flip', icon:'🪙'},
-    {key:'dice', label:'Dice', icon:'🎲'},
-    {key:'birthday', label:'Birthday', icon:'🎂'},
-    {key:'montyhall', label:'Monty Hall', icon:'🚪'},
+  const EXP_TABS: {key:ExpType;label:string;icon:LucideIcon}[] = [
+    {key:'coinflip', label:'Coin Flip', icon:Coins},
+    {key:'dice', label:'Dice', icon:Dices},
+    {key:'birthday', label:'Birthday', icon:Cake},
+    {key:'montyhall', label:'Monty Hall', icon:DoorOpen},
   ]
 
   return (
@@ -142,7 +143,7 @@ export function ProbabilityLab() {
             className={`flex items-center gap-1.5 text-xs rounded-lg px-3 py-2 border transition-all ${
               exp===t.key ? 'bg-violet-600/20 border-violet-500/40 text-violet-300'
                 : 'border-white/8 text-white/40 hover:text-white/70'
-            }`}><span>{t.icon}</span><span>{t.label}</span></button>
+            }`}><t.icon className="w-4 h-4" /><span>{t.label}</span></button>
         ))}
       </div>
 
@@ -220,11 +221,11 @@ export function ProbabilityLab() {
           <div className="rounded-xl border border-white/8 bg-white/[0.02] p-5">
             <p className="text-sm text-white/60 mb-4">3 doors. 1 car, 2 goats. You pick a door. Host reveals a goat. Do you switch?</p>
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <button onClick={()=>playMonty('switch')} className="rounded-lg bg-violet-600 hover:bg-violet-500 py-2.5 text-sm font-semibold text-white transition-all">
-                Switch 🚗
+              <button onClick={()=>playMonty('switch')} className="rounded-lg bg-violet-600 hover:bg-violet-500 py-2.5 text-sm font-semibold text-white transition-all flex items-center justify-center gap-1.5">
+                Switch <ArrowLeftRight className="w-4 h-4" />
               </button>
-              <button onClick={()=>playMonty('stay')} className="rounded-lg bg-white/10 hover:bg-white/15 py-2.5 text-sm font-semibold text-white transition-all">
-                Stay 🐐
+              <button onClick={()=>playMonty('stay')} className="rounded-lg bg-white/10 hover:bg-white/15 py-2.5 text-sm font-semibold text-white transition-all flex items-center justify-center gap-1.5">
+                Stay <Ban className="w-4 h-4" />
               </button>
             </div>
             <button onClick={runManyMonty} className="w-full rounded-lg border border-violet-500/30 text-violet-400 py-2 text-sm hover:bg-violet-500/10 transition-all">
@@ -258,7 +259,7 @@ export function ProbabilityLab() {
 
       {exp==='dice' && (
         <div className="p-8 text-center text-white/30">
-          <p className="text-4xl mb-3">🎲</p>
+          <Dices className="w-10 h-10 mb-3 mx-auto" />
           <p className="text-sm">Dice distribution simulator — coming soon</p>
         </div>
       )}

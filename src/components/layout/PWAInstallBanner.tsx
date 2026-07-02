@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils/cn'
+import { X } from 'lucide-react'
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>
@@ -88,7 +89,7 @@ export function PWAInstallBanner({ className }: { className?: string }) {
           className="text-xs text-white/30 hover:text-white/60 transition-colors px-1"
           aria-label="Dismiss"
         >
-          ✕
+          <X className="w-3.5 h-3.5" />
         </button>
         <button
           onClick={handleInstall}

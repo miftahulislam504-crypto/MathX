@@ -3,6 +3,7 @@ import { useState, useRef } from 'react'
 import { DisplayMath } from '@/components/math/LatexRenderer'
 import { TOPICS } from '@/lib/data/topics'
 import { MATH_BRANCHES } from '@/lib/data/branches'
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
 interface Problem {
   id: number
@@ -26,6 +27,7 @@ export default function PracticePage() {
   const [error, setError] = useState('')
   const [revealed, setRevealed] = useState<Record<number, boolean>>({})
   const [hints, setHints] = useState<Record<number, boolean>>({})
+  const { tt } = useLanguage()
 
   const generateProblems = async () => {
     if (!selectedTopic) return
@@ -49,7 +51,7 @@ export default function PracticePage() {
       const list: Problem[] = data.problems ?? data
       setProblems(Array.isArray(list) ? list : [])
     } catch {
-      setError('Failed to generate problems. Check your OpenAI key.')
+      setError(tt(t.practice.failedGenerate))
     } finally {
       setLoading(false)
     }
@@ -72,29 +74,29 @@ export default function PracticePage() {
 
           {/* Header */}
           <div className="mb-10">
-            <p className="text-violet-400 text-sm font-mono mb-2">// Practice Center</p>
-            <h1 className="text-4xl font-bold text-white mb-3">AI-Powered Practice</h1>
+            <p className="text-violet-400 text-sm font-mono mb-2">{tt(t.practice.tag)}</p>
+            <h1 className="text-4xl font-bold text-white mb-3">{tt(t.practice.title)}</h1>
             <p className="text-white/40">
-              Choose a topic — get 5 fresh problems generated just for you
+              {tt(t.practice.subtitle)}
             </p>
           </div>
 
           {/* Generator card */}
           <div className="rounded-xl border border-white/10 bg-white/[0.03] p-6 mb-8">
             <h2 className="text-sm font-semibold text-white/60 uppercase tracking-wider mb-5">
-              Configure Practice Session
+              {tt(t.practice.configureSession)}
             </h2>
 
             <div className="grid sm:grid-cols-2 gap-4 mb-5">
               {/* Topic select */}
               <div>
-                <label className="text-xs text-white/40 mb-2 block">Topic</label>
+                <label className="text-xs text-white/40 mb-2 block">{tt(t.practice.topicLabel)}</label>
                 <select
                   value={selectedTopic}
                   onChange={(e) => setSelectedTopic(e.target.value)}
                   className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500/50 transition-all appearance-none"
                 >
-                  <option value="" className="bg-zinc-900">Select a topic...</option>
+                  <option value="" className="bg-zinc-900">{tt(t.practice.selectTopic)}</option>
                   {branchesWithTopics.map((branch) => (
                     <optgroup key={branch.id} label={`${branch.icon} ${branch.name}`} className="bg-zinc-900">
                       {TOPICS.filter((t) => t.branchId === branch.id).map((t) => (
@@ -109,16 +111,16 @@ export default function PracticePage() {
 
               {/* Level select */}
               <div>
-                <label className="text-xs text-white/40 mb-2 block">Difficulty Level</label>
+                <label className="text-xs text-white/40 mb-2 block">{tt(t.practice.difficultyLevel)}</label>
                 <select
                   value={selectedLevel}
                   onChange={(e) => setSelectedLevel(e.target.value)}
                   className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500/50 transition-all appearance-none"
                 >
-                  <option value="SCHOOL" className="bg-zinc-900">School</option>
-                  <option value="COLLEGE" className="bg-zinc-900">College</option>
-                  <option value="UNIVERSITY" className="bg-zinc-900">University</option>
-                  <option value="ADVANCED" className="bg-zinc-900">Advanced</option>
+                  <option value="SCHOOL" className="bg-zinc-900">{tt(t.levels.SCHOOL)}</option>
+                  <option value="COLLEGE" className="bg-zinc-900">{tt(t.levels.COLLEGE)}</option>
+                  <option value="UNIVERSITY" className="bg-zinc-900">{tt(t.levels.UNIVERSITY)}</option>
+                  <option value="ADVANCED" className="bg-zinc-900">{tt(t.levels.ADVANCED)}</option>
                 </select>
               </div>
             </div>
@@ -131,10 +133,10 @@ export default function PracticePage() {
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Generating problems...
+                  {tt(t.practice.generating)}
                 </span>
               ) : (
-                '⚡ Generate 5 Problems'
+                tt(t.practice.generate)
               )}
             </button>
 
@@ -149,7 +151,7 @@ export default function PracticePage() {
           {problems.length > 0 && (
             <div className="space-y-5">
               <p className="text-sm text-white/40 font-mono">
-                {problems.length} problems — {selectedTopic} ({selectedLevel})
+                {problems.length} {tt(t.practice.problemsCount)} — {selectedTopic} ({selectedLevel})
               </p>
 
               {problems.map((p, idx) => (
@@ -178,20 +180,20 @@ export default function PracticePage() {
                       onClick={() => toggleHint(p.id ?? idx)}
                       className="text-xs text-amber-400/70 hover:text-amber-400 transition-colors"
                     >
-                      {hints[p.id ?? idx] ? '▾ Hide hint' : '▸ Show hint'}
+                      {hints[p.id ?? idx] ? tt(t.practice.hideHintFull) : tt(t.practice.showHintFull)}
                     </button>
                     <button
                       onClick={() => toggleReveal(p.id ?? idx)}
                       className="text-xs text-violet-400/70 hover:text-violet-400 transition-colors"
                     >
-                      {revealed[p.id ?? idx] ? '▾ Hide solution' : '▸ Reveal solution'}
+                      {revealed[p.id ?? idx] ? tt(t.practice.hideSol) : tt(t.practice.revealSol)}
                     </button>
                   </div>
 
                   {/* Hint */}
                   {hints[p.id ?? idx] && (
                     <div className="mx-5 mb-3 rounded-lg border border-amber-500/15 bg-amber-500/5 px-4 py-3">
-                      <p className="text-xs text-amber-400/60 uppercase tracking-wider mb-1">Hint</p>
+                      <p className="text-xs text-amber-400/60 uppercase tracking-wider mb-1">{tt(t.common.hint)}</p>
                       <p className="text-sm text-amber-100/70">{p.hint}</p>
                     </div>
                   )}
@@ -199,7 +201,7 @@ export default function PracticePage() {
                   {/* Solution */}
                   {revealed[p.id ?? idx] && (
                     <div className="mx-5 mb-5 rounded-lg border border-violet-500/20 bg-violet-500/5 px-4 py-3">
-                      <p className="text-xs text-violet-400/60 uppercase tracking-wider mb-1">Solution</p>
+                      <p className="text-xs text-violet-400/60 uppercase tracking-wider mb-1">{tt(t.common.solution)}</p>
                       <p className="text-sm text-violet-100/80 leading-relaxed">{p.solution}</p>
                     </div>
                   )}
@@ -211,7 +213,7 @@ export default function PracticePage() {
                 onClick={generateProblems}
                 className="w-full rounded-lg border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.05] py-3 text-sm text-white/50 hover:text-white/80 transition-all"
               >
-                ↺ Generate 5 New Problems
+                {tt(t.practice.regenerate)}
               </button>
             </div>
           )}
@@ -220,7 +222,7 @@ export default function PracticePage() {
           {!loading && problems.length === 0 && !error && (
             <div className="text-center py-20 text-white/20">
               <p className="text-5xl mb-4 font-mono">∑</p>
-              <p className="text-sm">Select a topic and generate problems to begin</p>
+              <p className="text-sm">{tt(t.practice.emptyState)}</p>
             </div>
           )}
         </div>

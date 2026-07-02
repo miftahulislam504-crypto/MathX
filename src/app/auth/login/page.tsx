@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Navbar } from '@/components/layout/Navbar'
 import { AuthForm } from '@/components/auth/AuthForm'
+import { PartyPopper, BarChart3, Trophy, Bot, AlertTriangle } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -15,7 +16,7 @@ export default function LoginPage() {
         <Navbar />
         <main className="min-h-screen pt-24 flex items-center justify-center px-4">
           <div className="text-center">
-            <p className="text-4xl mb-4">🎉</p>
+            <PartyPopper className="w-10 h-10 mb-4 mx-auto text-amber-400" />
             <h2 className="text-xl font-bold text-white mb-2">Welcome back!</h2>
             <p className="text-white/40 text-sm mb-6">You are now signed in.</p>
             <Link href="/dashboard"
@@ -60,12 +61,12 @@ export default function LoginPage() {
           {/* Features reminder */}
           <div className="mt-6 grid grid-cols-3 gap-3 text-center">
             {[
-              { icon:'📊', text:'Track progress' },
-              { icon:'🏆', text:'Earn achievements' },
-              { icon:'🤖', text:'AI Tutor history' },
+              { icon:BarChart3, text:'Track progress' },
+              { icon:Trophy, text:'Earn achievements' },
+              { icon:Bot, text:'AI Tutor history' },
             ].map(f => (
               <div key={f.text} className="rounded-xl border border-white/5 bg-white/[0.02] p-3">
-                <p className="text-lg mb-1">{f.icon}</p>
+                <f.icon className="w-5 h-5 mb-1 mx-auto text-white/50" />
                 <p className="text-[10px] text-white/30">{f.text}</p>
               </div>
             ))}
@@ -73,8 +74,8 @@ export default function LoginPage() {
 
           {/* Firebase config notice */}
           <div className="mt-6 rounded-lg border border-amber-500/15 bg-amber-500/5 px-4 py-3">
-            <p className="text-[10px] text-amber-400/70 leading-relaxed text-center">
-              ⚠️ Add your Firebase credentials to <code className="font-mono">.env.local</code> to enable authentication.
+            <p className="text-[10px] text-amber-400/70 leading-relaxed text-center flex items-start gap-1.5">
+              <AlertTriangle className="w-3.5 h-3.5 shrink-0" /> Add your Firebase credentials to <code className="font-mono">.env.local</code> to enable authentication.
               See <code className="font-mono">.env.example</code> for required keys.
             </p>
           </div>

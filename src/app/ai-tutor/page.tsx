@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { TOPICS } from '@/lib/data/topics'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { TutorMessage } from '@/types'
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
 function MessageBubble({ msg }: { msg: TutorMessage & { pending?: boolean } }) {
   const isUser = msg.role === 'user'
@@ -40,10 +41,11 @@ function MessageBubble({ msg }: { msg: TutorMessage & { pending?: boolean } }) {
 }
 
 export default function AITutorPage() {
+  const { tt } = useLanguage()
   const [messages, setMessages] = useState<(TutorMessage & { pending?: boolean })[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm your MathX AI Tutor. I can explain any math concept, solve problems step-by-step, and generate practice questions.\n\nWhat would you like to learn today? Try asking:\n• \"Explain integration by parts with an example\"\n• \"How does the quadratic formula work?\"\n• \"What is an eigenvalue?\"",
+      content: tt(t.aiTutor.greeting),
       timestamp: new Date(),
     },
   ])
@@ -86,7 +88,7 @@ export default function AITutorPage() {
       })
 
       const data = await res.json()
-      const reply = data.reply ?? 'Sorry, I could not generate a response.'
+      const reply = data.reply ?? tt(t.aiTutor.errorReply)
 
       setMessages((prev) => [
         ...prev.slice(0, -1),
@@ -94,7 +96,7 @@ export default function AITutorPage() {
       ])
     } catch {
       setMessages((prev) => prev.slice(0, -1))
-      setError('Connection error. Check your API key.')
+      setError(tt(t.aiTutor.connectionError))
     } finally {
       setLoading(false)
     }
@@ -110,18 +112,18 @@ export default function AITutorPage() {
   const clearChat = () => {
     setMessages([{
       role: 'assistant',
-      content: "Chat cleared. What would you like to explore?",
+      content: tt(t.aiTutor.cleared),
       timestamp: new Date(),
     }])
     setError('')
   }
 
   const QUICK_PROMPTS = [
-    'Explain the chain rule with an example',
-    'What is the intuition behind integration?',
-    'How do I find eigenvalues of a matrix?',
-    'Prove the Pythagorean theorem',
-    'What are the applications of calculus?',
+    tt(t.aiTutor.prompts.p1),
+    tt(t.aiTutor.prompts.p2),
+    tt(t.aiTutor.prompts.p3),
+    tt(t.aiTutor.prompts.p4),
+    tt(t.aiTutor.prompts.p5),
   ]
 
   return (
@@ -131,13 +133,13 @@ export default function AITutorPage() {
 
         {/* Sidebar */}
         <aside className="hidden lg:flex flex-col w-64 border-r border-white/5 bg-black/40 p-4 overflow-y-auto">
-          <p className="text-xs text-white/30 uppercase tracking-wider mb-3 font-mono">Topic Context</p>
+          <p className="text-xs text-white/30 uppercase tracking-wider mb-3 font-mono">{tt(t.aiTutor.topicContext)}</p>
           <select
             value={topicContext}
             onChange={(e) => setTopicContext(e.target.value)}
             className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-violet-500/50 mb-6 appearance-none"
           >
-            <option value="" className="bg-zinc-900">General (no context)</option>
+            <option value="" className="bg-zinc-900">{tt(t.aiTutor.generalContext)}</option>
             {MATH_BRANCHES.map((branch) => (
               <optgroup key={branch.id} label={`${branch.icon} ${branch.name}`} className="bg-zinc-900">
                 {TOPICS.filter((t) => t.branchId === branch.id).map((t) => (
@@ -149,7 +151,7 @@ export default function AITutorPage() {
             ))}
           </select>
 
-          <p className="text-xs text-white/30 uppercase tracking-wider mb-3 font-mono">Quick Prompts</p>
+          <p className="text-xs text-white/30 uppercase tracking-wider mb-3 font-mono">{tt(t.aiTutor.quickPrompts)}</p>
           <div className="space-y-2">
             {QUICK_PROMPTS.map((p) => (
               <button
@@ -167,7 +169,7 @@ export default function AITutorPage() {
               onClick={clearChat}
               className="w-full text-xs text-white/25 hover:text-white/50 transition-colors py-2"
             >
-              Clear conversation
+              {tt(t.aiTutor.clearChat)}
             </button>
           </div>
         </aside>
@@ -178,7 +180,7 @@ export default function AITutorPage() {
           <div className="flex items-center justify-between px-6 py-3 border-b border-white/5 bg-black/20">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-sm text-white/70 font-medium">MathX AI Tutor</span>
+              <span className="text-sm text-white/70 font-medium">{tt(t.aiTutor.tag)}</span>
               {topicContext && (
                 <span className="text-xs text-violet-400/70 bg-violet-500/8 border border-violet-500/15 rounded-full px-2 py-0.5">
                   {topicContext}
@@ -189,7 +191,7 @@ export default function AITutorPage() {
               onClick={clearChat}
               className="lg:hidden text-xs text-white/25 hover:text-white/50 transition-colors"
             >
-              Clear
+              {tt(t.common.clear)}
             </button>
           </div>
 
@@ -215,7 +217,7 @@ export default function AITutorPage() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask anything... (Enter to send, Shift+Enter for newline)"
+                  placeholder={tt(t.aiTutor.inputPlaceholder)}
                   rows={1}
                   className="w-full bg-white/[0.06] border border-white/10 focus:border-violet-500/50 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/25 focus:outline-none transition-all resize-none max-h-32"
                   style={{ height: 'auto' }}
@@ -239,7 +241,7 @@ export default function AITutorPage() {
               </button>
             </div>
             <p className="text-[10px] text-white/15 text-center mt-2">
-              Powered by GPT-4o-mini · LaTeX rendered automatically
+              {tt(t.aiTutor.poweredBy)}
             </p>
           </div>
         </div>

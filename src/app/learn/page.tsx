@@ -7,11 +7,13 @@ import { LevelFilter } from '@/components/shared/LevelFilter'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { TOPICS, getTopicsByBranch } from '@/lib/data/topics'
 import { Level } from '@/types'
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
 export default function LearnPage() {
   const [search, setSearch] = useState('')
   const [level, setLevel] = useState<Level | 'ALL'>('ALL')
   const [activeBranch, setActiveBranch] = useState<string | 'ALL'>('ALL')
+  const { tt, lang } = useLanguage()
 
   const filtered = useMemo(() => {
     return TOPICS.filter((t) => {
@@ -33,17 +35,17 @@ export default function LearnPage() {
 
           {/* Header */}
           <div className="mb-10">
-            <p className="text-violet-400 text-sm font-mono mb-2">// Learning Center</p>
-            <h1 className="text-4xl font-bold text-white mb-3">All Topics</h1>
+            <p className="text-violet-400 text-sm font-mono mb-2">{tt(t.learn.tag)}</p>
+            <h1 className="text-4xl font-bold text-white mb-3">{tt(t.learn.title)}</h1>
             <p className="text-white/40 text-base">
-              {TOPICS.length} topics across {MATH_BRANCHES.length} branches — School to Research
+              {TOPICS.length} {tt(t.learn.subtitle)} {MATH_BRANCHES.length} {tt(t.learn.subtitleEnd)}
             </p>
           </div>
 
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <SearchBar
-              placeholder="Search topics..."
+              placeholder={tt(t.learn.searchPlaceholder)}
               onSearch={setSearch}
               className="sm:w-72"
             />
@@ -60,7 +62,7 @@ export default function LearnPage() {
                   : 'border-white/8 text-white/40 hover:text-white/70'
               }`}
             >
-              All Branches
+              {tt(t.common.allBranches)}
             </button>
             {MATH_BRANCHES.map((b) => (
               <button
@@ -73,14 +75,14 @@ export default function LearnPage() {
                 }`}
               >
                 <span>{b.icon}</span>
-                <span>{b.name}</span>
+                <span>{lang === 'bn' && b.nameBn ? b.nameBn : b.name}</span>
               </button>
             ))}
           </div>
 
           {/* Results count */}
           <p className="text-xs text-white/25 mb-5 font-mono">
-            {filtered.length} topic{filtered.length !== 1 ? 's' : ''} found
+            {filtered.length} {tt(t.common.topic)}{filtered.length !== 1 ? 's' : ''} {tt(t.common.found)}
           </p>
 
           {/* Topics grid — grouped by branch */}
@@ -98,9 +100,9 @@ export default function LearnPage() {
                           href={`/learn/${branch.slug}`}
                           className="text-lg font-semibold text-white hover:text-violet-300 transition-colors"
                         >
-                          {branch.name}
+                          {lang === 'bn' && branch.nameBn ? branch.nameBn : branch.name}
                         </Link>
-                        {branch.nameBn && (
+                        {lang === 'en' && branch.nameBn && (
                           <span className="text-white/30 text-sm ml-2">{branch.nameBn}</span>
                         )}
                       </div>
@@ -125,7 +127,7 @@ export default function LearnPage() {
           {filtered.length === 0 && (
             <div className="text-center py-20 text-white/25">
               <p className="text-4xl mb-3">∅</p>
-              <p>No topics match your search.</p>
+              <p>{tt(t.learn.noTopics)}</p>
             </div>
           )}
         </div>

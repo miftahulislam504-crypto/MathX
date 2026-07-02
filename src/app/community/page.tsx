@@ -7,20 +7,22 @@ import {
   COMMUNITY_POSTS, STUDY_GROUPS, CAT_STYLE,
   Post, PostCategory,
 } from '@/lib/data/community-data'
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
+import { Trophy, Medal, Star, MessageCircle, Users, Handshake, Flame, Pencil, type LucideIcon } from 'lucide-react'
 
 type Tab = 'forum' | 'groups' | 'leaderboard'
 
-const LEADERBOARD = [
-  { rank:1,  name:'OlympiadStar',    xp:4820, badge:'🏆', streak:47 },
-  { rank:2,  name:'MathEnthusiast',  xp:3910, badge:'🥈', streak:32 },
-  { rank:3,  name:'ProbabilityNerd', xp:3450, badge:'🥉', streak:28 },
-  { rank:4,  name:'AlgebraFan',      xp:2980, badge:'⭐', streak:21 },
-  { rank:5,  name:'LinearLearner',   xp:2640, badge:'⭐', streak:19 },
-  { rank:6,  name:'RahulM',          xp:2100, badge:'⭐', streak:14 },
-  { rank:7,  name:'PracticalMath',   xp:1860, badge:'⭐', streak:11 },
-  { rank:8,  name:'ChaosExplorer',   xp:1540, badge:'⭐', streak:9  },
-  { rank:9,  name:'FractalArtist',   xp:1230, badge:'⭐', streak:7  },
-  { rank:10, name:'TopologyFan',     xp:980,  badge:'⭐', streak:5  },
+const LEADERBOARD: { rank: number; name: string; xp: number; badge: LucideIcon; streak: number }[] = [
+  { rank:1,  name:'OlympiadStar',    xp:4820, badge:Trophy, streak:47 },
+  { rank:2,  name:'MathEnthusiast',  xp:3910, badge:Medal, streak:32 },
+  { rank:3,  name:'ProbabilityNerd', xp:3450, badge:Medal, streak:28 },
+  { rank:4,  name:'AlgebraFan',      xp:2980, badge:Star, streak:21 },
+  { rank:5,  name:'LinearLearner',   xp:2640, badge:Star, streak:19 },
+  { rank:6,  name:'RahulM',          xp:2100, badge:Star, streak:14 },
+  { rank:7,  name:'PracticalMath',   xp:1860, badge:Star, streak:11 },
+  { rank:8,  name:'ChaosExplorer',   xp:1540, badge:Star, streak:9  },
+  { rank:9,  name:'FractalArtist',   xp:1230, badge:Star, streak:7  },
+  { rank:10, name:'TopologyFan',     xp:980,  badge:Star, streak:5  },
 ]
 
 export default function CommunityPage() {
@@ -30,6 +32,15 @@ export default function CommunityPage() {
   const [posts, setPosts]   = useState<Post[]>(COMMUNITY_POSTS)
   const [modalOpen, setModalOpen] = useState(false)
   const [sortBy, setSortBy] = useState<'recent' | 'top'>('recent')
+  const { tt } = useLanguage()
+
+  const CAT_LABELS: Record<PostCategory, string> = {
+    question:   tt(t.community.catQuestion),
+    discussion: tt(t.community.catDiscussion),
+    solution:   tt(t.community.catSolution),
+    resource:   tt(t.community.catResource),
+    challenge:  tt(t.community.catChallenge),
+  }
 
   const filtered = useMemo(() => {
     let list = posts
@@ -50,17 +61,17 @@ export default function CommunityPage() {
     const newPost: Post = {
       id: `p${Date.now()}`,
       title, body, category, tags,
-      author: 'You', avatar: '👤',
+      author: 'You', avatar: 'Y',
       timeAgo: 'Just now',
       upvotes: 0, replies: 0,
     }
     setPosts(prev => [newPost, ...prev])
   }
 
-  const TABS: { key: Tab; label: string; icon: string }[] = [
-    { key:'forum',       label:'Forum',       icon:'💬' },
-    { key:'groups',      label:'Study Groups', icon:'👥' },
-    { key:'leaderboard', label:'Leaderboard', icon:'🏆' },
+  const TABS: { key: Tab; label: string; icon: LucideIcon }[] = [
+    { key:'forum',       label:tt(t.community.forum),       icon:MessageCircle },
+    { key:'groups',      label:tt(t.community.groups), icon:Users },
+    { key:'leaderboard', label:tt(t.community.leaderboard), icon:Trophy },
   ]
 
   const CATS: (PostCategory | 'all')[] = ['all','question','discussion','solution','resource','challenge']
@@ -76,28 +87,28 @@ export default function CommunityPage() {
           {/* Header */}
           <div className="flex items-start justify-between gap-4 mb-8 flex-wrap">
             <div>
-              <p className="text-violet-400 text-sm font-mono mb-2">// Community</p>
-              <h1 className="text-4xl font-bold text-white mb-2">Math Community</h1>
+              <p className="text-violet-400 text-sm font-mono mb-2">{tt(t.community.tag)}</p>
+              <h1 className="text-4xl font-bold text-white mb-2">{tt(t.community.title)}</h1>
               <p className="text-white/40 text-sm">
-                {posts.length} posts · {STUDY_GROUPS.length} study groups · Ask, discuss, collaborate.
+                {posts.length} {tt(t.community.subtitlePart1)} · {STUDY_GROUPS.length} {tt(t.community.subtitlePart2)} · {tt(t.community.subtitlePart3)}
               </p>
             </div>
             <button
               onClick={() => setModalOpen(true)}
               className="rounded-xl bg-violet-600 hover:bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white transition-all flex items-center gap-2">
-              <span>✏️</span> New Post
+              <Pencil className="w-4 h-4" /> {tt(t.community.newPost)}
             </button>
           </div>
 
           {/* Stats bar */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-8">
             {[
-              { label:'Posts',        val: posts.length },
-              { label:'Questions',    val: posts.filter(p=>p.category==='question').length },
-              { label:'Solved',       val: posts.filter(p=>p.solved).length },
-              { label:'Study Groups', val: STUDY_GROUPS.length },
-              { label:'Members',      val: STUDY_GROUPS.reduce((s,g)=>s+g.members,0) },
-              { label:'Challenges',   val: posts.filter(p=>p.category==='challenge').length },
+              { label:tt(t.community.statPosts),        val: posts.length },
+              { label:tt(t.community.statQuestions),    val: posts.filter(p=>p.category==='question').length },
+              { label:tt(t.community.statSolved),       val: posts.filter(p=>p.solved).length },
+              { label:tt(t.community.statGroups), val: STUDY_GROUPS.length },
+              { label:tt(t.community.statMembers),      val: STUDY_GROUPS.reduce((s,g)=>s+g.members,0) },
+              { label:tt(t.community.statChallenges),   val: posts.filter(p=>p.category==='challenge').length },
             ].map(s => (
               <div key={s.label} className="rounded-xl border border-white/6 bg-white/[0.02] p-3 text-center">
                 <p className="text-lg font-bold font-mono text-violet-400">{s.val}</p>
@@ -108,14 +119,14 @@ export default function CommunityPage() {
 
           {/* Tabs */}
           <div className="flex gap-1 border-b border-white/8 mb-6">
-            {TABS.map(t => (
-              <button key={t.key} onClick={() => setTab(t.key)}
+            {TABS.map(tb => (
+              <button key={tb.key} onClick={() => setTab(tb.key)}
                 className={`flex items-center gap-1.5 px-5 py-2.5 text-sm font-medium border-b-2 transition-all -mb-px ${
-                  tab === t.key
+                  tab === tb.key
                     ? 'border-violet-500 text-white'
                     : 'border-transparent text-white/40 hover:text-white/70'
                 }`}>
-                <span>{t.icon}</span> {t.label}
+                <tb.icon className="w-4 h-4" /> {tb.label}
               </button>
             ))}
           </div>
@@ -130,14 +141,14 @@ export default function CommunityPage() {
                   <div className="relative flex-1 min-w-48">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">⌕</span>
                     <input value={search} onChange={e => setSearch(e.target.value)}
-                      placeholder="Search posts..."
+                      placeholder={tt(t.community.searchPosts)}
                       className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-violet-500/50 transition-colors"
                     />
                   </div>
                   <select value={sortBy} onChange={e => setSortBy(e.target.value as typeof sortBy)}
                     className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white/60 focus:outline-none appearance-none">
-                    <option value="recent" className="bg-zinc-900">Most Recent</option>
-                    <option value="top"    className="bg-zinc-900">Most Upvoted</option>
+                    <option value="recent" className="bg-zinc-900">{tt(t.community.mostRecent)}</option>
+                    <option value="top"    className="bg-zinc-900">{tt(t.community.mostUpvoted)}</option>
                   </select>
                 </div>
 
@@ -154,23 +165,23 @@ export default function CommunityPage() {
                               : `${s!.bg} ${s!.color}`
                             : 'border-white/8 text-white/40 hover:text-white/70'
                         }`}>
-                        {cat === 'all' ? 'All Posts' : s!.label}
+                        {cat === 'all' ? tt(t.community.allPosts) : CAT_LABELS[cat]}
                       </button>
                     )
                   })}
                 </div>
 
-                <p className="text-xs text-white/25 font-mono">{filtered.length} posts</p>
+                <p className="text-xs text-white/25 font-mono">{filtered.length} {tt(t.community.postsCount)}</p>
 
                 {filtered.map(post => <PostCard key={post.id} post={post} />)}
 
                 {filtered.length === 0 && (
                   <div className="text-center py-16 text-white/20">
                     <p className="text-4xl mb-3">∅</p>
-                    <p className="text-sm">No posts match your search.</p>
+                    <p className="text-sm">{tt(t.community.noPostsFound)}</p>
                     <button onClick={() => setModalOpen(true)}
                       className="mt-4 text-violet-400 hover:text-violet-300 text-xs transition-colors">
-                      Be the first to post →
+                      {tt(t.community.beFirstToPost)}
                     </button>
                   </div>
                 )}
@@ -180,19 +191,19 @@ export default function CommunityPage() {
               <div className="space-y-4">
                 {/* Quick post */}
                 <div className="rounded-xl border border-violet-500/20 bg-violet-500/5 p-4">
-                  <h3 className="text-sm font-semibold text-violet-300 mb-2">Have a question?</h3>
+                  <h3 className="text-sm font-semibold text-violet-300 mb-2">{tt(t.community.haveQuestion)}</h3>
                   <p className="text-xs text-white/35 mb-3 leading-relaxed">
-                    Ask the community! Our members range from high-schoolers to PhD researchers.
+                    {tt(t.community.askCommunity)}
                   </p>
                   <button onClick={() => setModalOpen(true)}
                     className="w-full rounded-lg bg-violet-600 hover:bg-violet-500 py-2 text-xs font-semibold text-white transition-all">
-                    Ask a Question
+                    {tt(t.community.askQuestion)}
                   </button>
                 </div>
 
                 {/* Tags cloud */}
                 <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4">
-                  <h3 className="text-xs text-white/40 uppercase tracking-wider font-mono mb-3">Popular Tags</h3>
+                  <h3 className="text-xs text-white/40 uppercase tracking-wider font-mono mb-3">{tt(t.community.popularTags)}</h3>
                   <div className="flex flex-wrap gap-1.5">
                     {Array.from(new Set(posts.flatMap(p => p.tags)))
                       .slice(0, 16)
@@ -208,14 +219,14 @@ export default function CommunityPage() {
 
                 {/* Community rules */}
                 <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4">
-                  <h3 className="text-xs text-white/40 uppercase tracking-wider font-mono mb-3">Community Rules</h3>
+                  <h3 className="text-xs text-white/40 uppercase tracking-wider font-mono mb-3">{tt(t.community.communityRules)}</h3>
                   <ul className="space-y-2 text-xs text-white/35">
                     {[
-                      'Be kind and respectful',
-                      'Show your work — explain your thinking',
-                      'Use LaTeX for math expressions',
-                      'Search before posting a question',
-                      'Mark questions as solved when answered',
+                      tt(t.community.rule1),
+                      tt(t.community.rule2),
+                      tt(t.community.rule3),
+                      tt(t.community.rule4),
+                      tt(t.community.rule5),
                     ].map((rule, i) => (
                       <li key={i} className="flex gap-2">
                         <span className="text-violet-400/50 shrink-0">{i+1}.</span>
@@ -232,20 +243,20 @@ export default function CommunityPage() {
           {tab === 'groups' && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <p className="text-sm text-white/40">{STUDY_GROUPS.length} active groups</p>
+                <p className="text-sm text-white/40">{STUDY_GROUPS.length} {tt(t.community.activeGroups)}</p>
                 <button className="text-xs text-violet-400 hover:text-violet-300 border border-violet-500/20 rounded-lg px-4 py-1.5 transition-all">
-                  + Create Group
+                  {tt(t.community.createGroup)}
                 </button>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {STUDY_GROUPS.map(g => <StudyGroupCard key={g.id} group={g} />)}
               </div>
               <div className="rounded-xl border border-white/5 bg-white/[0.01] p-8 text-center">
-                <p className="text-2xl mb-3">🤝</p>
-                <h3 className="text-base font-semibold text-white mb-2">Don't see your topic?</h3>
-                <p className="text-sm text-white/35 mb-4">Create a new study group and invite others.</p>
+                <Handshake className="w-8 h-8 mb-3 mx-auto text-white/30" />
+                <h3 className="text-base font-semibold text-white mb-2">{tt(t.community.dontSeeTopic)}</h3>
+                <p className="text-sm text-white/35 mb-4">{tt(t.community.createGroupDesc)}</p>
                 <button className="rounded-lg bg-violet-600 hover:bg-violet-500 px-6 py-2.5 text-sm font-semibold text-white transition-all">
-                  Create Study Group
+                  {tt(t.community.createStudyGroup)}
                 </button>
               </div>
             </div>
@@ -255,8 +266,8 @@ export default function CommunityPage() {
           {tab === 'leaderboard' && (
             <div className="max-w-2xl mx-auto space-y-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-white/40">All-time XP leaderboard</p>
-                <span className="text-xs text-white/20 font-mono">Updates daily</span>
+                <p className="text-sm text-white/40">{tt(t.community.allTimeXp)}</p>
+                <span className="text-xs text-white/20 font-mono">{tt(t.community.updatesDaily)}</span>
               </div>
 
               {/* Top 3 podium */}
@@ -267,14 +278,14 @@ export default function CommunityPage() {
                       ? 'border-amber-500/40 bg-amber-500/8 scale-105'
                       : 'border-white/8 bg-white/[0.02]'
                   }`}>
-                    <p className="text-2xl mb-1">{user.badge}</p>
+                    <user.badge className={`w-6 h-6 mb-1 mx-auto ${i===1?'text-amber-400':'text-white/50'}`} />
                     <p className={`text-xs font-semibold ${i===1?'text-amber-300':'text-white/70'}`}>
                       {user.name}
                     </p>
                     <p className={`text-sm font-bold font-mono mt-1 ${i===1?'text-amber-400':'text-violet-400'}`}>
-                      {user.xp.toLocaleString()} XP
+                      {user.xp.toLocaleString()} {tt(t.community.xp)}
                     </p>
-                    <p className="text-[10px] text-white/25 mt-0.5">🔥{user.streak} day streak</p>
+                    <p className="text-[10px] text-white/25 mt-0.5 flex items-center justify-center gap-0.5"><Flame className="w-2.5 h-2.5" />{user.streak} {tt(t.community.dayStreak)}</p>
                   </div>
                 ))}
               </div>
@@ -292,16 +303,16 @@ export default function CommunityPage() {
                     }`}>
                       {user.rank}
                     </span>
-                    <span className="text-xl shrink-0">{user.badge}</span>
+                    <user.badge className="w-4 h-4 shrink-0 text-white/50" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-white/80">{user.name}</p>
-                      <p className="text-[10px] text-white/25 font-mono">🔥 {user.streak} day streak</p>
+                      <p className="text-[10px] text-white/25 font-mono flex items-center gap-0.5"><Flame className="w-2.5 h-2.5" /> {user.streak} {tt(t.community.dayStreak)}</p>
                     </div>
                     <div className="text-right shrink-0">
                       <p className="text-sm font-bold font-mono text-violet-400">
                         {user.xp.toLocaleString()}
                       </p>
-                      <p className="text-[10px] text-white/25">XP</p>
+                      <p className="text-[10px] text-white/25">{tt(t.community.xp)}</p>
                     </div>
                   </div>
                 ))}
@@ -309,9 +320,9 @@ export default function CommunityPage() {
 
               <div className="rounded-xl border border-violet-500/15 bg-violet-500/5 p-4 text-center">
                 <p className="text-xs text-white/40">
-                  Earn XP by studying topics, solving problems, and earning achievements.
+                  {tt(t.community.earnXpDesc)}
                   <br/>
-                  <span className="text-violet-400">Check your rank on the Dashboard →</span>
+                  <span className="text-violet-400">{tt(t.community.checkRank)}</span>
                 </p>
               </div>
             </div>

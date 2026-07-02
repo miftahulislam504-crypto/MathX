@@ -3,6 +3,7 @@ import { FormulaCard } from '@/components/math/FormulaCard'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { getTopicBySlug, getTopicsByBranch } from '@/lib/data/topics'
 import { getFormulasByTopic } from '@/lib/data/formulas'
+import { PenLine } from 'lucide-react'
 import { getTopicContent } from '@/lib/data/topic-content'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -99,8 +100,8 @@ export default async function TopicPage({ params }: Props) {
                   {/* Worked Example */}
                   {content.example && (
                     <section className="rounded-xl border border-amber-500/15 bg-amber-500/5 p-6">
-                      <h2 className="text-base font-semibold text-amber-400 mb-4">
-                        ✎ Worked Example
+                      <h2 className="text-base font-semibold text-amber-400 mb-4 flex items-center gap-2">
+                        <PenLine className="w-4 h-4" /> Worked Example
                       </h2>
                       <div className="mb-4">
                         <p className="text-xs text-white/40 uppercase tracking-wider mb-2">Problem</p>

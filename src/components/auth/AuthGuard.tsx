@@ -1,6 +1,7 @@
 'use client'
 import { useAuth } from '@/hooks/useAuth'
 import Link from 'next/link'
+import { Lock } from 'lucide-react'
 
 interface Props {
   children: React.ReactNode
@@ -21,7 +22,7 @@ export function AuthGuard({ children, fallback }: Props) {
   if (!user) {
     return fallback ?? (
       <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-12 text-center">
-        <p className="text-3xl mb-4">🔐</p>
+        <Lock className="w-8 h-8 mb-4 mx-auto text-white/40" />
         <h3 className="text-lg font-bold text-white mb-2">Sign in to continue</h3>
         <p className="text-sm text-white/40 mb-6">
           Create a free account to access this feature and track your progress.

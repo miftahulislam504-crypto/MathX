@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Check, X } from 'lucide-react'
 
 interface Puzzle {
   id: string
@@ -119,7 +120,7 @@ function PuzzleCard({ puzzle, index }: { puzzle: Puzzle; index: number }) {
       {selected !== null && (
         <div className={`rounded-lg p-3 text-sm mb-3 ${isCorrect ? 'bg-emerald-500/8 border border-emerald-500/20' : 'bg-rose-500/8 border border-rose-500/20'}`}>
           <p className={`font-semibold mb-1 ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}`}>
-            {isCorrect ? '✓ Correct!' : '✗ Not quite'}
+            {isCorrect ? <span className="inline-flex items-center gap-1"><Check className="w-4 h-4" /> Correct!</span> : <span className="inline-flex items-center gap-1"><X className="w-4 h-4" /> Not quite</span>}
           </p>
         </div>
       )}

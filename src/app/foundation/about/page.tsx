@@ -1,25 +1,26 @@
 import Link from 'next/link'
+import { Search, Settings, Link as LinkIcon, Network, RefreshCw, Lightbulb, type LucideIcon } from 'lucide-react'
 
 const BRANCHES_OVERVIEW = [
-  { icon:'🔢', name:'Arithmetic',       desc:'The study of numbers and basic operations — the oldest branch.' },
-  { icon:'📐', name:'Algebra',          desc:'Generalizing arithmetic using symbols — from equations to abstract structures.' },
+  { icon:'+',  name:'Arithmetic',       desc:'The study of numbers and basic operations — the oldest branch.' },
+  { icon:'x',  name:'Algebra',          desc:'Generalizing arithmetic using symbols — from equations to abstract structures.' },
   { icon:'△',  name:'Geometry',         desc:'Shape, size, and properties of figures in space.' },
   { icon:'∫',  name:'Calculus',         desc:'Mathematics of change and accumulation — derivatives and integrals.' },
   { icon:'ℝ',  name:'Analysis',         desc:'Rigorous foundation of calculus — limits, sequences, continuity.' },
   { icon:'#',  name:'Number Theory',    desc:'"Queen of Mathematics" — deep study of integers.' },
   { icon:'∘',  name:'Abstract Algebra', desc:'Groups, rings, fields — algebraic structures beyond numbers.' },
   { icon:'∞',  name:'Topology',         desc:'Properties preserved under deformation. Coffee cup = donut.' },
-  { icon:'📊', name:'Statistics',       desc:'Analyzing and interpreting data from random processes.' },
-  { icon:'🎲', name:'Probability',      desc:'Quantifying uncertainty — the mathematics of chance.' },
+  { icon:'σ',  name:'Statistics',       desc:'Analyzing and interpreting data from random processes.' },
+  { icon:'Ω',  name:'Probability',      desc:'Quantifying uncertainty — the mathematics of chance.' },
 ]
 
-const THINKING = [
-  { icon:'🔍', title:'Pattern Recognition',    desc:'Mathematics begins by noticing patterns in nature, numbers, and structure.' },
-  { icon:'⚙️', title:'Abstraction',            desc:'Stripping specifics to find universal truths that apply everywhere.' },
-  { icon:'🔗', title:'Logical Reasoning',      desc:'Building chains of deduction from axioms to theorems through proof.' },
-  { icon:'🌐', title:'Generalization',         desc:'Extending a specific result to its most general form possible.' },
-  { icon:'🔄', title:'Problem Reformulation',  desc:'Restating a hard problem in a form that reveals the solution.' },
-  { icon:'💡', title:'Intuition + Rigor',      desc:'Creative leaps guided by intuition, then verified by rigorous proof.' },
+const THINKING: { icon: LucideIcon; title: string; desc: string }[] = [
+  { icon:Search, title:'Pattern Recognition',    desc:'Mathematics begins by noticing patterns in nature, numbers, and structure.' },
+  { icon:Settings, title:'Abstraction',            desc:'Stripping specifics to find universal truths that apply everywhere.' },
+  { icon:LinkIcon, title:'Logical Reasoning',      desc:'Building chains of deduction from axioms to theorems through proof.' },
+  { icon:Network, title:'Generalization',         desc:'Extending a specific result to its most general form possible.' },
+  { icon:RefreshCw, title:'Problem Reformulation',  desc:'Restating a hard problem in a form that reveals the solution.' },
+  { icon:Lightbulb, title:'Intuition + Rigor',      desc:'Creative leaps guided by intuition, then verified by rigorous proof.' },
 ]
 
 export default function AboutPage() {
@@ -89,7 +90,7 @@ export default function AboutPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-12">
             {THINKING.map(t => (
               <div key={t.title} className="rounded-xl border border-white/6 bg-white/[0.02] p-4">
-                <div className="text-2xl mb-2">{t.icon}</div>
+                <t.icon className="w-6 h-6 mb-2" />
                 <h3 className="text-sm font-semibold text-white/80 mb-1">{t.title}</h3>
                 <p className="text-xs text-white/40 leading-relaxed">{t.desc}</p>
               </div>

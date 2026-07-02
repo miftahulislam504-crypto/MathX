@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { StudyGroup } from '@/lib/data/community-data'
+import { Check, Users, Clock } from 'lucide-react'
 
 interface Props { group: StudyGroup }
 
@@ -44,15 +45,15 @@ export function StudyGroupCard({ group }: Props) {
               : 'bg-violet-600 hover:bg-violet-500 text-white'
           }`}
         >
-          {joined ? '✓ Joined' : 'Join'}
+          {joined ? <span className="inline-flex items-center gap-1"><Check className="w-3 h-3" /> Joined</span> : 'Join'}
         </button>
       </div>
 
       <p className="text-xs text-white/45 leading-relaxed">{group.description}</p>
 
       <div className="flex items-center justify-between text-[10px] text-white/25 font-mono">
-        <span>👥 {count} members</span>
-        <span>🕒 {group.meetingSchedule}</span>
+        <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {count} members</span>
+        <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {group.meetingSchedule}</span>
       </div>
     </div>
   )

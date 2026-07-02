@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Post, CAT_STYLE } from '@/lib/data/community-data'
+import { Pin, Check, MessageCircle } from 'lucide-react'
 
 interface Props { post: Post }
 
@@ -20,7 +21,7 @@ export function PostCard({ post }: Props) {
     }`}>
       {post.pinned && (
         <div className="px-4 py-1.5 bg-amber-500/8 border-b border-amber-500/15 flex items-center gap-1.5">
-          <span className="text-[10px] text-amber-400/70">📌 Pinned</span>
+          <span className="text-[10px] text-amber-400/70 flex items-center gap-1"><Pin className="w-2.5 h-2.5" /> Pinned</span>
         </div>
       )}
 
@@ -44,8 +45,8 @@ export function PostCard({ post }: Props) {
                 {style.label}
               </span>
               {post.solved && (
-                <span className="text-[10px] text-emerald-400 border border-emerald-500/20 bg-emerald-500/8 rounded-full px-2 py-0.5">
-                  ✓ Solved
+                <span className="text-[10px] text-emerald-400 border border-emerald-500/20 bg-emerald-500/8 rounded-full px-2 py-0.5 inline-flex items-center gap-1">
+                  <Check className="w-2.5 h-2.5" /> Solved
                 </span>
               )}
             </div>
@@ -71,13 +72,13 @@ export function PostCard({ post }: Props) {
         {/* Footer */}
         <div className="flex items-center justify-between ml-10">
           <div className="flex items-center gap-2">
-            <span className="text-base">{post.avatar}</span>
+            <span className="w-5 h-5 rounded-full bg-violet-500/15 text-violet-300 text-[10px] font-semibold flex items-center justify-center">{post.avatar}</span>
             <span className="text-xs text-white/35">{post.author}</span>
             <span className="text-white/15">·</span>
             <span className="text-xs text-white/25">{post.timeAgo}</span>
           </div>
           <div className="flex items-center gap-1 text-xs text-white/30">
-            <span>💬</span>
+            <MessageCircle className="w-3.5 h-3.5" />
             <span>{post.replies} replies</span>
           </div>
         </div>

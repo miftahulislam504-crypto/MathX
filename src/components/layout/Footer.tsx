@@ -1,38 +1,42 @@
+'use client'
 import Link from 'next/link'
-
-const FOOTER_LINKS = {
-  Learn: [
-    { href:'/learn',             label:'All Topics' },
-    { href:'/learn/calculus',    label:'Calculus' },
-    { href:'/learn/algebra',     label:'Algebra' },
-    { href:'/learn/geometry',    label:'Geometry' },
-    { href:'/foundation',        label:'Foundation' },
-  ],
-  Explore: [
-    { href:'/visualize',         label:'Visualizer' },
-    { href:'/lab',               label:'Math Lab' },
-    { href:'/statistics',        label:'Statistics' },
-    { href:'/applied',           label:'Applied Math' },
-    { href:'/map',               label:'Knowledge Map' },
-  ],
-  Reference: [
-    { href:'/encyclopedia',      label:'Encyclopedia' },
-    { href:'/formulas',          label:'Formula Library' },
-    { href:'/research',          label:'Research Center' },
-    { href:'/foundation/history',label:'Math History' },
-    { href:'/foundation/mathematicians', label:'Mathematicians' },
-  ],
-  Practice: [
-    { href:'/practice',          label:'Practice Center' },
-    { href:'/problems',          label:'Problem Hub' },
-    { href:'/games',             label:'Math Games' },
-    { href:'/ai-tutor',          label:'AI Tutor' },
-    { href:'/dashboard',         label:'Dashboard' },
-    { href:'/community',        label:'Community' },
-  ],
-}
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
 export function Footer() {
+  const { tt } = useLanguage()
+
+  const FOOTER_LINKS = {
+    [tt(t.footer.learnSection)]: [
+      { href:'/learn',             label:tt(t.footer.allTopics) },
+      { href:'/learn/calculus',    label:tt(t.footer.calculus) },
+      { href:'/learn/algebra',     label:tt(t.footer.algebra) },
+      { href:'/learn/geometry',    label:tt(t.footer.geometry) },
+      { href:'/foundation',        label:tt(t.footer.foundation) },
+    ],
+    [tt(t.footer.exploreSection)]: [
+      { href:'/visualizer',        label:tt(t.footer.visualizer) },
+      { href:'/lab',               label:tt(t.footer.mathLab) },
+      { href:'/statistics',        label:tt(t.footer.statistics) },
+      { href:'/applied',           label:tt(t.footer.appliedMath) },
+      { href:'/map',               label:tt(t.footer.knowledgeMap) },
+    ],
+    [tt(t.footer.referenceSection)]: [
+      { href:'/encyclopedia',      label:tt(t.footer.encyclopedia) },
+      { href:'/formulas',          label:tt(t.footer.formulaLibrary) },
+      { href:'/research',          label:tt(t.footer.researchCenter) },
+      { href:'/foundation/history',label:tt(t.footer.mathHistory) },
+      { href:'/foundation/mathematicians', label:tt(t.footer.mathematicians) },
+    ],
+    [tt(t.footer.practiceSection)]: [
+      { href:'/practice',          label:tt(t.footer.practiceCenter) },
+      { href:'/problems',          label:tt(t.footer.problemHub) },
+      { href:'/games',             label:tt(t.footer.mathGames) },
+      { href:'/ai-tutor',          label:tt(t.footer.aiTutor) },
+      { href:'/dashboard',         label:tt(t.nav.dashboard) },
+      { href:'/community',         label:tt(t.footer.community) },
+    ],
+  }
+
   return (
     <footer className="border-t border-white/5 bg-black/40 mt-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12">
@@ -43,7 +47,7 @@ export function Footer() {
               <span className="text-violet-400">X</span>
             </Link>
             <p className="mt-2 text-xs text-white/30 leading-relaxed">
-              Learn. Explore.<br />Experience Mathematics.
+              {tt(t.footer.tagline)}
             </p>
             <p className="mt-3 text-[10px] text-white/15 font-mono">
               Wikipedia + Khan Academy<br />+ GeoGebra + Wolfram Alpha
@@ -71,10 +75,10 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-white/25">
-            © {new Date().getFullYear()} MathX. Built for learners, by learners.
+            © {new Date().getFullYear()} MathX. {tt(t.footer.builtFor)}
           </p>
           <div className="flex gap-4 text-xs text-white/20">
-            <span className="font-mono">27 pages</span>
+            <span className="font-mono">{tt(t.footer.pages)}</span>
             <span>·</span>
             <span className="font-mono">∑ · ∫ · ∂ · ∞ · π · √</span>
           </div>

@@ -1,16 +1,17 @@
 'use client'
 import { UserStats } from '@/lib/data/user-progress'
+import { Zap, Sparkles, Flame, BookOpen, Pencil, Trophy, type LucideIcon } from 'lucide-react'
 
 interface Props { stats: UserStats; levelProgress: number; xpToNext: number }
 
 export function StatsRow({ stats, levelProgress, xpToNext }: Props) {
-  const cards = [
-    { label: 'Level',           value: stats.level,              unit: '',    icon: '⚡', color: 'text-violet-400',  bg: 'bg-violet-500/8  border-violet-500/20' },
-    { label: 'Total XP',        value: stats.totalXP,            unit: 'xp', icon: '✨', color: 'text-amber-400',   bg: 'bg-amber-500/8   border-amber-500/20' },
-    { label: 'Day Streak',      value: stats.streak,             unit: '🔥', icon: '📅', color: 'text-rose-400',    bg: 'bg-rose-500/8    border-rose-500/20' },
-    { label: 'Topics Done',     value: stats.topicsCompleted,    unit: '',    icon: '📚', color: 'text-cyan-400',    bg: 'bg-cyan-500/8    border-cyan-500/20' },
-    { label: 'Problems Solved', value: stats.problemsSolved,     unit: '',    icon: '✏️', color: 'text-emerald-400', bg: 'bg-emerald-500/8 border-emerald-500/20' },
-    { label: 'Achievements',    value: stats.achievements.length,unit: '',    icon: '🏆', color: 'text-amber-400',   bg: 'bg-amber-500/8   border-amber-500/20' },
+  const cards: { label: string; value: number; unit: string; icon: LucideIcon; color: string; bg: string }[] = [
+    { label: 'Level',           value: stats.level,              unit: '',    icon: Zap, color: 'text-violet-400',  bg: 'bg-violet-500/8  border-violet-500/20' },
+    { label: 'Total XP',        value: stats.totalXP,            unit: 'xp', icon: Sparkles, color: 'text-amber-400',   bg: 'bg-amber-500/8   border-amber-500/20' },
+    { label: 'Day Streak',      value: stats.streak,             unit: 'days',icon: Flame, color: 'text-rose-400',    bg: 'bg-rose-500/8    border-rose-500/20' },
+    { label: 'Topics Done',     value: stats.topicsCompleted,    unit: '',    icon: BookOpen, color: 'text-cyan-400',    bg: 'bg-cyan-500/8    border-cyan-500/20' },
+    { label: 'Problems Solved', value: stats.problemsSolved,     unit: '',    icon: Pencil, color: 'text-emerald-400', bg: 'bg-emerald-500/8 border-emerald-500/20' },
+    { label: 'Achievements',    value: stats.achievements.length,unit: '',    icon: Trophy, color: 'text-amber-400',   bg: 'bg-amber-500/8   border-amber-500/20' },
   ]
 
   return (
@@ -40,9 +41,9 @@ export function StatsRow({ stats, levelProgress, xpToNext }: Props) {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {cards.map(c => (
           <div key={c.label} className={`rounded-xl border p-3 ${c.bg}`}>
-            <div className="text-lg mb-1">{c.icon}</div>
+            <c.icon className={`w-5 h-5 mb-1 ${c.color}`} />
             <div className={`text-xl font-bold font-mono ${c.color}`}>
-              {c.value.toLocaleString()}{c.unit && c.unit !== '🔥' ? ` ${c.unit}` : c.unit}
+              {c.value.toLocaleString()}{c.unit ? ` ${c.unit}` : ''}
             </div>
             <div className="text-[10px] text-white/30 mt-0.5">{c.label}</div>
           </div>

@@ -5,7 +5,7 @@ export interface Mathematician {
   died?: string
   nationality: string
   era: string
-  portrait: string          // emoji placeholder
+  portrait: string          // initials placeholder
   fields: string[]
   contributions: string[]
   famousFor: string
@@ -19,7 +19,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Euclid of Alexandria',
     born: '~300 BCE', died: '~270 BCE',
     nationality: 'Greek (Alexandria)',
-    era: 'Ancient', portrait: '📜',
+    era: 'Ancient', portrait: 'EA',
     fields: ['Geometry', 'Number Theory'],
     contributions: [
       'Wrote Elements — the most influential mathematics textbook in history',
@@ -36,7 +36,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Archimedes of Syracuse',
     born: '~287 BCE', died: '~212 BCE',
     nationality: 'Greek (Sicily)',
-    era: 'Ancient', portrait: '⚖️',
+    era: 'Ancient', portrait: 'AS',
     fields: ['Calculus (precursor)', 'Geometry', 'Physics'],
     contributions: [
       'Approximated π as 3.14... using inscribed/circumscribed polygons',
@@ -54,7 +54,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Muhammad ibn Musa al-Khwarizmi',
     born: '~780 CE', died: '~850 CE',
     nationality: 'Persian (Baghdad)',
-    era: 'Islamic Golden Age', portrait: '🌙',
+    era: 'Islamic Golden Age', portrait: 'AK',
     fields: ['Algebra', 'Arithmetic', 'Astronomy'],
     contributions: [
       'Wrote al-Kitāb al-mukhtaṣar fī ḥisāb al-jabr — founding algebra',
@@ -70,7 +70,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Leonardo Fibonacci',
     born: '~1170', died: '~1250',
     nationality: 'Italian',
-    era: 'Medieval', portrait: '🐚',
+    era: 'Medieval', portrait: 'LF',
     fields: ['Number Theory', 'Arithmetic'],
     contributions: [
       'Introduced Hindu-Arabic numeral system to Europe via Liber Abaci',
@@ -86,7 +86,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Isaac Newton',
     born: '1643', died: '1727',
     nationality: 'English',
-    era: 'Scientific Revolution', portrait: '🍎',
+    era: 'Scientific Revolution', portrait: 'IN',
     fields: ['Calculus', 'Physics', 'Optics', 'Series'],
     contributions: [
       'Co-invented calculus independently of Leibniz',
@@ -104,7 +104,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Gottfried Wilhelm Leibniz',
     born: '1646', died: '1716',
     nationality: 'German',
-    era: 'Scientific Revolution', portrait: '∫',
+    era: 'Scientific Revolution', portrait: 'GL',
     fields: ['Calculus', 'Logic', 'Philosophy'],
     contributions: [
       'Co-invented calculus — his notation (dx, ∫) is what we use today',
@@ -121,7 +121,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Leonhard Euler',
     born: '1707', died: '1783',
     nationality: 'Swiss',
-    era: 'Age of Enlightenment', portrait: '∞',
+    era: 'Age of Enlightenment', portrait: 'LE',
     fields: ['Analysis', 'Graph Theory', 'Number Theory', 'Topology'],
     contributions: [
       "Euler's identity: e^(iπ) + 1 = 0",
@@ -140,7 +140,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Carl Friedrich Gauss',
     born: '1777', died: '1855',
     nationality: 'German',
-    era: 'Modern', portrait: '🔢',
+    era: 'Modern', portrait: 'CG',
     fields: ['Number Theory', 'Statistics', 'Geometry', 'Algebra'],
     contributions: [
       'Proved Fundamental Theorem of Algebra (age 21)',
@@ -159,7 +159,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Srinivasa Ramanujan',
     born: '1887', died: '1920',
     nationality: 'Indian',
-    era: 'Modern', portrait: '🔭',
+    era: 'Modern', portrait: 'SR',
     fields: ['Number Theory', 'Infinite Series', 'Analysis'],
     contributions: [
       'Ramanujan conjecture (proved 1974)',
@@ -177,7 +177,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Emmy Noether',
     born: '1882', died: '1935',
     nationality: 'German',
-    era: 'Modern', portrait: '⚡',
+    era: 'Modern', portrait: 'EN',
     fields: ['Abstract Algebra', 'Theoretical Physics'],
     contributions: [
       "Noether's theorem: every symmetry has a conservation law",
@@ -194,7 +194,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Alan Turing',
     born: '1912', died: '1954',
     nationality: 'British',
-    era: 'Contemporary', portrait: '💻',
+    era: 'Contemporary', portrait: 'AT',
     fields: ['Computer Science', 'Logic', 'Cryptography', 'AI'],
     contributions: [
       'Turing machine — mathematical model of computation',
@@ -212,7 +212,7 @@ export const MATHEMATICIANS: Mathematician[] = [
     name: 'Bernhard Riemann',
     born: '1826', died: '1866',
     nationality: 'German',
-    era: 'Modern', portrait: 'ℝ',
+    era: 'Modern', portrait: 'BR',
     fields: ['Analysis', 'Geometry', 'Number Theory'],
     contributions: [
       'Riemann integral — foundation of integration',

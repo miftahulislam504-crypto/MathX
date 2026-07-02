@@ -7,6 +7,7 @@ import { FORMULAS } from '@/lib/data/formulas'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { Level } from '@/types'
 import Link from 'next/link'
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
 type TabType = 'topics' | 'formulas' | 'branches'
 
@@ -14,6 +15,7 @@ export default function EncyclopediaPage() {
   const [tab, setTab] = useState<TabType>('topics')
   const [search, setSearch] = useState('')
   const [level, setLevel] = useState<Level | 'ALL'>('ALL')
+  const { tt, lang } = useLanguage()
 
   const filteredTopics = useMemo(() => {
     const q = search.toLowerCase()
@@ -37,9 +39,9 @@ export default function EncyclopediaPage() {
   }, [search])
 
   const TABS: { key: TabType; label: string; count: number }[] = [
-    { key: 'topics',   label: 'Topics',   count: TOPICS.length },
-    { key: 'formulas', label: 'Formulas', count: FORMULAS.length },
-    { key: 'branches', label: 'Branches', count: MATH_BRANCHES.length },
+    { key: 'topics',   label: tt(t.encyclopedia.topicsTab),   count: TOPICS.length },
+    { key: 'formulas', label: tt(t.encyclopedia.formulasTab), count: FORMULAS.length },
+    { key: 'branches', label: tt(t.encyclopedia.branchesTab), count: MATH_BRANCHES.length },
   ]
 
   const LEVEL_COLOR: Record<string, string> = {
@@ -58,34 +60,34 @@ export default function EncyclopediaPage() {
 
           {/* Header */}
           <div className="mb-10">
-            <p className="text-violet-400 text-sm font-mono mb-2">// Encyclopedia</p>
-            <h1 className="text-4xl font-bold text-white mb-3">Mathematics Encyclopedia</h1>
+            <p className="text-violet-400 text-sm font-mono mb-2">{tt(t.encyclopedia.tag)}</p>
+            <h1 className="text-4xl font-bold text-white mb-3">{tt(t.encyclopedia.title)}</h1>
             <p className="text-white/40">
-              Complete reference — topics, formulas, branches, all in one place
+              {tt(t.encyclopedia.subtitle)}
             </p>
           </div>
 
           {/* Search */}
           <SearchBar
-            placeholder="Search everything..."
+            placeholder={tt(t.encyclopedia.searchAll)}
             onSearch={setSearch}
             className="max-w-xl mb-8"
           />
 
           {/* Tabs */}
           <div className="flex gap-1 border-b border-white/8 mb-8">
-            {TABS.map((t) => (
+            {TABS.map((tb) => (
               <button
-                key={t.key}
-                onClick={() => setTab(t.key)}
+                key={tb.key}
+                onClick={() => setTab(tb.key)}
                 className={`px-5 py-2.5 text-sm font-medium border-b-2 transition-all -mb-px ${
-                  tab === t.key
+                  tab === tb.key
                     ? 'border-violet-500 text-white'
                     : 'border-transparent text-white/40 hover:text-white/70'
                 }`}
               >
-                {t.label}
-                <span className="ml-2 text-[10px] font-mono text-white/25">{t.count}</span>
+                {tb.label}
+                <span className="ml-2 text-[10px] font-mono text-white/25">{tb.count}</span>
               </button>
             ))}
           </div>
@@ -97,7 +99,7 @@ export default function EncyclopediaPage() {
                 <LevelFilter active={level} onChange={setLevel} />
               </div>
               <p className="text-xs text-white/25 mb-5 font-mono">
-                {filteredTopics.length} topics
+                {filteredTopics.length} {tt(t.common.topics)}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {filteredTopics.map((topic) => {
@@ -112,15 +114,15 @@ export default function EncyclopediaPage() {
                         <span className="text-base shrink-0">{branch?.icon}</span>
                         <div className="min-w-0">
                           <p className="text-sm text-white/80 group-hover:text-white truncate transition-colors">
-                            {topic.title}
+                            {lang === 'bn' && topic.titleBn ? topic.titleBn : topic.title}
                           </p>
-                          {topic.titleBn && (
+                          {lang === 'en' && topic.titleBn && (
                             <p className="text-[11px] text-white/25 truncate">{topic.titleBn}</p>
                           )}
                         </div>
                       </div>
                       <span className={`shrink-0 text-[10px] border rounded-full px-2 py-0.5 ml-2 ${LEVEL_COLOR[topic.level]}`}>
-                        {topic.level.charAt(0) + topic.level.slice(1).toLowerCase()}
+                        {tt(t.levels[topic.level as keyof typeof t.levels])}
                       </span>
                     </Link>
                   )
@@ -132,7 +134,7 @@ export default function EncyclopediaPage() {
           {/* Formulas tab */}
           {tab === 'formulas' && (
             <div>
-              <p className="text-xs text-white/25 mb-5 font-mono">{filteredFormulas.length} formulas</p>
+              <p className="text-xs text-white/25 mb-5 font-mono">{filteredFormulas.length} {tt(t.encyclopedia.formulasTab).toLowerCase()}</p>
               <div className="space-y-2">
                 {filteredFormulas.map((f) => {
                   const branch = MATH_BRANCHES.find((b) => b.id === f.branchId)
@@ -153,7 +155,7 @@ export default function EncyclopediaPage() {
                         onClick={() => navigator.clipboard.writeText(f.latex)}
                         className="shrink-0 text-[10px] text-white/25 hover:text-white/60 border border-white/8 rounded px-2 py-0.5 transition-all opacity-0 group-hover:opacity-100"
                       >
-                        Copy
+                        {lang === 'bn' ? 'কপি' : 'Copy'}
                       </button>
                     </div>
                   )
@@ -183,16 +185,16 @@ export default function EncyclopediaPage() {
                       </span>
                       <div>
                         <h3 className="text-sm font-semibold text-white group-hover:text-violet-300 transition-colors">
-                          {branch.name}
+                          {lang === 'bn' && branch.nameBn ? branch.nameBn : branch.name}
                         </h3>
-                        {branch.nameBn && (
+                        {lang === 'en' && branch.nameBn && (
                           <p className="text-[11px] text-white/30">{branch.nameBn}</p>
                         )}
                       </div>
                     </div>
                     <div className="flex gap-4 text-[11px] text-white/30 font-mono">
-                      <span>{topicCount} topics</span>
-                      <span>{formulaCount} formulas</span>
+                      <span>{topicCount} {tt(t.common.topics)}</span>
+                      <span>{formulaCount} {tt(t.encyclopedia.formulasTab).toLowerCase()}</span>
                     </div>
                   </Link>
                 )

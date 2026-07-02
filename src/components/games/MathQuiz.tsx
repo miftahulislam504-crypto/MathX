@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
+import { Trophy, ThumbsUp, Dumbbell, Flame } from 'lucide-react'
 
 type Level = 'easy' | 'medium' | 'hard'
 type OpType = '+' | '-' | '×' | '÷' | '^' | '%'
@@ -161,7 +162,7 @@ export function MathQuiz() {
   if (phase === 'done') return (
     <div className="max-w-sm mx-auto text-center space-y-4">
       <div className={`rounded-2xl border p-8 ${score >= 8 ? 'border-emerald-500/30 bg-emerald-500/8' : score >= 5 ? 'border-amber-500/30 bg-amber-500/8' : 'border-rose-500/30 bg-rose-500/8'}`}>
-        <p className="text-5xl mb-4">{score>=8?'🏆':score>=5?'👍':'💪'}</p>
+        {score>=8 ? <Trophy className="w-14 h-14 mb-4 mx-auto text-amber-400" /> : score>=5 ? <ThumbsUp className="w-14 h-14 mb-4 mx-auto text-cyan-400" /> : <Dumbbell className="w-14 h-14 mb-4 mx-auto text-violet-400" />}
         <p className="text-4xl font-bold font-mono text-white mb-1">{score}/{TOTAL}</p>
         <p className={`text-lg font-semibold ${score>=8?'text-emerald-400':score>=5?'text-amber-400':'text-rose-400'}`}>
           {score>=8?'Excellent!':score>=5?'Good job!':'Keep practicing!'}
@@ -191,7 +192,7 @@ export function MathQuiz() {
       <div>
         <div className="flex justify-between text-xs text-white/30 font-mono mb-1">
           <span>Question {current+1}/{TOTAL}</span>
-          <span>Score: {score} | Streak: {streak}🔥</span>
+          <span className="flex items-center gap-1">Score: {score} | Streak: {streak} <Flame className="w-3.5 h-3.5" /></span>
         </div>
         <div className="h-1.5 rounded-full bg-white/5">
           <div className="h-full rounded-full bg-violet-500 transition-all"

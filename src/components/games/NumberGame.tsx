@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
+import { PartyPopper, Skull, User, Bot } from 'lucide-react'
 
 type GameType = '2048' | 'nim' | 'guess'
 
@@ -17,9 +18,9 @@ function GuessGame() {
     if (isNaN(n) || n < 1 || n > 100) return
     const remaining = MAX - attempts.length - 1
     let hint = ''
-    if (n === target) { hint = '🎉 Correct!'; setWon(true) }
-    else if (n < target) hint = `📈 Too low ${remaining > 0 ? `(${remaining} left)` : '— Game Over'}`
-    else hint = `📉 Too high ${remaining > 0 ? `(${remaining} left)` : '— Game Over'}`
+    if (n === target) { hint = 'Correct!'; setWon(true) }
+    else if (n < target) hint = `Too low ${remaining > 0 ? `(${remaining} left)` : '— Game Over'}`
+    else hint = `Too high ${remaining > 0 ? `(${remaining} left)` : '— Game Over'}`
     const newAttempts = [...attempts, { val: n, hint }]
     setAttempts(newAttempts)
     setGuess('')
@@ -64,7 +65,7 @@ function GuessGame() {
 
       {(won || gameOver) && (
         <div className={`rounded-xl border p-5 text-center ${won ? 'border-emerald-500/30 bg-emerald-500/8' : 'border-rose-500/30 bg-rose-500/8'}`}>
-          <p className="text-2xl mb-2">{won ? '🎉' : '💀'}</p>
+          {won ? <PartyPopper className="w-8 h-8 mb-2 mx-auto text-amber-400" /> : <Skull className="w-8 h-8 mb-2 mx-auto text-rose-400" />}
           <p className={`font-bold ${won ? 'text-emerald-300' : 'text-rose-300'}`}>
             {won ? `Found in ${attempts.length} attempts!` : `The answer was ${target}`}
           </p>
@@ -186,12 +187,12 @@ function NimGame() {
       {/* Status */}
       <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4">
         {status === 'playing' && (
-          <p className={`text-sm font-semibold ${turn==='player' ? 'text-violet-400' : 'text-amber-400'}`}>
-            {turn === 'player' ? '👤 Your turn — pick a pile and how many to take' : '🤖 Computer thinking...'}
+          <p className={`text-sm font-semibold flex items-center gap-1.5 ${turn==='player' ? 'text-violet-400' : 'text-amber-400'}`}>
+            {turn === 'player' ? <><User className="w-4 h-4" /> Your turn — pick a pile and how many to take</> : <><Bot className="w-4 h-4" /> Computer thinking...</>}
           </p>
         )}
-        {status === 'player_wins' && <p className="text-emerald-400 font-semibold">🎉 You win! The computer took the last object.</p>}
-        {status === 'computer_wins' && <p className="text-rose-400 font-semibold">💀 Computer wins — it used the XOR strategy.</p>}
+        {status === 'player_wins' && <p className="text-emerald-400 font-semibold flex items-center gap-1.5"><PartyPopper className="w-4 h-4" /> You win! The computer took the last object.</p>}
+        {status === 'computer_wins' && <p className="text-rose-400 font-semibold flex items-center gap-1.5"><Skull className="w-4 h-4" /> Computer wins — it used the XOR strategy.</p>}
       </div>
 
       {/* Log */}

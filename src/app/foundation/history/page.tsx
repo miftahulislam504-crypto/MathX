@@ -1,3 +1,4 @@
+import { ScrollText, CheckCircle2, Trophy } from 'lucide-react'
 
 const TIMELINE = [
   {
@@ -164,12 +165,12 @@ export default function HistoryPage() {
           {/* Interesting facts footer */}
           <div className="mt-8 grid sm:grid-cols-3 gap-4">
             {[
-              { n:'4000+', label:'Years of recorded mathematics', icon:'📜' },
-              { n:'~1M',   label:'Mathematical theorems proven so far', icon:'✓' },
-              { n:'7',     label:'Millennium Prize Problems ($1M each)', icon:'🏆' },
+              { n:'4000+', label:'Years of recorded mathematics', icon:ScrollText },
+              { n:'~1M',   label:'Mathematical theorems proven so far', icon:CheckCircle2 },
+              { n:'7',     label:'Millennium Prize Problems ($1M each)', icon:Trophy },
             ].map(f => (
               <div key={f.label} className="rounded-xl border border-white/6 bg-white/[0.02] p-4 text-center">
-                <p className="text-2xl mb-1">{f.icon}</p>
+                <f.icon className="w-6 h-6 mb-1 mx-auto text-white/50" />
                 <p className="text-2xl font-bold font-mono text-white/80">{f.n}</p>
                 <p className="text-xs text-white/30 mt-1">{f.label}</p>
               </div>

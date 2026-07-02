@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Navbar } from '@/components/layout/Navbar'
 import { AuthForm } from '@/components/auth/AuthForm'
+import { Calculator } from 'lucide-react'
 
 export default function SignupPage() {
   const [done, setDone] = useState(false)
@@ -13,7 +14,7 @@ export default function SignupPage() {
         <Navbar />
         <main className="min-h-screen pt-24 flex items-center justify-center px-4">
           <div className="text-center max-w-sm">
-            <p className="text-5xl mb-4">🧮</p>
+            <Calculator className="w-12 h-12 mb-4 mx-auto text-violet-400" />
             <h2 className="text-2xl font-bold text-white mb-2">Welcome to MathX!</h2>
             <p className="text-white/40 text-sm mb-6">
               Your account is ready. Start your mathematics journey.

@@ -11,6 +11,7 @@ import {
   PlotPoint,
 } from '@/lib/math/plotter'
 import { cn } from '@/lib/utils/cn'
+import { X } from 'lucide-react'
 
 // ─── Types ───────────────────────────────────────────────────────────
 interface FnEntry {
@@ -301,9 +302,9 @@ export function FunctionPlotter() {
                 />
                 <button
                   onClick={() => removeFunction(fn.id)}
-                  className="shrink-0 text-white/25 hover:text-rose-400 transition-colors text-sm px-1"
+                  className="shrink-0 text-white/25 hover:text-rose-400 transition-colors px-1"
                 >
-                  ✕
+                  <X className="w-3.5 h-3.5" />
                 </button>
               </div>
             ))}

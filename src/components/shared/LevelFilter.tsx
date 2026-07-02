@@ -1,16 +1,19 @@
 'use client'
 import { Level } from '@/types'
 import { cn } from '@/lib/utils/cn'
-
-const LEVELS: { value: Level | 'ALL';label: string } [] = [
-  { value: 'ALL', label: 'All Levels' }, { value: 'SCHOOL', label: 'School' },
-  { value: 'COLLEGE', label: 'College' }, { value: 'UNIVERSITY', label: 'University' },
-  { value: 'ADVANCED', label: 'Advanced' }, { value: 'RESEARCH', label: 'Research' },
-]
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
 interface Props { active: Level | 'ALL';onChange: (level: Level | 'ALL') => void }
 
 export function LevelFilter({ active, onChange }: Props) {
+  const { tt } = useLanguage()
+
+  const LEVELS: { value: Level | 'ALL';label: string } [] = [
+    { value: 'ALL', label: tt(t.levels.ALL) }, { value: 'SCHOOL', label: tt(t.levels.SCHOOL) },
+    { value: 'COLLEGE', label: tt(t.levels.COLLEGE) }, { value: 'UNIVERSITY', label: tt(t.levels.UNIVERSITY) },
+    { value: 'ADVANCED', label: tt(t.levels.ADVANCED) }, { value: 'RESEARCH', label: tt(t.levels.RESEARCH) },
+  ]
+
   return (
     <div className="flex flex-wrap gap-2">
       {LEVELS.map((l) => (

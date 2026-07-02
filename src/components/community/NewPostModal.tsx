@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { PostCategory, CAT_STYLE } from '@/lib/data/community-data'
+import { X } from 'lucide-react'
 
 interface Props {
   open: boolean
@@ -43,7 +44,7 @@ export function NewPostModal({ open, onClose, onPost }: Props) {
       <div className="relative w-full max-w-lg rounded-2xl border border-white/12 bg-[#0d0d14] shadow-2xl overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/8">
           <h2 className="text-base font-semibold text-white">New Post</h2>
-          <button onClick={onClose} className="text-white/40 hover:text-white transition-colors text-lg">✕</button>
+          <button onClick={onClose} className="text-white/40 hover:text-white transition-colors"><X className="w-4 h-4" /></button>
         </div>
 
         <div className="p-6 space-y-4">
@@ -107,7 +108,7 @@ export function NewPostModal({ open, onClose, onPost }: Props) {
                     className="flex items-center gap-1 text-[10px] text-violet-400/70 bg-violet-500/8 border border-violet-500/15 rounded-full px-2 py-0.5">
                     {t}
                     <button onClick={() => setTags(prev => prev.filter(x => x !== t))}
-                      className="text-violet-400/40 hover:text-violet-300 transition-colors">✕</button>
+                      className="text-violet-400/40 hover:text-violet-300 transition-colors"><X className="w-2.5 h-2.5" /></button>
                   </span>
                 ))}
               </div>

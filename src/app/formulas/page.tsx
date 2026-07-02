@@ -4,10 +4,12 @@ import { FormulaCard } from '@/components/math/FormulaCard'
 import { SearchBar } from '@/components/shared/SearchBar'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { FORMULAS, getFormulasByBranch, searchFormulas } from '@/lib/data/formulas'
+import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
 export default function FormulasPage() {
   const [search, setSearch] = useState('')
   const [activeBranch, setActiveBranch] = useState<string | 'ALL'>('ALL')
+  const { tt, lang } = useLanguage()
 
   const filtered = useMemo(() => {
     if (search.trim()) return searchFormulas(search)
@@ -34,17 +36,17 @@ export default function FormulasPage() {
 
           {/* Header */}
           <div className="mb-10">
-            <p className="text-violet-400 text-sm font-mono mb-2">// Formula Library</p>
-            <h1 className="text-4xl font-bold text-white mb-3">Formula Library</h1>
+            <p className="text-violet-400 text-sm font-mono mb-2">{tt(t.formulas.tag)}</p>
+            <h1 className="text-4xl font-bold text-white mb-3">{tt(t.formulas.title)}</h1>
             <p className="text-white/40">
-              {FORMULAS.length} formulas across {MATH_BRANCHES.length} branches — click any card to copy LaTeX
+              {FORMULAS.length} {tt(t.formulas.subtitle)} {MATH_BRANCHES.length} {tt(t.formulas.subtitleEnd)}
             </p>
           </div>
 
           {/* Search + Branch filter */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <SearchBar
-              placeholder="Search formulas, topics, tags..."
+              placeholder={tt(t.formulas.searchPlaceholder)}
               onSearch={setSearch}
               className="sm:w-80"
             />
@@ -60,7 +62,7 @@ export default function FormulasPage() {
                   : 'border-white/8 text-white/40 hover:text-white/70'
               }`}
             >
-              All
+              {tt(t.problems.all)}
             </button>
             {MATH_BRANCHES.filter((b) => FORMULAS.some((f) => f.branchId === b.id)).map((b) => (
               <button
@@ -73,7 +75,7 @@ export default function FormulasPage() {
                 }`}
               >
                 <span>{b.icon}</span>
-                <span>{b.name}</span>
+                <span>{lang === 'bn' && b.nameBn ? b.nameBn : b.name}</span>
               </button>
             ))}
           </div>
@@ -82,7 +84,7 @@ export default function FormulasPage() {
           {search || activeBranch !== 'ALL' ? (
             <>
               <p className="text-xs text-white/25 mb-5 font-mono">
-                {filtered.length} formula{filtered.length !== 1 ? 's' : ''} found
+                {filtered.length} {tt(t.encyclopedia.formulasTab).toLowerCase()}{filtered.length !== 1 ? '' : ''} {tt(t.common.found)}
               </p>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filtered.map((f) => (
@@ -99,9 +101,9 @@ export default function FormulasPage() {
                   <section key={branch.id}>
                     <div className="flex items-center gap-3 mb-5">
                       <span className="text-2xl">{branch.icon}</span>
-                      <h2 className="text-lg font-semibold text-white">{branch.name}</h2>
+                      <h2 className="text-lg font-semibold text-white">{lang === 'bn' && branch.nameBn ? branch.nameBn : branch.name}</h2>
                       <span className="text-white/20 text-xs font-mono">
-                        {bFormulas.length} formulas
+                        {bFormulas.length} {tt(t.encyclopedia.formulasTab).toLowerCase()}
                       </span>
                     </div>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -118,7 +120,7 @@ export default function FormulasPage() {
           {filtered.length === 0 && (
             <div className="text-center py-20 text-white/25">
               <p className="text-4xl mb-3">∅</p>
-              <p>No formulas match your search.</p>
+              <p>{tt(t.common.noResults)}</p>
             </div>
           )}
         </div>

@@ -32,7 +32,7 @@ export function FormulaCard({ formula, compact = false }: Props) {
           onClick={copyLatex}
           className="shrink-0 text-[10px] text-white/30 hover:text-white/70 border border-white/10 rounded px-2 py-0.5 transition-colors opacity-0 group-hover:opacity-100"
         >
-          {copied ? '✓ Copied' : 'Copy LaTeX'}
+          {copied ? 'Copied' : 'Copy LaTeX'}
         </button>
       </div>
 

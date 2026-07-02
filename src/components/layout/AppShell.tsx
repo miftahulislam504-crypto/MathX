@@ -2,6 +2,7 @@
 import { usePathname } from 'next/navigation'
 import { BottomNav } from './BottomNav'
 import { Navbar } from './Navbar'
+import { LanguageProvider } from '@/lib/i18n/LanguageContext'
 
 // Pages that use the old full Navbar (inner app pages)
 const APP_PAGES = [
@@ -24,12 +25,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const showTopNav = !isLandingPage && !isAuthPage
 
   return (
-    <>
+    <LanguageProvider>
       {showTopNav && <Navbar />}
       <div className={showBottomNav ? 'pb-16' : ''}>
         {children}
       </div>
       {showBottomNav && <BottomNav />}
-    </>
+    </LanguageProvider>
   )
 }
