@@ -142,6 +142,16 @@ export function updateStreak() {
   return updateStats({ streak, lastActive: new Date().toISOString() })
 }
 
+// Permanently erases all locally-stored progress (stats, topic mastery,
+// and daily session history). Used by the "Reset Progress" control in
+// Settings. This cannot be undone from the client.
+export function resetProgress(): void {
+  if (typeof window === 'undefined') return
+  localStorage.removeItem(KEYS.stats)
+  localStorage.removeItem(KEYS.progress)
+  localStorage.removeItem(KEYS.sessions)
+}
+
 // ── Daily sessions ────────────────────────────────────────────────────
 export function getDailySessions(days = 30): DailySession[] {
   if (typeof window === 'undefined') return []

@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 import { PWAInstallBanner } from '@/components/layout/PWAInstallBanner'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
+import { resetProgress } from '@/lib/data/user-progress'
 
 type Theme = 'dark' | 'midnight' | 'deep'
 
@@ -14,6 +15,8 @@ export default function SettingsPage() {
   const [theme, setTheme] = useState<Theme>('dark')
   const [notifications, setNotifications] = useState(true)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
+  const [resetDone, setResetDone] = useState(false)
 
   const THEMES: { id: Theme; label: string; bg: string; preview: string }[] = [
     { id: 'dark',     label: tt(t.settings.dark),     bg: 'bg-[#0a0a0f]', preview: '#0a0a0f' },
@@ -25,6 +28,13 @@ export default function SettingsPage() {
     const { logOut } = await import('@/lib/firebase/auth')
     await logOut()
     router.push('/')
+  }
+
+  const handleResetProgress = () => {
+    resetProgress()
+    setShowResetConfirm(false)
+    setResetDone(true)
+    setTimeout(() => setResetDone(false), 3000)
   }
 
   return (
@@ -138,6 +148,23 @@ export default function SettingsPage() {
           </div>
         </section>
 
+        {/* Data */}
+        <section className="mb-6">
+          <h2 className="text-xs font-semibold text-white/30 uppercase tracking-widest mb-3">{tt(t.settings.data)}</h2>
+          <div className="rounded-2xl border border-white/8 bg-white/[0.02] divide-y divide-white/5">
+            <button
+              onClick={() => setShowResetConfirm(true)}
+              className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-rose-500/5 transition-colors"
+            >
+              <div>
+                <p className="text-sm text-rose-400 font-medium">{tt(t.settings.resetProgress)}</p>
+                <p className="text-xs text-white/30 mt-0.5">{tt(t.settings.resetProgressDesc)}</p>
+              </div>
+              <span className="text-rose-400/50">→</span>
+            </button>
+          </div>
+        </section>
+
         {/* App Info */}
         <section className="mb-6">
           <h2 className="text-xs font-semibold text-white/30 uppercase tracking-widest mb-3">{tt(t.settings.about)}</h2>
@@ -191,6 +218,38 @@ export default function SettingsPage() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Reset Progress Confirm Dialog */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setShowResetConfirm(false)} />
+          <div className="relative z-10 w-full max-w-xs rounded-2xl border border-white/10 bg-[#0a0a0f] p-6 text-center">
+            <p className="text-white font-semibold mb-2">{tt(t.settings.resetConfirmTitle)}</p>
+            <p className="text-sm text-white/40 mb-6">{tt(t.settings.resetConfirmMessage)}</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="flex-1 rounded-xl border border-white/10 py-2.5 text-sm text-white/60 hover:bg-white/5 transition-all"
+              >
+                {tt(t.common.cancel)}
+              </button>
+              <button
+                onClick={handleResetProgress}
+                className="flex-1 rounded-xl bg-rose-600 hover:bg-rose-500 py-2.5 text-sm text-white font-medium transition-all"
+              >
+                {tt(t.settings.resetConfirmButton)}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reset Success Toast */}
+      {resetDone && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[100] rounded-full border border-emerald-500/30 bg-emerald-500/15 backdrop-blur-sm px-5 py-2.5">
+          <p className="text-sm text-emerald-300 font-medium">{tt(t.settings.resetSuccessMessage)}</p>
         </div>
       )}
     </main>

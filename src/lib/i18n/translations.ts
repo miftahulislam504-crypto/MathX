@@ -196,6 +196,13 @@ export const t = {
     license:       { en: 'License',            bn: 'লাইসেন্স' },
     licenseValue:  { en: 'Educational Use',    bn: 'শিক্ষামূলক ব্যবহার' },
     tagline:       { en: 'Learn. Explore. Experience Mathematics.', bn: 'শিখুন। আবিষ্কার করুন। গণিত অনুভব করুন।' },
+    data:              { en: 'Data',                      bn: 'ডেটা' },
+    resetProgress:     { en: 'Reset Progress',             bn: 'অগ্রগতি রিসেট করুন' },
+    resetProgressDesc: { en: 'Erase your XP, streak, topics, and achievements', bn: 'আপনার এক্সপি, স্ট্রিক, বিষয় এবং অর্জন মুছে ফেলুন' },
+    resetConfirmTitle:  { en: 'Reset all progress?',       bn: 'সব অগ্রগতি রিসেট করবেন?' },
+    resetConfirmMessage:{ en: 'This will permanently erase your XP, level, streak, topic mastery, and achievements. This cannot be undone.', bn: 'এটি স্থায়ীভাবে আপনার এক্সপি, লেভেল, স্ট্রিক, বিষয় দক্ষতা এবং অর্জন মুছে ফেলবে। এটি ফিরিয়ে আনা যাবে না।' },
+    resetConfirmButton: { en: 'Yes, reset everything',     bn: 'হ্যাঁ, সব রিসেট করুন' },
+    resetSuccessMessage:{ en: 'Progress reset successfully', bn: 'অগ্রগতি সফলভাবে রিসেট হয়েছে' },
   },
 
   // ── Learn ─────────────────────────────────────────────────────────────────
