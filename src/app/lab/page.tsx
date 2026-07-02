@@ -1,7 +1,8 @@
 'use client'
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, useEffect, useRef } from 'react'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 import { Target, Footprints, Orbit, Dices, Wind, type LucideIcon } from 'lucide-react'
+import { addXP, updateStats, getStats, updateStreak, checkAchievements, recordSession } from '@/lib/data/user-progress'
 
 const MonteCarlo      = lazy(() => import('@/components/lab/MonteCarlo').then(m => ({ default: m.MonteCarlo })))
 const RandomWalk      = lazy(() => import('@/components/lab/RandomWalk').then(m => ({ default: m.RandomWalk })))
@@ -33,6 +34,17 @@ export default function LabPage() {
 
   const [active, setActive] = useState<LabId>('montecarlo')
   const lab = LABS.find(l => l.id === active)!
+  const visitedLabsRef = useRef<Set<LabId>>(new Set())
+
+  useEffect(() => {
+    if (visitedLabsRef.current.has(active)) return
+    visitedLabsRef.current.add(active)
+    updateStreak()
+    updateStats({ labExperiments: getStats().labExperiments + 1 })
+    addXP(15)
+    recordSession(active, 2)
+    checkAchievements()
+  }, [active])
 
   return (
     <>

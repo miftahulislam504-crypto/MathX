@@ -4,6 +4,7 @@ import { TOPICS } from '@/lib/data/topics'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { TutorMessage } from '@/types'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
+import { addXP, updateStats, getStats, updateStreak, checkAchievements, recordSession } from '@/lib/data/user-progress'
 
 function MessageBubble({ msg }: { msg: TutorMessage & { pending?: boolean } }) {
   const isUser = msg.role === 'user'
@@ -55,6 +56,7 @@ export default function AITutorPage() {
   const [error, setError] = useState('')
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+  const sessionCountedRef = useRef(false)
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -94,6 +96,16 @@ export default function AITutorPage() {
         ...prev.slice(0, -1),
         { role: 'assistant', content: reply, timestamp: new Date() },
       ])
+
+      // Count one tutor session per page visit, on the first successful reply
+      if (!sessionCountedRef.current) {
+        sessionCountedRef.current = true
+        updateStreak()
+        updateStats({ tutorSessions: getStats().tutorSessions + 1 })
+        addXP(5)
+        recordSession(topicContext || 'ai-tutor', 2)
+        checkAchievements()
+      }
     } catch {
       setMessages((prev) => prev.slice(0, -1))
       setError(tt(t.aiTutor.connectionError))

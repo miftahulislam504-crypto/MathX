@@ -3,6 +3,7 @@
 
 import { TOPICS } from './topics'
 import { MATH_BRANCHES } from './branches'
+import { ACHIEVEMENTS } from './achievements'
 
 export interface TopicProgress {
   topicSlug: string
@@ -93,6 +94,38 @@ export function unlockAchievement(id: string): boolean {
   updateStats({ achievements: [...stats.achievements, id] })
   addXP(50)
   return true
+}
+
+// Re-evaluates the subset of achievement conditions that can be derived
+// purely from UserStats numeric fields (topics_completed, problems_solved,
+// streak, tutor_sessions, lab_visited). Mastery/branch-based conditions are
+// intentionally skipped here since they need richer data than UserStats
+// tracks today. Call this after any stat-changing action.
+export function checkAchievements(): string[] {
+  const stats = getStats()
+  const unlocked: string[] = []
+
+  const simpleChecks: Record<string, boolean> = {
+    'first-topic':   stats.topicsCompleted >= 1,
+    'five-topics':   stats.topicsCompleted >= 5,
+    'ten-topics':    stats.topicsCompleted >= 10,
+    'first-problem': stats.problemsSolved >= 1,
+    'ten-problems':  stats.problemsSolved >= 10,
+    'fifty-problems':stats.problemsSolved >= 50,
+    'first-lab':     stats.labExperiments >= 1,
+    'ai-student':    stats.tutorSessions >= 10,
+    'streak-3':      stats.streak >= 3,
+    'streak-7':      stats.streak >= 7,
+    'streak-30':     stats.streak >= 30,
+  }
+
+  for (const achievement of ACHIEVEMENTS) {
+    if (achievement.id in simpleChecks && simpleChecks[achievement.id]) {
+      if (unlockAchievement(achievement.id)) unlocked.push(achievement.id)
+    }
+  }
+
+  return unlocked
 }
 
 export function updateStreak() {

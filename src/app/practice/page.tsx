@@ -4,6 +4,7 @@ import { DisplayMath } from '@/components/math/LatexRenderer'
 import { TOPICS } from '@/lib/data/topics'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
+import { addXP, updateStats, getStats, updateStreak, checkAchievements, recordSession } from '@/lib/data/user-progress'
 
 interface Problem {
   id: number
@@ -58,7 +59,18 @@ export default function PracticePage() {
   }
 
   const toggleReveal = (id: number) =>
-    setRevealed((prev) => ({ ...prev, [id]: !prev[id] }))
+    setRevealed((prev) => {
+      const wasRevealed = prev[id]
+      // Only record progress the first time this problem's solution is shown
+      if (!wasRevealed) {
+        updateStreak()
+        updateStats({ problemsSolved: getStats().problemsSolved + 1 })
+        addXP(10)
+        recordSession(selectedTopic || 'practice', 1)
+        checkAchievements()
+      }
+      return { ...prev, [id]: !wasRevealed }
+    })
   const toggleHint = (id: number) =>
     setHints((prev) => ({ ...prev, [id]: !prev[id] }))
 

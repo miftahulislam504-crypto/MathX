@@ -1,5 +1,6 @@
 import { DisplayMath, InlineMath } from '@/components/math/LatexRenderer'
 import { FormulaCard } from '@/components/math/FormulaCard'
+import { TopicViewTracker } from '@/components/math/TopicViewTracker'
 import { MATH_BRANCHES } from '@/lib/data/branches'
 import { getTopicBySlug, getTopicsByBranch } from '@/lib/data/topics'
 import { getFormulasByTopic } from '@/lib/data/formulas'
@@ -36,6 +37,7 @@ export default async function TopicPage({ params }: Props) {
 
   return (
     <>
+      <TopicViewTracker topicSlug={topicSlug} />
 
       <main className="min-h-screen pt-24 pb-20 px-4">
         <div className="max-w-5xl mx-auto">
