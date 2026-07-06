@@ -2,14 +2,17 @@
 import { useState, useMemo } from 'react'
 import { SearchBar } from '@/components/shared/SearchBar'
 import { LevelFilter } from '@/components/shared/LevelFilter'
+import { TheoremCard } from '@/components/math/TheoremCard'
 import { TOPICS } from '@/lib/data/topics'
 import { FORMULAS } from '@/lib/data/formulas'
 import { MATH_BRANCHES } from '@/lib/data/branches'
+import { THEOREMS, searchTheorems } from '@/lib/data/theorems'
+import { GLOSSARY, searchGlossary } from '@/lib/data/glossary'
 import { Level } from '@/types'
 import Link from 'next/link'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
-type TabType = 'topics' | 'formulas' | 'branches'
+type TabType = 'topics' | 'formulas' | 'theorems' | 'terms' | 'branches'
 
 export default function EncyclopediaPage() {
   const [tab, setTab] = useState<TabType>('topics')
@@ -38,9 +41,19 @@ export default function EncyclopediaPage() {
     )
   }, [search])
 
+  const filteredTheorems = useMemo(() => {
+    return search ? searchTheorems(search) : THEOREMS
+  }, [search])
+
+  const filteredTerms = useMemo(() => {
+    return search ? searchGlossary(search) : GLOSSARY
+  }, [search])
+
   const TABS: { key: TabType; label: string; count: number }[] = [
     { key: 'topics',   label: tt(t.encyclopedia.topicsTab),   count: TOPICS.length },
     { key: 'formulas', label: tt(t.encyclopedia.formulasTab), count: FORMULAS.length },
+    { key: 'theorems', label: tt(t.encyclopedia.theoremsTab), count: THEOREMS.length },
+    { key: 'terms',    label: tt(t.encyclopedia.termsTab),    count: GLOSSARY.length },
     { key: 'branches', label: tt(t.encyclopedia.branchesTab), count: MATH_BRANCHES.length },
   ]
 
@@ -160,6 +173,43 @@ export default function EncyclopediaPage() {
                     </div>
                   )
                 })}
+              </div>
+            </div>
+          )}
+
+          {/* Theorems tab */}
+          {tab === 'theorems' && (
+            <div>
+              <p className="text-xs text-white/25 mb-5 font-mono">
+                {filteredTheorems.length} {tt(t.encyclopedia.theoremsTab).toLowerCase()}
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredTheorems.map((th) => (
+                  <TheoremCard key={th.id} theorem={th} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Terms tab */}
+          {tab === 'terms' && (
+            <div>
+              <p className="text-xs text-white/25 mb-5 font-mono">
+                {filteredTerms.length} {tt(t.encyclopedia.termsTab).toLowerCase()}
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {filteredTerms.map((g) => (
+                  <div
+                    key={g.id}
+                    className="rounded-lg border border-white/6 bg-white/[0.02] hover:border-white/12 hover:bg-white/[0.04] p-4 transition-all"
+                  >
+                    <div className="flex items-baseline justify-between gap-2 mb-1.5">
+                      <h3 className="text-sm font-semibold text-white/85">{g.term}</h3>
+                      {lang === 'bn' && g.termBn && <span className="text-xs text-white/30">{g.termBn}</span>}
+                    </div>
+                    <p className="text-xs text-white/45 leading-relaxed">{g.definition}</p>
+                  </div>
+                ))}
               </div>
             </div>
           )}

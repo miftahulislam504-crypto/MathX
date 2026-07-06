@@ -13,7 +13,7 @@ import {
   computeAnalytics, updateStreak, TopicProgress,
 } from '@/lib/data/user-progress'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { BookOpen, Pencil, LineChart, Bot, FlaskConical, Wrench, Flame, type LucideIcon } from 'lucide-react'
+import { BookOpen, Pencil, LineChart, Bot, FlaskConical, Wrench, Flame, Beaker, type LucideIcon } from 'lucide-react'
 
 type Tab = 'overview' | 'achievements' | 'progress'
 
@@ -33,6 +33,7 @@ export default function DashboardPage() {
     { icon:LineChart,  label:tt(t.dashboard.visualizer),        href:'/visualize',color:'border-amber-500/20 bg-amber-500/8 hover:bg-amber-500/15' },
     { icon:Bot, label:tt(t.dashboard.aiTutor),          href:'/ai-tutor', color:'border-emerald-500/20 bg-emerald-500/8 hover:bg-emerald-500/15' },
     { icon:FlaskConical, label:tt(t.dashboard.mathLab),          href:'/lab',      color:'border-rose-500/20 bg-rose-500/8 hover:bg-rose-500/15' },
+    { icon:Beaker, label:tt(t.dashboard.experimentCenter),  href:'/experiments', color:'border-lime-500/20 bg-lime-500/8 hover:bg-lime-500/15' },
     { icon:Wrench, label:tt(t.dashboard.tools),             href:'/tools',    color:'border-sky-500/20 bg-sky-500/8 hover:bg-sky-500/15' },
   ]
 

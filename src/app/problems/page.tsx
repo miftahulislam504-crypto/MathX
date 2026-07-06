@@ -97,6 +97,9 @@ export default function ProblemsPage() {
     { key:'number-theory',label:tt(t.problems.numberTheory),  icon:'#' },
     { key:'combinatorics',label:tt(t.problems.combinatorics), icon:'∏' },
     { key:'probability',  label:tt(t.problems.probability),   icon:'Ω' },
+    { key:'olympiad',     label:tt(t.problems.olympiadCat),   icon:'★' },
+    { key:'proof',        label:tt(t.problems.proofCat),      icon:'∴' },
+    { key:'research',     label:tt(t.problems.researchCat),   icon:'?' },
   ]
 
   const UNSOLVED = [

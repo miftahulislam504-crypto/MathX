@@ -16,6 +16,7 @@ export function Navbar() {
     { href: '/practice',   label: tt(t.nav.practice) },
     { href: '/problems',   label: tt(t.nav.problems) },
     { href: '/lab',        label: tt(t.nav.lab) },
+    { href: '/experiments', label: tt(t.nav.experimentCenter) },
     { href: '/tools',      label: tt(t.nav.tools) },
     { href: '/games',      label: tt(t.nav.games) },
     { href: '/ai-tutor',   label: tt(t.nav.aiTutor) },
@@ -24,6 +25,7 @@ export function Navbar() {
   const MORE_LINKS = [
     { href: '/encyclopedia', label: tt(t.nav.encyclopedia) },
     { href: '/formulas',     label: tt(t.nav.formulaLibrary) },
+    { href: '/theorems',     label: tt(t.nav.theoremLibrary) },
     { href: '/statistics',   label: tt(t.nav.statistics) },
     { href: '/applied',      label: tt(t.nav.appliedMath) },
     { href: '/research',     label: tt(t.nav.research) },

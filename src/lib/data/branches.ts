@@ -15,4 +15,11 @@ export const MATH_BRANCHES: Branch[] = [
   { id: '12', slug: 'abstract-algebra',  name: 'Abstract Algebra',       nameBn: 'বিমূর্ত বীজগণিত', icon: '∘', color: '#a855f7' },
   { id: '13', slug: 'topology',          name: 'Topology',               nameBn: 'টপোলজি',          icon: '∞', color: '#0ea5e9' },
   { id: '14', slug: 'complex-analysis',  name: 'Complex Analysis',       nameBn: 'জটিল বিশ্লেষণ',  icon: 'ℂ', color: '#d946ef' },
+  { id: '15', slug: 'numerical-methods', name: 'Numerical Methods',      nameBn: 'সাংখ্যিক পদ্ধতি', icon: '≈', color: '#22c55e' },
+  { id: '16', slug: 'set-theory',        name: 'Set Theory',             nameBn: 'সেট তত্ত্ব',      icon: '∈', color: '#eab308' },
+  { id: '17', slug: 'functional-analysis', name: 'Functional Analysis',  nameBn: 'ফাংশনাল বিশ্লেষণ', icon: 'ƒ', color: '#f43f5e' },
+  { id: '18', slug: 'measure-theory',    name: 'Measure Theory',         nameBn: 'পরিমাপ তত্ত্ব',   icon: 'μ', color: '#8b5cf6' },
+  { id: '19', slug: 'category-theory',   name: 'Category Theory',        nameBn: 'ক্যাটাগরি তত্ত্ব', icon: '⇒', color: '#06b6d4' },
+  { id: '20', slug: 'algebraic-topology', name: 'Algebraic Topology',    nameBn: 'বীজগাণিতিক টপোলজি', icon: 'π', color: '#0ea5e9' },
+  { id: '21', slug: 'differential-geometry', name: 'Differential Geometry', nameBn: 'অবকল জ্যামিতি', icon: 'κ', color: '#f97316' },
 ]

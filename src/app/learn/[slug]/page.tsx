@@ -24,6 +24,7 @@ export default async function BranchPage({ params }: Props) {
     COLLEGE:    topics.filter((t) => t.level === 'COLLEGE'),
     UNIVERSITY: topics.filter((t) => t.level === 'UNIVERSITY'),
     ADVANCED:   topics.filter((t) => t.level === 'ADVANCED'),
+    RESEARCH:   topics.filter((t) => t.level === 'RESEARCH'),
   }
 
   const LEVEL_META = {
@@ -31,6 +32,7 @@ export default async function BranchPage({ params }: Props) {
     COLLEGE:    { label: 'College', color: 'text-blue-400', dot: 'bg-blue-400' },
     UNIVERSITY: { label: 'University', color: 'text-violet-400', dot: 'bg-violet-400' },
     ADVANCED:   { label: 'Advanced', color: 'text-amber-400', dot: 'bg-amber-400' },
+    RESEARCH:   { label: 'Research', color: 'text-rose-400', dot: 'bg-rose-400' },
   }
 
   return (

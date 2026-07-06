@@ -5,7 +5,7 @@ import { TOPICS } from '@/lib/data/topics'
 import Link from 'next/link'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 
-const LEVEL_COLS = ['SCHOOL', 'COLLEGE', 'UNIVERSITY', 'ADVANCED'] as const
+const LEVEL_COLS = ['SCHOOL', 'COLLEGE', 'UNIVERSITY', 'ADVANCED', 'RESEARCH'] as const
 
 export default function MapPage() {
   const [activeBranch, setActiveBranch] = useState<string | null>(null)
@@ -16,6 +16,7 @@ export default function MapPage() {
     COLLEGE:    { label: tt(t.levels.COLLEGE),    color: '#3b82f6', bg: 'bg-blue-500/10 border-blue-500/20' },
     UNIVERSITY: { label: tt(t.levels.UNIVERSITY), color: '#8b5cf6', bg: 'bg-violet-500/10 border-violet-500/20' },
     ADVANCED:   { label: tt(t.levels.ADVANCED),   color: '#f59e0b', bg: 'bg-amber-500/10 border-amber-500/20' },
+    RESEARCH:   { label: tt(t.levels.RESEARCH),   color: '#f43f5e', bg: 'bg-rose-500/10 border-rose-500/20' },
   }
 
   const visibleBranches = activeBranch
@@ -160,7 +161,7 @@ export default function MapPage() {
               { val: MATH_BRANCHES.length, label: tt(t.map.branches) },
               { val: TOPICS.length, label: tt(t.map.topics) },
               { val: TOPICS.filter((t) => t.level === 'SCHOOL').length, label: tt(t.map.schoolTopics) },
-              { val: TOPICS.filter((t) => ['UNIVERSITY', 'ADVANCED'].includes(t.level)).length, label: tt(t.map.advancedTopics) },
+              { val: TOPICS.filter((t) => ['UNIVERSITY', 'ADVANCED', 'RESEARCH'].includes(t.level)).length, label: tt(t.map.advancedTopics) },
             ].map((s) => (
               <div key={s.label}>
                 <p className="text-3xl font-bold text-violet-400 font-mono">{s.val}</p>

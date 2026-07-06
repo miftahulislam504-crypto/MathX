@@ -16,6 +16,7 @@ export function Footer() {
     [tt(t.footer.exploreSection)]: [
       { href:'/visualizer',        label:tt(t.footer.visualizer) },
       { href:'/lab',               label:tt(t.footer.mathLab) },
+      { href:'/experiments',       label:tt(t.footer.experimentCenter) },
       { href:'/statistics',        label:tt(t.footer.statistics) },
       { href:'/applied',           label:tt(t.footer.appliedMath) },
       { href:'/map',               label:tt(t.footer.knowledgeMap) },
@@ -23,6 +24,7 @@ export function Footer() {
     [tt(t.footer.referenceSection)]: [
       { href:'/encyclopedia',      label:tt(t.footer.encyclopedia) },
       { href:'/formulas',          label:tt(t.footer.formulaLibrary) },
+      { href:'/theorems',          label:tt(t.footer.theoremLibrary) },
       { href:'/research',          label:tt(t.footer.researchCenter) },
       { href:'/foundation/history',label:tt(t.footer.mathHistory) },
       { href:'/foundation/mathematicians', label:tt(t.footer.mathematicians) },

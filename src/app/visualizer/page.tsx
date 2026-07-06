@@ -9,6 +9,7 @@ const IntegralVisualizer = lazy(() => import('@/components/visualizer/IntegralVi
 const VectorVisualizer   = lazy(() => import('@/components/visualizer/VectorVisualizer').then(m => ({ default: m.VectorVisualizer })))
 const UnitCircle         = lazy(() => import('@/components/visualizer/UnitCircle').then(m => ({ default: m.UnitCircle })))
 const MatrixTransform    = lazy(() => import('@/components/visualizer/MatrixTransform').then(m => ({ default: m.MatrixTransform })))
+const TopologyMorph      = lazy(() => import('@/components/visualizer/TopologyMorph').then(m => ({ default: m.TopologyMorph })))
 
 function LoadingSpinner({ label }: { label: string }) {
   return (
@@ -30,6 +31,7 @@ export default function VisualizePage() {
     { id:'vector',     icon:'→', label:tt(t.visualizer.vectorVisualizer),   color:'text-emerald-400',bg:'bg-emerald-500/8 border-emerald-500/20', desc:tt({ en:'Interactive 2D vector playground. See dot product, angle, and vector sum live.',       bn:'ইন্টারেক্টিভ 2D ভেক্টর প্লেগ্রাউন্ড। ডট প্রোডাক্ট, কোণ এবং ভেক্টর যোগফল লাইভ দেখুন।' }) },
     { id:'unitcircle', icon:'○', label:tt(t.visualizer.unitCircle),         color:'text-rose-400',   bg:'bg-rose-500/8 border-rose-500/20',      desc:tt({ en:'Animate sin/cos/tan on the unit circle. See how trig values change with angle.',       bn:'একক বৃত্তে sin/cos/tan অ্যানিমেট করুন। কোণের সাথে ত্রিকোণমিতিক মান কিভাবে পরিবর্তন হয় দেখুন।' }) },
     { id:'matrix',     icon:'⊞', label:tt(t.visualizer.matrixTransform),    color:'text-sky-400',    bg:'bg-sky-500/8 border-sky-500/20',        desc:tt({ en:'Apply 2×2 matrices and watch shapes transform. Visualize det, trace, basis vectors.',  bn:'2×2 ম্যাট্রিক্স প্রয়োগ করুন এবং আকৃতি রূপান্তর দেখুন। det, trace, ভিত্তি ভেক্টর ভিজ্যুয়ালাইজ করুন।' }) },
+    { id:'topology',   icon:'⬡', label:tt(t.visualizer.topologyMorph),      color:'text-fuchsia-400',bg:'bg-fuchsia-500/8 border-fuchsia-500/20', desc:tt({ en:'Watch shapes morph continuously — see homeomorphism, genus, and Euler characteristic.', bn:'আকৃতি ধারাবাহিকভাবে রূপান্তরিত হতে দেখুন — হোমিওমরফিজম, জেনাস এবং অয়লার বৈশিষ্ট্যাঙ্ক দেখুন।' }) },
   ] as const
 
   const HELP_TIPS: { icon: LucideIcon; tip: string }[] = [
@@ -53,7 +55,7 @@ export default function VisualizePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-8">
             {TABS.map(tab => (
               <button key={tab.id} onClick={() => setActive(tab.id)}
                 className={`group rounded-xl border p-3 text-left transition-all ${
@@ -82,6 +84,7 @@ export default function VisualizePage() {
               {active==='vector'     && <VectorVisualizer />}
               {active==='unitcircle' && <UnitCircle />}
               {active==='matrix'     && <MatrixTransform />}
+              {active==='topology'   && <TopologyMorph />}
             </Suspense>
           </div>
 
@@ -99,4 +102,4 @@ export default function VisualizePage() {
   )
 }
 
-type TabId = 'plotter' | 'derivative' | 'integral' | 'vector' | 'unitcircle' | 'matrix'
+type TabId = 'plotter' | 'derivative' | 'integral' | 'vector' | 'unitcircle' | 'matrix' | 'topology'
