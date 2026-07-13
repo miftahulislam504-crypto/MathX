@@ -1,13 +1,15 @@
 'use client'
 import { useState, lazy, Suspense } from 'react'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { Zap, Target, Crown, Puzzle, type LucideIcon } from 'lucide-react'
+import { Zap, Target, Crown, Sparkles, Grid3x3, Brain, type LucideIcon } from 'lucide-react'
 
 const NumberGame  = lazy(() => import('@/components/games/NumberGame').then(m => ({ default: (props: any) => <m.NumberGame {...props}/> })))
-const LogicPuzzles= lazy(() => import('@/components/games/LogicPuzzles').then(m => ({ default: m.LogicPuzzles })))
 const MathQuiz    = lazy(() => import('@/components/games/MathQuiz').then(m => ({ default: m.MathQuiz })))
+const PatternGames = lazy(() => import('@/components/games/PatternGames').then(m => ({ default: m.PatternGames })))
+const StrategyGames = lazy(() => import('@/components/games/StrategyGames').then(m => ({ default: m.StrategyGames })))
+const BrainTrainingGames = lazy(() => import('@/components/games/BrainTrainingGames').then(m => ({ default: m.BrainTrainingGames })))
 
-type GameId = 'quiz' | 'guess' | 'nim' | 'logic'
+type GameId = 'quiz' | 'guess' | 'nim' | 'pattern' | 'strategy' | 'brain'
 
 function Spinner({ label }: { label: string }) {
   return (
@@ -29,14 +31,18 @@ export default function GamesPage() {
     { id:'quiz',  label:tt(t.games.mathQuiz),     icon:Zap, desc:tt(t.games.mathQuizDesc),     color:'text-violet-400', bg:'bg-violet-500/8 border-violet-500/20', tag:tt(t.games.speed) },
     { id:'guess', label:tt(t.games.numberGuesser),icon:Target, desc:tt(t.games.numberGuesserDesc),color:'text-cyan-400',   bg:'bg-cyan-500/8 border-cyan-500/20',     tag:tt(t.games.strategy) },
     { id:'nim',   label:tt(t.games.nimGame),      icon:Crown, desc:tt(t.games.nimDesc),          color:'text-amber-400',  bg:'bg-amber-500/8 border-amber-500/20',   tag:tt(t.games.gameTheory) },
-    { id:'logic', label:tt(t.games.logicPuzzles), icon:Puzzle, desc:tt(t.games.logicDesc),        color:'text-emerald-400',bg:'bg-emerald-500/8 border-emerald-500/20',tag:tt(t.games.puzzles) },
+    { id:'pattern', label:tt(t.games.patternGames), icon:Sparkles, desc:tt(t.games.patternGamesDesc), color:'text-fuchsia-400', bg:'bg-fuchsia-500/8 border-fuchsia-500/20', tag:tt(t.games.patterns) },
+    { id:'strategy', label:tt(t.games.strategyGames), icon:Grid3x3, desc:tt(t.games.strategyGamesDesc), color:'text-blue-400', bg:'bg-blue-500/8 border-blue-500/20', tag:tt(t.games.strategy) },
+    { id:'brain', label:tt(t.games.brainTrainingGames), icon:Brain, desc:tt(t.games.brainTrainingGamesDesc), color:'text-amber-400', bg:'bg-amber-500/8 border-amber-500/20', tag:tt(t.games.brainTraining) },
   ]
 
   const MATH_CONNECTIONS = [
     { game: tt(t.games.mathQuiz),       math: tt(t.games.quizMath) },
     { game: tt(t.games.numberGuesser),  math: tt(t.games.guesserMath) },
     { game: tt(t.games.nimGame),        math: tt(t.games.nimMath) },
-    { game: tt(t.games.logicPuzzles),   math: tt(t.games.logicMath) },
+    { game: tt(t.games.patternGames),   math: tt(t.games.patternMath) },
+    { game: tt(t.games.strategyGames),  math: tt(t.games.strategyMath) },
+    { game: tt(t.games.brainTrainingGames), math: tt(t.games.brainMath) },
   ]
 
   const game = GAMES.find(g => g.id === active)!
@@ -56,7 +62,7 @@ export default function GamesPage() {
           </div>
 
           {/* Game selector */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
             {GAMES.map(g => (
               <button key={g.id} onClick={() => setActive(g.id)}
                 className={`group rounded-xl border p-4 text-left transition-all ${
@@ -87,12 +93,15 @@ export default function GamesPage() {
               {active==='quiz'  && <MathQuiz />}
               {active==='guess' && <NumberGame game="guess" />}
               {active==='nim'   && <NumberGame game="nim" />}
-              {active==='logic' && <LogicPuzzles />}
+              {active==='pattern' && <PatternGames />}
+              {active==='strategy' && <StrategyGames />}
+              {active==='brain' && <BrainTrainingGames />}
             </Suspense>
           </div>
 
           {/* Math connection */}
           <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {/* Note: 7 entries will wrap naturally in this 4-col grid */}
             {MATH_CONNECTIONS.map(m => (
               <div key={m.game} className="rounded-xl border border-white/5 bg-white/[0.02] p-4">
                 <p className="text-xs font-semibold text-white/50 mb-1">{m.game}</p>

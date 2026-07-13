@@ -6,7 +6,7 @@ import { LanguageProvider } from '@/lib/i18n/LanguageContext'
 
 // Pages that use the old full Navbar (inner app pages)
 const APP_PAGES = [
-  '/dashboard', '/foundation', '/learn', '/lab', '/experiments', '/settings',
+  '/dashboard', '/foundation', '/learn', '/lab', '/experiments', '/assessment', '/puzzles', '/geometry-center', '/settings',
   '/visualizer', '/practice', '/problems', '/ai-tutor', '/tools',
   '/games', '/encyclopedia', '/formulas', '/theorems', '/statistics',
   '/applied', '/research', '/map', '/community',

@@ -17,8 +17,11 @@ export function Navbar() {
     { href: '/problems',   label: tt(t.nav.problems) },
     { href: '/lab',        label: tt(t.nav.lab) },
     { href: '/experiments', label: tt(t.nav.experimentCenter) },
+    { href: '/assessment',  label: tt(t.nav.assessmentSystem) },
+    { href: '/geometry-center', label: tt(t.nav.geometryCenterNav) },
     { href: '/tools',      label: tt(t.nav.tools) },
     { href: '/games',      label: tt(t.nav.games) },
+    { href: '/puzzles',    label: tt(t.nav.puzzles) },
     { href: '/ai-tutor',   label: tt(t.nav.aiTutor) },
   ]
 

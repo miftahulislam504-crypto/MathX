@@ -152,6 +152,8 @@ export function resetProgress(): void {
   localStorage.removeItem(KEYS.sessions)
   localStorage.removeItem('mathx_practice_mode_stats')
   localStorage.removeItem('mathx_practice_history')
+  localStorage.removeItem('mathx_assessment_attempts')
+  localStorage.removeItem('mathx_assessment_certificates')
 }
 
 // ── Daily sessions ────────────────────────────────────────────────────

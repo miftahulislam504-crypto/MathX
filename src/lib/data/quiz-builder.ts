@@ -156,3 +156,20 @@ export function buildAdaptiveQuestion(tier: number): QuizQuestion {
   const finalPool = pool.length > 0 ? pool : fallbackPool
   return finalPool[Math.floor(Math.random() * finalPool.length)]
 }
+
+// University-level: draws only from tier 2-3 branches (Calculus, Number
+// Theory, Real Analysis, Abstract Algebra, Topology, Complex Analysis,
+// Numerical Methods, etc.) — genuinely advanced/research-tier content.
+export function buildUniversityQuestions(count = 15): QuizQuestion[] {
+  const eligibleBranches = Object.entries(BRANCH_TIERS).filter(([, t]) => t >= 2).map(([id]) => id)
+  const branchFormulas = FORMULAS.filter((f) => eligibleBranches.includes(f.branchId))
+  const branchTheorems = THEOREMS.filter((th) => eligibleBranches.includes(th.branchId))
+  const branchTopics = TOPICS.filter((tp) => eligibleBranches.includes(tp.branchId) && (tp.level === 'ADVANCED' || tp.level === 'RESEARCH' || tp.level === 'UNIVERSITY'))
+
+  const pool: QuizQuestion[] = [
+    ...branchFormulas.map(buildFormulaQuestion),
+    ...branchTheorems.map(buildTheoremQuestion),
+    ...branchTopics.map(buildTopicQuestion),
+  ]
+  return shuffle(pool).slice(0, Math.min(count, pool.length))
+}
