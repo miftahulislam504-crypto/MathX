@@ -4,6 +4,7 @@ import { MATH_BRANCHES } from '@/lib/data/branches'
 import { TOPICS } from '@/lib/data/topics'
 import Link from 'next/link'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
+import { KnowledgeGraph } from '@/components/foundation/KnowledgeGraph'
 
 const LEVEL_COLS = ['SCHOOL', 'COLLEGE', 'UNIVERSITY', 'ADVANCED', 'RESEARCH'] as const
 
@@ -36,6 +37,12 @@ export default function MapPage() {
             <p className="text-white/40 text-sm">
               {tt(t.map.subtitle)}
             </p>
+          </div>
+
+          {/* Interactive Knowledge Graph */}
+          <div className="mb-10">
+            <p className="text-xs uppercase tracking-wider text-white/25 font-mono mb-3">{tt(t.map.knowledgeGraphTitle)}</p>
+            <KnowledgeGraph />
           </div>
 
           {/* Level legend */}

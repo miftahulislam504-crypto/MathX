@@ -1,14 +1,16 @@
 'use client'
 import { useState, lazy, Suspense } from 'react'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { Bell, TrendingUp, type LucideIcon } from 'lucide-react'
+import { Bell, TrendingUp, Scale, type LucideIcon } from 'lucide-react'
 
 const DistributionVisualizer = lazy(() =>
   import('@/components/statistics/DistributionVisualizer').then(m => ({ default: m.DistributionVisualizer })))
 const RegressionExplorer = lazy(() =>
   import('@/components/statistics/RegressionExplorer').then(m => ({ default: m.RegressionExplorer })))
+const HypothesisTestExplorer = lazy(() =>
+  import('@/components/statistics/HypothesisTestExplorer').then(m => ({ default: m.HypothesisTestExplorer })))
 
-type TabId = 'distributions' | 'regression'
+type TabId = 'distributions' | 'regression' | 'hypothesisTesting'
 
 function Spinner({ label }: { label: string }) {
   return (
@@ -42,6 +44,14 @@ export default function StatisticsPage() {
       bg:'bg-cyan-500/8 border-cyan-500/20',
       desc: tt({ en:'Click to add points. Watch the regression line and R² update live.', bn:'বিন্দু যোগ করতে ক্লিক করুন। রিগ্রেশন লাইন এবং R² লাইভ আপডেট দেখুন।' }),
     },
+    {
+      id:'hypothesisTesting',
+      label:tt(t.statistics.hypothesisTesting),
+      icon:Scale,
+      color:'text-rose-400',
+      bg:'bg-rose-500/8 border-rose-500/20',
+      desc: tt({ en:'One-sample z-test and t-test — see the rejection region and p-value live.', bn:'এক-নমুনা z-পরীক্ষা এবং t-পরীক্ষা — প্রত্যাখ্যান অঞ্চল এবং p-মান লাইভ দেখুন।' }),
+    },
   ]
 
   const current = TABS.find(t => t.id === tab)!
@@ -57,7 +67,7 @@ export default function StatisticsPage() {
             <p className="text-white/40 text-sm">{tt(t.statistics.subtitle)}</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mb-6 max-w-md">
+          <div className="grid grid-cols-3 gap-3 mb-6 max-w-lg">
             {TABS.map(tb => (
               <button key={tb.id} onClick={() => setTab(tb.id)}
                 className={`group rounded-xl border p-4 text-left transition-all ${
@@ -81,6 +91,7 @@ export default function StatisticsPage() {
             <Suspense fallback={<Spinner label={tt(t.common.loading)} />}>
               {tab==='distributions' && <DistributionVisualizer />}
               {tab==='regression'    && <RegressionExplorer />}
+              {tab==='hypothesisTesting' && <HypothesisTestExplorer />}
             </Suspense>
           </div>
         </div>

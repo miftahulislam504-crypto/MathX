@@ -19,10 +19,12 @@ export function Navbar() {
     { href: '/experiments', label: tt(t.nav.experimentCenter) },
     { href: '/assessment',  label: tt(t.nav.assessmentSystem) },
     { href: '/geometry-center', label: tt(t.nav.geometryCenterNav) },
+    { href: '/linear-algebra-center', label: tt(t.nav.linearAlgebraCenterNav) },
     { href: '/tools',      label: tt(t.nav.tools) },
     { href: '/games',      label: tt(t.nav.games) },
     { href: '/puzzles',    label: tt(t.nav.puzzles) },
     { href: '/ai-tutor',   label: tt(t.nav.aiTutor) },
+    { href: '/ai-problem-solver', label: tt(t.nav.aiProblemSolverNav) },
   ]
 
   const MORE_LINKS = [
@@ -30,7 +32,13 @@ export function Navbar() {
     { href: '/formulas',     label: tt(t.nav.formulaLibrary) },
     { href: '/theorems',     label: tt(t.nav.theoremLibrary) },
     { href: '/statistics',   label: tt(t.nav.statistics) },
+    { href: '/probability-center', label: tt(t.nav.probabilityCenterNav) },
+    { href: '/modeling-center', label: tt(t.nav.modelingCenterNav) },
     { href: '/applied',      label: tt(t.nav.appliedMath) },
+    { href: '/applied-math-lab', label: tt(t.nav.appliedMathLabNav) },
+    { href: '/real-life', label: tt(t.nav.realLifeNav) },
+    { href: '/career-path', label: tt(t.nav.careerPathNav) },
+    { href: '/experience-zone', label: tt(t.nav.experienceZoneNav) },
     { href: '/research',     label: tt(t.nav.research) },
     { href: '/map',          label: tt(t.nav.knowledgeMap) },
     { href: '/foundation',   label: tt(t.nav.foundation) },

@@ -60,6 +60,11 @@ export const TOPICS: Topic[] = [
   { id: 'st-04', slug: 'hypothesis-testing',   title: 'Hypothesis Testing',   titleBn: 'অনুকল্প পরীক্ষণ',   branchId: '7', level: 'COLLEGE',    order: 4 },
   { id: 'st-05', slug: 'regression',           title: 'Regression Analysis',  titleBn: 'প্রত্যাবর্তন বিশ্লেষণ',branchId:'7', level: 'UNIVERSITY', order: 5 },
 
+  // ── PROBABILITY ──────────────────────────────────────────────────
+  { id: 'pr-01', slug: 'bayesian-probability',  title: 'Bayesian Probability', titleBn: 'বেইজীয় সম্ভাবনা',     branchId: '8', level: 'COLLEGE',    order: 1 },
+  { id: 'pr-02', slug: 'random-variables',      title: 'Random Variables',     titleBn: 'দৈব চলক',            branchId: '8', level: 'COLLEGE',    order: 2 },
+  { id: 'pr-03', slug: 'stochastic-processes',  title: 'Stochastic Processes', titleBn: 'সম্ভাবনাত্মক প্রক্রিয়া', branchId: '8', level: 'RESEARCH',   order: 3 },
+
   // ── NUMBER THEORY ───────────────────────────────────────────────
   { id: 'nt-01', slug: 'divisibility',         title: 'Divisibility & Primes', titleBn: 'বিভাজ্যতা ও মৌলিক সংখ্যা', branchId: '9', level: 'SCHOOL', order: 1 },
   { id: 'nt-02', slug: 'modular-arithmetic',   title: 'Modular Arithmetic',   titleBn: 'মডুলার গাণিতিক',      branchId: '9', level: 'COLLEGE', order: 2 },

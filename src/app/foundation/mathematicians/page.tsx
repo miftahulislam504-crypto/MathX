@@ -2,11 +2,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { MATHEMATICIANS, ERAS, Mathematician } from '@/lib/data/mathematicians'
+import { MathematiciansTimeline } from '@/components/foundation/MathematiciansTimeline'
 
-function MathCard({ m }: { m: Mathematician }) {
+function MathCard({ m, highlighted }: { m: Mathematician; highlighted?: boolean }) {
   const [expanded, setExpanded] = useState(false)
   return (
-    <div className="rounded-xl border border-white/8 bg-white/[0.02] overflow-hidden hover:border-white/12 transition-all">
+    <div id={`mathematician-${m.id}`} className={`rounded-xl border overflow-hidden transition-all ${highlighted ? 'border-violet-500/60 bg-violet-500/[0.04]' : 'border-white/8 bg-white/[0.02] hover:border-white/12'}`}>
       <div className="p-5">
         {/* Header */}
         <div className="flex items-start gap-4 mb-4">
@@ -56,6 +57,21 @@ function MathCard({ m }: { m: Mathematician }) {
             ))}
           </ul>
         )}
+
+        {/* Publications */}
+        {m.publications.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-white/5">
+            <p className="text-[10px] uppercase tracking-wider text-white/25 mb-1.5">Major Publications</p>
+            <ul className="space-y-1">
+              {m.publications.map((p, i) => (
+                <li key={i} className="flex justify-between gap-2 text-xs text-white/45">
+                  <span className="leading-relaxed">{p.title}</span>
+                  <span className="text-white/25 font-mono shrink-0">{p.year}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   )
@@ -64,6 +80,18 @@ function MathCard({ m }: { m: Mathematician }) {
 export default function MathematiciansPage() {
   const [era, setEra] = useState<string | 'ALL'>('ALL')
   const [search, setSearch] = useState('')
+  const [highlightedId, setHighlightedId] = useState<string | null>(null)
+
+  const handleTimelineSelect = (id: string) => {
+    setEra('ALL')
+    setSearch('')
+    setHighlightedId(id)
+    // wait a tick for the (possibly re-filtered) grid to render, then scroll
+    setTimeout(() => {
+      document.getElementById(`mathematician-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 50)
+    setTimeout(() => setHighlightedId(null), 2500)
+  }
 
   const filtered = MATHEMATICIANS.filter(m => {
     const matchEra = era === 'ALL' || m.era === era
@@ -89,7 +117,13 @@ export default function MathematiciansPage() {
             </p>
           </div>
 
-          {/* Timeline */}
+          {/* Interactive Timeline */}
+          <div className="mb-8">
+            <p className="text-xs uppercase tracking-wider text-white/25 font-mono mb-2">Interactive Timeline</p>
+            <MathematiciansTimeline onSelect={handleTimelineSelect} />
+          </div>
+
+          {/* Era filter */}
           <div className="flex items-center gap-0 mb-8 overflow-x-auto pb-2">
             <button onClick={() => setEra('ALL')}
               className={`text-xs px-3 py-1.5 rounded-l-full border transition-all whitespace-nowrap ${
@@ -116,7 +150,7 @@ export default function MathematiciansPage() {
           <p className="text-xs text-white/25 font-mono mb-5">{filtered.length} mathematician{filtered.length!==1?'s':''}</p>
 
           <div className="grid md:grid-cols-2 gap-4">
-            {filtered.map(m => <MathCard key={m.id} m={m} />)}
+            {filtered.map(m => <MathCard key={m.id} m={m} highlighted={highlightedId === m.id} />)}
           </div>
 
           {filtered.length === 0 && (

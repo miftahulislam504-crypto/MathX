@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { StatsRow } from '@/components/dashboard/StatsRow'
 import { ActivityHeatmap } from '@/components/dashboard/ActivityHeatmap'
 import { BranchMasteryChart } from '@/components/dashboard/BranchMasteryChart'
+import { SkillGraph } from '@/components/dashboard/SkillGraph'
 import { AchievementsGrid } from '@/components/dashboard/AchievementsGrid'
 import { RecentTopics } from '@/components/dashboard/RecentTopics'
 import { ACHIEVEMENTS } from '@/lib/data/achievements'
@@ -13,7 +14,7 @@ import {
   computeAnalytics, updateStreak, TopicProgress,
 } from '@/lib/data/user-progress'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { BookOpen, Pencil, LineChart, Bot, FlaskConical, Wrench, Flame, Beaker, Award, Shapes, type LucideIcon } from 'lucide-react'
+import { BookOpen, Pencil, LineChart, Bot, FlaskConical, Wrench, Flame, Beaker, Award, Shapes, Grid3x3, Percent, Boxes, TestTubes, PiggyBank, Wand2, Compass, Sparkles, type LucideIcon } from 'lucide-react'
 
 type Tab = 'overview' | 'achievements' | 'progress'
 
@@ -32,10 +33,18 @@ export default function DashboardPage() {
     { icon:Pencil, label:tt(t.dashboard.practiceProblems), href:'/practice', color:'border-cyan-500/20 bg-cyan-500/8 hover:bg-cyan-500/15' },
     { icon:LineChart,  label:tt(t.dashboard.visualizer),        href:'/visualize',color:'border-amber-500/20 bg-amber-500/8 hover:bg-amber-500/15' },
     { icon:Bot, label:tt(t.dashboard.aiTutor),          href:'/ai-tutor', color:'border-emerald-500/20 bg-emerald-500/8 hover:bg-emerald-500/15' },
+    { icon:Wand2, label:tt(t.dashboard.aiProblemSolverNav), href:'/ai-problem-solver', color:'border-violet-500/20 bg-violet-500/8 hover:bg-violet-500/15' },
     { icon:FlaskConical, label:tt(t.dashboard.mathLab),          href:'/lab',      color:'border-rose-500/20 bg-rose-500/8 hover:bg-rose-500/15' },
     { icon:Beaker, label:tt(t.dashboard.experimentCenter),  href:'/experiments', color:'border-lime-500/20 bg-lime-500/8 hover:bg-lime-500/15' },
     { icon:Award, label:tt(t.dashboard.assessmentSystem),  href:'/assessment', color:'border-amber-500/20 bg-amber-500/8 hover:bg-amber-500/15' },
     { icon:Shapes, label:tt(t.dashboard.geometryCenterNav), href:'/geometry-center', color:'border-violet-500/20 bg-violet-500/8 hover:bg-violet-500/15' },
+    { icon:Grid3x3, label:tt(t.dashboard.linearAlgebraCenterNav), href:'/linear-algebra-center', color:'border-cyan-500/20 bg-cyan-500/8 hover:bg-cyan-500/15' },
+    { icon:Percent, label:tt(t.dashboard.probabilityCenterNav), href:'/probability-center', color:'border-fuchsia-500/20 bg-fuchsia-500/8 hover:bg-fuchsia-500/15' },
+    { icon:Boxes, label:tt(t.dashboard.modelingCenterNav), href:'/modeling-center', color:'border-amber-500/20 bg-amber-500/8 hover:bg-amber-500/15' },
+    { icon:TestTubes, label:tt(t.dashboard.appliedMathLabNav), href:'/applied-math-lab', color:'border-orange-500/20 bg-orange-500/8 hover:bg-orange-500/15' },
+    { icon:PiggyBank, label:tt(t.dashboard.realLifeNav), href:'/real-life', color:'border-amber-500/20 bg-amber-500/8 hover:bg-amber-500/15' },
+    { icon:Compass, label:tt(t.dashboard.careerPathNav), href:'/career-path', color:'border-cyan-500/20 bg-cyan-500/8 hover:bg-cyan-500/15' },
+    { icon:Sparkles, label:tt(t.dashboard.experienceZoneNav), href:'/experience-zone', color:'border-violet-500/20 bg-violet-500/8 hover:bg-violet-500/15' },
     { icon:Wrench, label:tt(t.dashboard.tools),             href:'/tools',    color:'border-sky-500/20 bg-sky-500/8 hover:bg-sky-500/15' },
   ]
 
@@ -171,7 +180,10 @@ export default function DashboardPage() {
           {/* ── Progress ── */}
           {tab === 'progress' && (
             <div className="space-y-6">
-              <BranchMasteryChart data={branchMastery} />
+              <div className="grid lg:grid-cols-2 gap-6">
+                <BranchMasteryChart data={branchMastery} />
+                <SkillGraph data={branchMastery} />
+              </div>
               <div>
                 <h3 className="text-sm font-semibold text-white/60 uppercase tracking-wider font-mono mb-4">
                   {tt(t.dashboard.allStudiedTopics)}

@@ -1,3 +1,8 @@
+export interface Publication {
+  title: string
+  year: string
+}
+
 export interface Mathematician {
   id: string
   name: string
@@ -11,6 +16,7 @@ export interface Mathematician {
   famousFor: string
   quote?: string
   wikiSlug: string
+  publications: Publication[]
 }
 
 export const MATHEMATICIANS: Mathematician[] = [
@@ -30,6 +36,13 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Elements — 13 books defining geometry for 2000 years',
     quote: '"The laws of nature are but the mathematical thoughts of God."',
     wikiSlug: 'Euclid',
+    publications: [
+      { title: 'Elements (13 books)', year: '~300 BCE' },
+      { title: 'Data', year: '~300 BCE' },
+      { title: 'Optics', year: '~300 BCE' },
+      { title: 'Phaenomena', year: '~300 BCE' },
+      { title: 'On Divisions of Figures', year: '~300 BCE' },
+    ],
   },
   {
     id: 'archimedes',
@@ -48,6 +61,14 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Approximating π and inventing mechanical devices',
     quote: '"Give me a lever long enough and a fulcrum on which to place it, and I shall move the world."',
     wikiSlug: 'Archimedes',
+    publications: [
+      { title: 'On the Sphere and Cylinder', year: '~225 BCE' },
+      { title: 'Measurement of a Circle', year: '~250 BCE' },
+      { title: 'On Spirals', year: '~225 BCE' },
+      { title: 'The Method of Mechanical Theorems', year: '~250 BCE' },
+      { title: 'The Sand Reckoner', year: '~216 BCE' },
+      { title: 'On Floating Bodies', year: '~250 BCE' },
+    ],
   },
   {
     id: 'al-khwarizmi',
@@ -64,6 +85,12 @@ export const MATHEMATICIANS: Mathematician[] = [
     ],
     famousFor: 'Father of Algebra — al-jabr gave us "algebra"',
     wikiSlug: 'Muhammad_ibn_Musa_al-Khwarizmi',
+    publications: [
+      { title: 'Al-Kitāb al-mukhtaṣar fī ḥisāb al-jabr wa-l-muqābala', year: '~820 CE' },
+      { title: "Kitāb al-Jam'a wal-Tafriq bi'l-Hisab al-Hindi (On Hindu Arithmetic)", year: '~825 CE' },
+      { title: 'Zīj al-Sindhind (astronomical tables)', year: '~820 CE' },
+      { title: 'Kitāb Ṣūrat al-Arḍ (Geography)', year: '833 CE' },
+    ],
   },
   {
     id: 'fibonacci',
@@ -80,6 +107,12 @@ export const MATHEMATICIANS: Mathematician[] = [
     ],
     famousFor: 'Fibonacci sequence and introducing Arabic numerals to Europe',
     wikiSlug: 'Fibonacci',
+    publications: [
+      { title: 'Liber Abaci (Book of Calculation)', year: '1202 (rev. 1228)' },
+      { title: 'Practica Geometriae', year: '1220' },
+      { title: 'Liber Quadratorum (Book of Squares)', year: '1225' },
+      { title: 'Flos', year: '1225' },
+    ],
   },
   {
     id: 'newton',
@@ -98,6 +131,12 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Co-inventor of calculus and laws of gravity',
     quote: '"If I have seen further, it is by standing on the shoulders of giants."',
     wikiSlug: 'Isaac_Newton',
+    publications: [
+      { title: 'Philosophiæ Naturalis Principia Mathematica', year: '1687' },
+      { title: 'Opticks', year: '1704' },
+      { title: 'Arithmetica Universalis', year: '1707' },
+      { title: 'Method of Fluxions (written earlier, published posthumously)', year: '1736' },
+    ],
   },
   {
     id: 'leibniz',
@@ -115,6 +154,11 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Calculus notation (∫, d/dx) still used today',
     quote: '"Music is the hidden arithmetic exercise of the soul."',
     wikiSlug: 'Gottfried_Wilhelm_Leibniz',
+    publications: [
+      { title: 'Nova Methodus pro Maximis et Minimis (first published calculus paper)', year: '1684' },
+      { title: 'De Geometria Recondita', year: '1686' },
+      { title: 'Supplementum Geometriae Dimensoriae', year: '1693' },
+    ],
   },
   {
     id: 'euler',
@@ -134,6 +178,12 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Most prolific mathematician in history — 886 publications',
     quote: '"Mathematics is the gate and key to all sciences."',
     wikiSlug: 'Leonhard_Euler',
+    publications: [
+      { title: 'Introductio in Analysin Infinitorum', year: '1748' },
+      { title: 'Institutiones Calculi Differentialis', year: '1755' },
+      { title: 'Institutionum Calculi Integralis (3 volumes)', year: '1768–70' },
+      { title: 'Methodus Inveniendi Lineas Curvas', year: '1744' },
+    ],
   },
   {
     id: 'gauss',
@@ -153,6 +203,11 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Prince of Mathematics — contributions span nearly all fields',
     quote: '"Mathematics is the queen of the sciences."',
     wikiSlug: 'Carl_Friedrich_Gauss',
+    publications: [
+      { title: 'Disquisitiones Arithmeticae', year: '1801' },
+      { title: 'Theoria Motus Corporum Coelestium', year: '1809' },
+      { title: 'Disquisitiones Generales circa Superficies Curvas', year: '1827' },
+    ],
   },
   {
     id: 'ramanujan',
@@ -171,6 +226,11 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Self-taught genius who discovered theorems no one had proven before',
     quote: '"An equation for me has no meaning unless it expresses a thought of God."',
     wikiSlug: 'Srinivasa_Ramanujan',
+    publications: [
+      { title: "Some Properties of Bernoulli's Numbers (first paper)", year: '1911' },
+      { title: 'Highly Composite Numbers (his longest, most famous paper)', year: '1915' },
+      { title: '37 papers total, plus 3 notebooks of ~3900 unpublished results', year: '1911–1920' },
+    ],
   },
   {
     id: 'noether',
@@ -188,6 +248,11 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: "Noether's theorem — cornerstone of modern physics",
     quote: '"My methods are working methods."',
     wikiSlug: 'Emmy_Noether',
+    publications: [
+      { title: 'Invariante Variationsprobleme (Noether\u2019s theorem)', year: '1918' },
+      { title: 'Idealtheorie in Ringbereichen (Theory of Ideals in Ring Domains)', year: '1921' },
+      { title: 'Abstrakter Aufbau der Idealtheorie', year: '1927' },
+    ],
   },
   {
     id: 'turing',
@@ -206,6 +271,11 @@ export const MATHEMATICIANS: Mathematician[] = [
     famousFor: 'Father of computer science and artificial intelligence',
     quote: '"We can only see a short distance ahead, but we can see plenty there that needs to be done."',
     wikiSlug: 'Alan_Turing',
+    publications: [
+      { title: 'On Computable Numbers, with an Application to the Entscheidungsproblem', year: '1936' },
+      { title: 'Computing Machinery and Intelligence (introduces the Turing Test)', year: '1950' },
+      { title: 'The Chemical Basis of Morphogenesis', year: '1952' },
+    ],
   },
   {
     id: 'riemann',
@@ -223,6 +293,12 @@ export const MATHEMATICIANS: Mathematician[] = [
     ],
     famousFor: 'Riemann hypothesis and non-Euclidean geometry used in Einstein\'s relativity',
     wikiSlug: 'Bernhard_Riemann',
+    publications: [
+      { title: 'Grundlagen für eine allgemeine Theorie der Funktionen (doctoral thesis)', year: '1851' },
+      { title: 'Über die Hypothesen, welche der Geometrie zu Grunde liegen', year: '1854 (pub. 1867)' },
+      { title: 'Über die Anzahl der Primzahlen unter einer gegebenen Grösse (Riemann Hypothesis)', year: '1859' },
+      { title: 'Theorie der Abel\u2019schen Functionen', year: '1857' },
+    ],
   },
 ]
 

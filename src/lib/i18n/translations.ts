@@ -43,6 +43,7 @@ export const t = {
     getStartedFree: { en: 'Get Started Free →', bn: 'বিনামূল্যে শুরু করুন →' },
     dashboard: { en: 'Dashboard', bn: 'ড্যাশবোর্ড' },
     aiTutor: { en: 'AI Tutor', bn: 'এআই টিউটর' },
+    aiProblemSolverNav: { en: 'AI Problem Solver', bn: 'এআই সমস্যা সমাধানকারী' },
     clearChat: { en: 'Clear conversation', bn: 'কথোপকথন মুছুন' },
     clear: { en: 'Clear', bn: 'মুছুন' },
     send: { en: 'Send', bn: 'পাঠান' },
@@ -77,10 +78,18 @@ export const t = {
     experimentCenter: { en: 'Experiment Center', bn: 'পরীক্ষা কেন্দ্র' },
     assessmentSystem: { en: 'Assessment System', bn: 'মূল্যায়ন ব্যবস্থা' },
     geometryCenterNav: { en: 'Geometry Center', bn: 'জ্যামিতি কেন্দ্র' },
+    linearAlgebraCenterNav: { en: 'Linear Algebra Center', bn: 'রৈখিক বীজগণিত কেন্দ্র' },
+    probabilityCenterNav: { en: 'Probability Center', bn: 'সম্ভাবনা কেন্দ্র' },
+    modelingCenterNav: { en: 'Modeling Center', bn: 'মডেলিং কেন্দ্র' },
+    appliedMathLabNav: { en: 'Applied Math Lab', bn: 'ফলিত গণিত ল্যাব' },
+    realLifeNav: { en: 'Math in Real Life', bn: 'দৈনন্দিন জীবনে গণিত' },
+    careerPathNav: { en: 'Career \u0026 Academic Path', bn: 'ক্যারিয়ার ও একাডেমিক পথ' },
+    experienceZoneNav: { en: 'Experience Zone', bn: 'অভিজ্ঞতা অঞ্চল' },
     tools:         { en: 'Tools',          bn: 'সরঞ্জাম' },
     games:         { en: 'Games',          bn: 'গেমস' },
     puzzles:       { en: 'Puzzles',        bn: 'ধাঁধা' },
     aiTutor:       { en: 'AI Tutor',       bn: 'এআই টিউটর' },
+    aiProblemSolverNav: { en: 'AI Problem Solver', bn: 'এআই সমস্যা সমাধানকারী' },
     encyclopedia:  { en: 'Encyclopedia',   bn: 'বিশ্বকোষ' },
     formulaLibrary:{ en: 'Formula Library',bn: 'সূত্র লাইব্রেরি' },
     theoremLibrary:{ en: 'Theorem Library',bn: 'উপপাদ্য লাইব্রেরি' },
@@ -159,10 +168,18 @@ export const t = {
     practiceProblems:  { en: 'Practice Problems',     bn: 'সমস্যা অনুশীলন' },
     visualizer:        { en: 'Visualizer',            bn: 'ভিজ্যুয়ালাইজার' },
     aiTutor:           { en: 'AI Tutor',              bn: 'এআই টিউটর' },
+    aiProblemSolverNav: { en: 'AI Problem Solver', bn: 'এআই সমস্যা সমাধানকারী' },
     mathLab:           { en: 'Math Lab',              bn: 'গণিত ল্যাব' },
     experimentCenter:  { en: 'Experiment Center',      bn: 'পরীক্ষা কেন্দ্র' },
     assessmentSystem:  { en: 'Assessment System',      bn: 'মূল্যায়ন ব্যবস্থা' },
     geometryCenterNav: { en: 'Geometry Center',        bn: 'জ্যামিতি কেন্দ্র' },
+    linearAlgebraCenterNav: { en: 'Linear Algebra Center', bn: 'রৈখিক বীজগণিত কেন্দ্র' },
+    probabilityCenterNav: { en: 'Probability Center', bn: 'সম্ভাবনা কেন্দ্র' },
+    modelingCenterNav: { en: 'Modeling Center', bn: 'মডেলিং কেন্দ্র' },
+    appliedMathLabNav: { en: 'Applied Math Lab', bn: 'ফলিত গণিত ল্যাব' },
+    realLifeNav: { en: 'Math in Real Life', bn: 'দৈনন্দিন জীবনে গণিত' },
+    careerPathNav: { en: 'Career \u0026 Academic Path', bn: 'ক্যারিয়ার ও একাডেমিক পথ' },
+    experienceZoneNav: { en: 'Experience Zone', bn: 'অভিজ্ঞতা অঞ্চল' },
     tools:             { en: 'Tools',                 bn: 'সরঞ্জাম' },
   },
 
@@ -243,6 +260,20 @@ export const t = {
       p4: { en: 'Prove the Pythagorean theorem', bn: 'পিথাগোরাসের উপপাদ্য প্রমাণ করুন' },
       p5: { en: 'What are the applications of calculus?', bn: 'ক্যালকুলাসের প্রয়োগগুলো কী?' },
     },
+  },
+
+  // ── AI Problem Solver ────────────────────────────────────────────────────────
+  aiProblemSolver: {
+    tag:      { en: '// AI Problem Solver', bn: '// এআই সমস্যা সমাধানকারী' },
+    title:    { en: 'AI Problem Solver',    bn: 'এআই সমস্যা সমাধানকারী' },
+    subtitle: { en: 'Paste any math problem — get a step-by-step solution.', bn: 'যেকোনো গণিত সমস্যা পেস্ট করুন — ধাপে ধাপে সমাধান পান।' },
+    placeholder: { en: 'Type or paste your problem here… e.g. "Find the derivative of x³sin(x)"', bn: 'আপনার সমস্যা এখানে লিখুন বা পেস্ট করুন… যেমন "x³sin(x)-এর ডেরিভেটিভ খুঁজুন"' },
+    solveButton: { en: 'Solve Step-by-Step', bn: 'ধাপে ধাপে সমাধান করুন' },
+    solving:  { en: 'Solving…', bn: 'সমাধান করা হচ্ছে…' },
+    solutionLabel: { en: 'Solution', bn: 'সমাধান' },
+    example1: { en: 'Solve 2x² + 5x − 3 = 0', bn: '2x² + 5x − 3 = 0 সমাধান করুন' },
+    example2: { en: 'Find the derivative of x³sin(x)', bn: 'x³sin(x)-এর ডেরিভেটিভ খুঁজুন' },
+    example3: { en: 'Integrate ∫ x·e^x dx', bn: '∫ x·e^x dx ইন্টিগ্রেট করুন' },
   },
 
   // ── Practice ─────────────────────────────────────────────────────────────
@@ -474,6 +505,7 @@ export const t = {
     tag:      { en: '// Knowledge Map',                  bn: '// জ্ঞান মানচিত্র' },
     title:    { en: 'Mathematics Knowledge Map',          bn: 'গণিত জ্ঞান মানচিত্র' },
     subtitle: { en: 'Visualize how every topic connects — from school to advanced research', bn: 'প্রতিটি বিষয় কিভাবে সংযুক্ত তা দেখুন — স্কুল থেকে উচ্চতর গবেষণা পর্যন্ত' },
+    knowledgeGraphTitle: { en: 'Interactive Knowledge Graph — Branch Dependencies', bn: 'ইন্টারেক্টিভ জ্ঞান গ্রাফ — শাখার নির্ভরতা' },
     levelLegend: { en: 'Level Legend', bn: 'স্তরের কিংবদন্তি' },
     branchHeader: { en: 'Branch', bn: 'শাখা' },
     allBranches: { en: 'All Branches', bn: 'সব শাখা' },
@@ -586,6 +618,7 @@ export const t = {
     subtitle: { en: 'Interactive visualizations for probability distributions and statistical concepts.', bn: 'সম্ভাবনা বণ্টন এবং পরিসংখ্যান ধারণার জন্য ইন্টারেক্টিভ ভিজ্যুয়ালাইজেশন।' },
     distribution: { en: 'Distributions',     bn: 'বণ্টন সমূহ' },
     regression:   { en: 'Regression',         bn: 'রিগ্রেশন' },
+    hypothesisTesting: { en: 'Hypothesis Testing', bn: 'অনুকল্প পরীক্ষণ' },
   },
   // ── Tools ────────────────────────────────────────────────────────────────
   tools: {
@@ -643,6 +676,94 @@ export const t = {
     geometryViewer3dDesc: { en: 'Build custom polyhedra with adjustable parameters — see surface area and volume update live.', bn: 'সামঞ্জস্যযোগ্য প্যারামিটার সহ কাস্টম পলিহেড্রন তৈরি করুন — পৃষ্ঠতল ও আয়তন লাইভ দেখুন।' },
   },
 
+  // ── Linear Algebra Center ────────────────────────────────────────────────────
+  linearAlgebraCenter: {
+    tag:      { en: '// Linear Algebra Center', bn: '// রৈখিক বীজগণিত কেন্দ্র' },
+    title:    { en: 'Linear Algebra Center',    bn: 'রৈখিক বীজগণিত কেন্দ্র' },
+    subtitle: { en: 'Vectors, matrices, systems, spaces, eigenvalues, and transformations — all interactive.', bn: 'ভেক্টর, ম্যাট্রিক্স, সমীকরণ তন্ত্র, স্থান, স্বমান এবং রূপান্তর — সবই ইন্টারেক্টিভ।' },
+    vectorOperations:     { en: 'Vector Operations', bn: 'ভেক্টর ক্রিয়া' },
+    vectorOperationsDesc: { en: 'Addition, scalar multiplication, dot product, and cross product — drag vectors and see the geometry live.', bn: 'যোগ, স্কেলার গুণ, ডট গুণফল এবং ক্রস গুণফল — ভেক্টর টেনে সরাসরি জ্যামিতি দেখুন।' },
+    matrixOperations:     { en: 'Matrix Operations Explorer', bn: 'ম্যাট্রিক্স ক্রিয়া এক্সপ্লোরার' },
+    matrixOperationsDesc: { en: 'See how a matrix acts on the whole plane — addition, multiplication, and composition, geometrically.', bn: 'একটি ম্যাট্রিক্স সমগ্র সমতলে কীভাবে কাজ করে দেখুন — যোগ, গুণ এবং সমন্বয়, জ্যামিতিকভাবে।' },
+    systemSolver:     { en: 'System Solver — Gaussian Elimination', bn: 'সমীকরণ তন্ত্র সমাধান — গাউসীয় বর্জন' },
+    systemSolverDesc: { en: 'Step through row reduction on a system of linear equations, one operation at a time.', bn: 'একটি রৈখিক সমীকরণ তন্ত্রে সারি হ্রাসের ধাপ দেখুন, একবারে একটি ক্রিয়া।' },
+    vectorSpaceExplorer:     { en: 'Vector Space \u0026 Basis Explorer', bn: 'ভেক্টর স্থান ও ভিত্তি এক্সপ্লোরার' },
+    vectorSpaceExplorerDesc: { en: 'Explore span, linear independence, and basis by combining vectors with adjustable weights.', bn: 'সামঞ্জস্যযোগ্য ওজন দিয়ে ভেক্টর মিশিয়ে বিস্তার, রৈখিক স্বাধীনতা এবং ভিত্তি অন্বেষণ করুন।' },
+    eigenvalueExplorer:     { en: 'Eigenvalue Explorer', bn: 'স্বমান এক্সপ্লোরার' },
+    eigenvalueExplorerDesc: { en: 'Find eigenvalues and eigenvectors for 2×2 and 3×3 matrices, with the invariant directions shown visually.', bn: '2×2 এবং 3×3 ম্যাট্রিক্সের জন্য স্বমান ও স্বভেক্টর খুঁজুন, অপরিবর্তনীয় দিকগুলো দৃশ্যত দেখানো সহ।' },
+    transformationVisualizer:     { en: 'Transformation Visualizer', bn: 'রূপান্তর ভিজ্যুয়ালাইজার' },
+    transformationVisualizerDesc: { en: 'Rotate, scale, shear, and reflect a grid — watch how a matrix reshapes the whole plane.', bn: 'একটি গ্রিড ঘোরান, স্কেল করুন, ছেঁটে দিন এবং প্রতিফলিত করুন — একটি ম্যাট্রিক্স কীভাবে সমগ্র সমতল রূপান্তর করে দেখুন।' },
+  },
+
+  // ── Probability Center ───────────────────────────────────────────────────────
+  probabilityCenter: {
+    tag:      { en: '// Probability Center', bn: '// সম্ভাবনা কেন্দ্র' },
+    title:    { en: 'Probability Center',    bn: 'সম্ভাবনা কেন্দ্র' },
+    subtitle: { en: 'Bayesian reasoning, random variables, and stochastic processes — all interactive.', bn: 'বেইজীয় যুক্তি, দৈব চলক এবং সম্ভাবনাত্মক প্রক্রিয়া — সবই ইন্টারেক্টিভ।' },
+    bayesianProbability:     { en: 'Bayesian Probability', bn: 'বেইজীয় সম্ভাবনা' },
+    bayesianProbabilityDesc: { en: 'Update beliefs with evidence — a medical-test scenario and a general Bayes\u2019 theorem calculator.', bn: 'প্রমাণ দিয়ে বিশ্বাস আপডেট করুন — একটি medical-test দৃশ্যকল্প এবং একটি সাধারণ বেইজ উপপাদ্য ক্যালকুলেটর।' },
+    randomVariables:     { en: 'Random Variables', bn: 'দৈব চলক' },
+    randomVariablesDesc: { en: 'Build a discrete random variable from outcomes and weights — see its PMF, E[X], and variance live.', bn: 'ফলাফল ও ওজন থেকে একটি বিচ্ছিন্ন দৈব চলক তৈরি করুন — এর PMF, E[X] এবং variance লাইভ দেখুন।' },
+    stochasticProcesses:     { en: 'Stochastic Processes', bn: 'সম্ভাবনাত্মক প্রক্রিয়া' },
+    stochasticProcessesDesc: { en: 'Explore Markov chains — run a random walk and watch it converge to the stationary distribution.', bn: 'মার্কভ চেইন অন্বেষণ করুন — একটি দৈব চলাচল চালান এবং এটি স্থিতিশীল বণ্টনে অভিসৃত হতে দেখুন।' },
+  },
+
+  // ── Modeling Center ──────────────────────────────────────────────────────────
+  modelingCenter: {
+    tag:      { en: '// Mathematical Modeling Center', bn: '// গাণিতিক মডেলিং কেন্দ্র' },
+    title:    { en: 'Mathematical Modeling Center',    bn: 'গাণিতিক মডেলিং কেন্দ্র' },
+    subtitle: { en: 'Real-world systems, modeled with equations you can adjust and watch play out.', bn: 'বাস্তব-জগতের সিস্টেম, সমীকরণ দিয়ে মডেল করা যা আপনি সামঞ্জস্য করে ফলাফল দেখতে পারেন।' },
+    trafficModels:     { en: 'Traffic Models', bn: 'ট্রাফিক মডেল' },
+    trafficModelsDesc: { en: 'The Greenshields flow model — see how density, speed, and traffic flow relate, and why congestion cuts total throughput.', bn: 'গ্রিনশিল্ডস ফ্লো মডেল — ঘনত্ব, গতি এবং ট্রাফিক প্রবাহ কীভাবে সম্পর্কিত এবং কেন যানজট মোট থ্রুপুট কমায় তা দেখুন।' },
+    economicModels:     { en: 'Economic Models', bn: 'অর্থনৈতিক মডেল' },
+    economicModelsDesc: { en: 'Supply-demand equilibrium and compound growth — two foundational models for how markets and money behave.', bn: 'সরবরাহ-চাহিদা ভারসাম্য এবং চক্রবৃদ্ধি প্রবৃদ্ধি — বাজার ও অর্থ কীভাবে আচরণ করে তার দুটি মৌলিক মডেল।' },
+    engineeringModels:     { en: 'Engineering Models', bn: 'প্রকৌশল মডেল' },
+    engineeringModelsDesc: { en: 'A spring-mass-damper system — the equation behind car suspensions and earthquake dampers.', bn: 'একটি স্প্রিং-ভর-স্যাঁতসেঁতে সিস্টেম — গাড়ির সাসপেনশন এবং ভূমিকম্প ড্যাম্পারের পেছনের সমীকরণ।' },
+    environmentalModels:     { en: 'Environmental Models', bn: 'পরিবেশগত মডেল' },
+    environmentalModelsDesc: { en: 'A pollutant-accumulation reservoir model — see how emission and absorption rates settle at an equilibrium concentration.', bn: 'একটি দূষক-সঞ্চয় জলাধার মডেল — নির্গমন ও শোষণ হার কীভাবে একটি ভারসাম্য ঘনত্বে স্থির হয় তা দেখুন।' },
+  },
+
+  // ── Applied Math Lab ─────────────────────────────────────────────────────────
+  appliedMathLab: {
+    tag:      { en: '// Applied Mathematics Lab', bn: '// ফলিত গণিত ল্যাব' },
+    title:    { en: 'Applied Mathematics Lab',    bn: 'ফলিত গণিত ল্যাব' },
+    subtitle: { en: 'Hands-on tools for computational, data-science, and AI mathematics.', bn: 'গণনামূলক, ডেটা-বিজ্ঞান এবং AI গণিতের জন্য হাতে-কলমে টুলস।' },
+    computationalMath:     { en: 'Computational Mathematics', bn: 'গণনামূলক গণিত' },
+    computationalMathDesc: { en: 'Compare Bisection and Newton-Raphson root-finding — see why one converges so much faster.', bn: 'দ্বিভাজন এবং নিউটন-র‍্যাফসন রুট-ফাইন্ডিং তুলনা করুন — দেখুন কেন একটি এত দ্রুত অভিসৃত হয়।' },
+    dataScienceMath:     { en: 'Data Science Mathematics', bn: 'ডেটা বিজ্ঞান গণিত' },
+    dataScienceMathDesc: { en: 'K-means clustering — add your own points and watch centroids converge, minimizing total variance.', bn: 'K-means clustering — নিজের বিন্দু যোগ করুন এবং কেন্দ্রবিন্দু কীভাবে অভিসৃত হয়ে মোট variance কমায় তা দেখুন।' },
+    aiMath:     { en: 'AI Mathematics', bn: 'AI গণিত' },
+    aiMathDesc: { en: 'A tiny neural network — watch forward propagation compute an output and backpropagation update every weight.', bn: 'একটি ছোট নিউরাল নেটওয়ার্ক — forward propagation কীভাবে output গণনা করে এবং backpropagation প্রতিটি weight আপডেট করে দেখুন।' },
+  },
+
+  // ── Mathematics in Real Life ─────────────────────────────────────────────────
+  realLife: {
+    tag:      { en: '// Mathematics in Real Life', bn: '// দৈনন্দিন জীবনে গণিত' },
+    title:    { en: 'Mathematics in Real Life',    bn: 'দৈনন্দিন জীবনে গণিত' },
+    subtitle: { en: 'The math hiding in cooking, shopping, sports, and travel — no classroom required.', bn: 'রান্না, কেনাকাটা, খেলাধুলা এবং ভ্রমণে লুকিয়ে থাকা গণিত — কোনো ক্লাসরুম দরকার নেই।' },
+    calculatorTitle:    { en: 'Try It Yourself: Everyday Money Calculator', bn: 'নিজে চেষ্টা করুন: দৈনন্দিন অর্থ ক্যালকুলেটর' },
+    calculatorSubtitle: { en: 'Loan EMI, discount stacking, unit price comparison, and tip splitting — all in one tool.', bn: 'ঋণ EMI, ছাড় স্তুপীকরণ, একক মূল্য তুলনা এবং টিপ ভাগ করা — সব একটি টুলে।' },
+  },
+
+  // ── Career & Academic Path ───────────────────────────────────────────────────
+  careerPath: {
+    tag:      { en: '// Career \u0026 Academic Path', bn: '// ক্যারিয়ার ও একাডেমিক পথ' },
+    title:    { en: 'Career \u0026 Academic Path',    bn: 'ক্যারিয়ার ও একাডেমিক পথ' },
+    subtitle: { en: 'Where math can take you, and how to plan the road there.', bn: 'গণিত আপনাকে কোথায় নিয়ে যেতে পারে, এবং সেই পথের পরিকল্পনা কীভাবে করবেন।' },
+    careersTitle: { en: 'Mathematics Careers', bn: 'গণিত ক্যারিয়ার' },
+    mathYouNeed:  { en: 'Math you\u2019ll need', bn: 'যে গণিত প্রয়োজন হবে' },
+    roadmapTitle: { en: 'Academic Roadmap', bn: 'একাডেমিক রোডম্যাপ' },
+    disclaimer: { en: 'Admission requirements and dates change yearly — always verify current details on official university admission portals.', bn: 'ভর্তির প্রয়োজনীয়তা এবং তারিখ প্রতি বছর পরিবর্তিত হয় — সবসময় বিশ্ববিদ্যালয়ের সরকারি ভর্তি পোর্টালে বর্তমান বিবরণ যাচাই করুন।' },
+  },
+
+  // ── Experience Zone ──────────────────────────────────────────────────────────
+  experienceZone: {
+    tag:      { en: '// Experience Zone', bn: '// অভিজ্ঞতা অঞ্চল' },
+    title:    { en: 'Experience Zone',    bn: 'অভিজ্ঞতা অঞ্চল' },
+    subtitle: { en: 'Explore mathematics as spectacle \u2014 immersive, exploratory, and built to look around, not just calculate.', bn: 'গণিতকে দর্শনীয় বস্তু হিসেবে অন্বেষণ করুন — নিমগ্ন, অনুসন্ধানমূলক, শুধু গণনার জন্য না, চারপাশ দেখার জন্য তৈরি।' },
+    museumTitle: { en: 'Geometry Museum', bn: 'জ্যামিতি জাদুঘর' },
+  },
+
   // ── Footer ────────────────────────────────────────────────────────────────
   footer: {
     learnSection: { en: 'Learn', bn: 'শিখুন' },
@@ -659,6 +780,13 @@ export const t = {
     experimentCenter: { en: 'Experiment Center', bn: 'পরীক্ষা কেন্দ্র' },
     assessmentSystem: { en: 'Assessment System', bn: 'মূল্যায়ন ব্যবস্থা' },
     geometryCenterNav: { en: 'Geometry Center', bn: 'জ্যামিতি কেন্দ্র' },
+    linearAlgebraCenterNav: { en: 'Linear Algebra Center', bn: 'রৈখিক বীজগণিত কেন্দ্র' },
+    probabilityCenterNav: { en: 'Probability Center', bn: 'সম্ভাবনা কেন্দ্র' },
+    modelingCenterNav: { en: 'Modeling Center', bn: 'মডেলিং কেন্দ্র' },
+    appliedMathLabNav: { en: 'Applied Math Lab', bn: 'ফলিত গণিত ল্যাব' },
+    realLifeNav: { en: 'Math in Real Life', bn: 'দৈনন্দিন জীবনে গণিত' },
+    careerPathNav: { en: 'Career \u0026 Academic Path', bn: 'ক্যারিয়ার ও একাডেমিক পথ' },
+    experienceZoneNav: { en: 'Experience Zone', bn: 'অভিজ্ঞতা অঞ্চল' },
     statistics:     { en: 'Statistics',         bn: 'পরিসংখ্যান' },
     appliedMath:    { en: 'Applied Math',       bn: 'ফলিত গণিত' },
     knowledgeMap:   { en: 'Knowledge Map',      bn: 'জ্ঞান মানচিত্র' },
@@ -673,6 +801,7 @@ export const t = {
     mathGames:      { en: 'Math Games',         bn: 'গণিত গেমস' },
     mathPuzzles:    { en: 'Math Puzzles',       bn: 'গণিত ধাঁধা' },
     aiTutor:        { en: 'AI Tutor',           bn: 'এআই টিউটর' },
+    aiProblemSolverNav: { en: 'AI Problem Solver', bn: 'এআই সমস্যা সমাধানকারী' },
     community:      { en: 'Community',          bn: 'কমিউনিটি' },
     tagline:        { en: 'Learn. Explore.\nExperience Mathematics.', bn: 'শিখুন। আবিষ্কার করুন।\nগণিত অনুভব করুন।' },
     builtFor:       { en: 'Built for learners, by learners.', bn: 'শিক্ষার্থীদের জন্য, শিক্ষার্থীদের দ্বারা তৈরি।' },

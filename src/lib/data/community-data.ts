@@ -26,6 +26,40 @@ export interface StudyGroup {
   icon: string
 }
 
+export interface GroupMessage {
+  id: string
+  author: string
+  avatar: string
+  timeAgo: string
+  body: string
+}
+
+export const GROUP_MESSAGES: Record<string, GroupMessage[]> = {
+  sg1: [
+    { id:'gm1', author:'Priya', avatar:'P', timeAgo:'1h ago', body:"Did anyone finish the related rates problems from chapter 3? #14 is giving me trouble." },
+    { id:'gm2', author:'Sam', avatar:'S', timeAgo:'45m ago', body:"Yeah #14 — draw the right triangle first, then differentiate both sides w.r.t. t. I can share my work tonight." },
+    { id:'gm3', author:'Priya', avatar:'P', timeAgo:'30m ago', body:"That would help a lot, thank you!" },
+  ],
+  sg2: [
+    { id:'gm4', author:'Arjun', avatar:'A', timeAgo:'3h ago', body:"This week's mock paper is posted in the shared folder. Let's discuss problem 5 (the combinatorics one) on Saturday." },
+    { id:'gm5', author:'Lin', avatar:'L', timeAgo:'2h ago', body:"I got a different bound for problem 5 — will bring my approach Saturday." },
+  ],
+  sg3: [
+    { id:'gm6', author:'DeShawn', avatar:'D', timeAgo:'5h ago', body:"Lecture 12 (eigenvalues) notes are up. The proof at 24:00 uses a trick we haven't seen before — worth reviewing before Wednesday." },
+    { id:'gm7', author:'Mira', avatar:'M', timeAgo:'1h ago', body:"Agreed, that trick (using the characteristic polynomial's trace) comes up again in lecture 15 too." },
+  ],
+  sg4: [
+    { id:'gm8', author:'Youssef', avatar:'Y', timeAgo:'1d ago', body:"Found a cleaner proof of quadratic reciprocity using Eisenstein's lattice-point counting — sharing my notes Friday." },
+  ],
+  sg5: [
+    { id:'gm9', author:'Aisha', avatar:'A', timeAgo:'2h ago', body:"Reminder: practice SAT set 7 is due before tomorrow's session. DM me if you're stuck on the geometry section." },
+    { id:'gm10', author:'Tomás', avatar:'T', timeAgo:'1h ago', body:"Question 22 on that set — is it asking for the inscribed or circumscribed circle? The wording is ambiguous to me." },
+  ],
+  sg6: [
+    { id:'gm11', author:'Elena', avatar:'E', timeAgo:'4h ago', body:"Chapter 2 exercise 17 (proving compactness in metric spaces) — anyone want to walk through it before Thursday?" },
+  ],
+}
+
 export const COMMUNITY_POSTS: Post[] = [
   {
     id:'p1', category:'question', solved:true,
