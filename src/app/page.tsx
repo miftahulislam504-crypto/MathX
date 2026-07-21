@@ -8,10 +8,11 @@ import { useLanguage, t } from '@/lib/i18n/LanguageContext'
 import { LanguageToggle } from '@/components/shared/LanguageToggle'
 import {
   LineChart, FlaskConical, Bot, BookOpen, Trophy, Gamepad2,
-  BarChart3, Globe, Telescope, ScrollText, TrendingUp,
-  GraduationCap, PenTool, Shapes, Grid3x3, Dices, Boxes,
-  Wrench, Compass, Route, Sparkles, Puzzle, Wand2,
-  Sigma, Landmark, Users, ClipboardCheck, TestTube2, type LucideIcon,
+  BarChart3, Globe, Telescope, ScrollText, Map, TrendingUp, type LucideIcon,
+  GraduationCap, Calculator, ListChecks, Award, ClipboardCheck, PenTool,
+  Beaker, FlaskRound, Shapes, Grid3x3, Dices, Boxes,
+  Sparkles, Wrench, Building2, Compass, Briefcase, Rocket,
+  PuzzleIcon, Users, Orbit,
 } from 'lucide-react'
 
 // ─── Minimal Top Nav (Landing only) ───────────────────────────────────
@@ -46,15 +47,9 @@ function Hero({ onStartLearning }: { onStartLearning: () => void }) {
         <div className="w-[700px] h-[700px] rounded-full bg-violet-600/8 blur-[140px]" />
       </div>
 
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20 pb-16">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/5 px-4 py-1.5 text-xs text-violet-300 mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-          {tt(t.home.badge)}
-        </div>
-
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-24 pb-16">
         {/* Headline */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-10">
           <span className="text-white">{tt(t.home.headline1)}</span>{' '}
           <span className="text-violet-400">{tt(t.home.headline2)}</span>{' '}
           <br />
@@ -62,10 +57,6 @@ function Hero({ onStartLearning }: { onStartLearning: () => void }) {
             {tt(t.home.headline3)}
           </span>
         </h1>
-
-        <p className="text-lg sm:text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
-          {tt(t.home.subheadline)}
-        </p>
 
         {/* CTA — Start Learning only (no Visualizer button) */}
         <div className="flex justify-center">
@@ -90,96 +81,101 @@ function Hero({ onStartLearning }: { onStartLearning: () => void }) {
   )
 }
 
-// ─── Features Grid ─────────────────────────────────────────────────────
-type Feature = { icon: LucideIcon; color: string; bg: string; title: string; desc: string }
-
-function FeatureCard({ f, onClick, loginToExplore }: { f: Feature; onClick: () => void; loginToExplore: string }) {
-  return (
-    <button onClick={onClick}
-      className={`group rounded-xl border ${f.bg} p-5 transition-all hover:scale-[1.02] text-left w-full`}>
-      <div className={`mb-3 ${f.color}`}><f.icon className="w-6 h-6" /></div>
-      <h3 className="text-sm font-semibold text-white mb-1.5">{f.title}</h3>
-      <p className="text-xs text-white/40 leading-relaxed">{f.desc}</p>
-      <span className="mt-3 inline-block text-[10px] text-white/20 group-hover:text-white/40 transition-colors">
-        {loginToExplore}
-      </span>
-    </button>
-  )
-}
-
-function FeatureCategory({ title, features, onStartLearning, loginToExplore }: {
-  title: string; features: Feature[]; onStartLearning: () => void; loginToExplore: string
-}) {
-  return (
-    <div className="mb-10 last:mb-0">
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-white/30 mb-4">{title}</h3>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-        {features.map(f => (
-          <FeatureCard key={f.title} f={f} onClick={onStartLearning} loginToExplore={loginToExplore} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function FeaturesGrid({ onStartLearning }: { onStartLearning: () => void }) {
+// ─── Site Summary ────────────────────────────────────────────────────────
+// Static, non-interactive overview of every module in the MathX ecosystem.
+// Cards are informational only — no hover/active states, no click handlers.
+function SiteSummary() {
   const { tt } = useLanguage()
-  const loginToExplore = tt(t.common.loginToExplore)
 
-  const learnPractice: Feature[] = [
-    { icon:GraduationCap, color:'text-emerald-400', bg:'bg-emerald-500/5 border-emerald-500/10', title:tt(t.home.feat_learn_title), desc:tt(t.home.feat_learn_desc) },
-    { icon:PenTool,       color:'text-rose-400',    bg:'bg-rose-500/5 border-rose-500/10',       title:tt(t.home.feat_practice_title), desc:tt(t.home.feat_practice_desc) },
-    { icon:Trophy,        color:'text-rose-400',    bg:'bg-rose-500/5 border-rose-500/10',       title:tt(t.home.feat_problems_title), desc:tt(t.home.feat_problems_desc) },
-    { icon:ClipboardCheck,color:'text-pink-400',    bg:'bg-pink-500/5 border-pink-500/10',       title:tt(t.home.feat_assessment_title), desc:tt(t.home.feat_assessment_desc) },
-    { icon:Bot,           color:'text-violet-400',  bg:'bg-violet-500/5 border-violet-500/10',   title:tt(t.home.feat_tutor_title), desc:tt(t.home.feat_tutor_desc) },
-    { icon:Wand2,         color:'text-violet-400',  bg:'bg-violet-500/5 border-violet-500/10',   title:tt(t.home.feat_solver_title), desc:tt(t.home.feat_solver_desc) },
-    { icon:BookOpen,      color:'text-emerald-400', bg:'bg-emerald-500/5 border-emerald-500/10', title:tt(t.home.feat_encyclopedia_title), desc:tt(t.home.feat_encyclopedia_desc) },
-    { icon:Sigma,         color:'text-yellow-400',  bg:'bg-yellow-500/5 border-yellow-500/10',   title:tt(t.home.feat_formulas_title), desc:tt(t.home.feat_formulas_desc) },
-    { icon:Landmark,      color:'text-yellow-400',  bg:'bg-yellow-500/5 border-yellow-500/10',   title:tt(t.home.feat_theorems_title), desc:tt(t.home.feat_theorems_desc) },
-  ]
+  type Module = { icon: LucideIcon; color: string; title: string; desc: string }
+  type Group = { label: string; modules: Module[] }
 
-  const exploreVisualize: Feature[] = [
-    { icon:LineChart,   color:'text-amber-400',  bg:'bg-amber-500/5 border-amber-500/10',  title:tt(t.home.feat_visualizer_title), desc:tt(t.home.feat_visualizer_desc) },
-    { icon:FlaskConical,color:'text-cyan-400',   bg:'bg-cyan-500/5 border-cyan-500/10',    title:tt(t.home.feat_lab_title), desc:tt(t.home.feat_lab_desc) },
-    { icon:TestTube2,   color:'text-cyan-400',   bg:'bg-cyan-500/5 border-cyan-500/10',    title:tt(t.home.feat_experiments_title), desc:tt(t.home.feat_experiments_desc) },
-    { icon:Gamepad2,    color:'text-sky-400',    bg:'bg-sky-500/5 border-sky-500/10',      title:tt(t.home.feat_games_title), desc:tt(t.home.feat_games_desc) },
-    { icon:Puzzle,      color:'text-sky-400',    bg:'bg-sky-500/5 border-sky-500/10',      title:tt(t.home.feat_puzzles_title), desc:tt(t.home.feat_puzzles_desc) },
-    { icon:Wrench,      color:'text-orange-400', bg:'bg-orange-500/5 border-orange-500/10',title:tt(t.home.feat_tools_title), desc:tt(t.home.feat_tools_desc) },
-    { icon:Sparkles,    color:'text-fuchsia-400',bg:'bg-fuchsia-500/5 border-fuchsia-500/10',title:tt(t.home.feat_experience_title), desc:tt(t.home.feat_experience_desc) },
-    { icon:Globe,       color:'text-orange-400', bg:'bg-orange-500/5 border-orange-500/10',title:tt(t.home.feat_reallife_title), desc:tt(t.home.feat_reallife_desc) },
-  ]
-
-  const centers: Feature[] = [
-    { icon:Shapes,   color:'text-indigo-400', bg:'bg-indigo-500/5 border-indigo-500/10', title:tt(t.home.feat_geometry_title), desc:tt(t.home.feat_geometry_desc) },
-    { icon:Grid3x3,  color:'text-indigo-400', bg:'bg-indigo-500/5 border-indigo-500/10', title:tt(t.home.feat_linalg_title), desc:tt(t.home.feat_linalg_desc) },
-    { icon:Dices,    color:'text-fuchsia-400',bg:'bg-fuchsia-500/5 border-fuchsia-500/10',title:tt(t.home.feat_probability_title), desc:tt(t.home.feat_probability_desc) },
-    { icon:BarChart3,color:'text-fuchsia-400',bg:'bg-fuchsia-500/5 border-fuchsia-500/10',title:tt(t.home.feat_stats_title), desc:tt(t.home.feat_stats_desc) },
-    { icon:Boxes,    color:'text-teal-400',   bg:'bg-teal-500/5 border-teal-500/10',     title:tt(t.home.feat_modeling_title), desc:tt(t.home.feat_modeling_desc) },
-    { icon:Globe,    color:'text-orange-400', bg:'bg-orange-500/5 border-orange-500/10', title:tt(t.home.feat_applied_title), desc:tt(t.home.feat_applied_desc) },
-    { icon:FlaskConical,color:'text-teal-400',bg:'bg-teal-500/5 border-teal-500/10',     title:tt(t.home.feat_appliedlab_title), desc:tt(t.home.feat_appliedlab_desc) },
-    { icon:Telescope,color:'text-indigo-400', bg:'bg-indigo-500/5 border-indigo-500/10', title:tt(t.home.feat_research_title), desc:tt(t.home.feat_research_desc) },
-  ]
-
-  const communityMore: Feature[] = [
-    { icon:Users,      color:'text-sky-400',   bg:'bg-sky-500/5 border-sky-500/10',   title:tt(t.home.feat_community_title), desc:tt(t.home.feat_community_desc) },
-    { icon:Route,      color:'text-lime-400',  bg:'bg-lime-500/5 border-lime-500/10', title:tt(t.home.feat_career_title), desc:tt(t.home.feat_career_desc) },
-    { icon:Compass,    color:'text-teal-400',  bg:'bg-teal-500/5 border-teal-500/10', title:tt(t.home.feat_map_title), desc:tt(t.home.feat_map_desc) },
-    { icon:ScrollText, color:'text-yellow-400',bg:'bg-yellow-500/5 border-yellow-500/10', title:tt(t.home.feat_foundation_title), desc:tt(t.home.feat_foundation_desc) },
-    { icon:TrendingUp, color:'text-lime-400',  bg:'bg-lime-500/5 border-lime-500/10', title:tt(t.home.feat_dashboard_title), desc:tt(t.home.feat_dashboard_desc) },
+  const GROUPS: Group[] = [
+    {
+      label: 'Learn & Practice',
+      modules: [
+        { icon: GraduationCap, color: 'text-emerald-400', title: tt(t.siteMap.learn_title), desc: tt(t.siteMap.learn_desc) },
+        { icon: BookOpen, color: 'text-emerald-400', title: tt(t.siteMap.encyclopedia_title), desc: tt(t.siteMap.encyclopedia_desc) },
+        { icon: Calculator, color: 'text-emerald-400', title: tt(t.siteMap.formulas_title), desc: tt(t.siteMap.formulas_desc) },
+        { icon: Trophy, color: 'text-emerald-400', title: tt(t.siteMap.problems_title), desc: tt(t.siteMap.problems_desc) },
+        { icon: Award, color: 'text-emerald-400', title: tt(t.siteMap.theorems_title), desc: tt(t.siteMap.theorems_desc) },
+        { icon: ClipboardCheck, color: 'text-emerald-400', title: tt(t.siteMap.assessment_title), desc: tt(t.siteMap.assessment_desc) },
+        { icon: PenTool, color: 'text-emerald-400', title: tt(t.siteMap.practice_title), desc: tt(t.siteMap.practice_desc) },
+      ],
+    },
+    {
+      label: 'Visualize & Experiment',
+      modules: [
+        { icon: LineChart, color: 'text-amber-400', title: tt(t.siteMap.visualizer_title), desc: tt(t.siteMap.visualizer_desc) },
+        { icon: FlaskConical, color: 'text-amber-400', title: tt(t.siteMap.lab_title), desc: tt(t.siteMap.lab_desc) },
+        { icon: Beaker, color: 'text-amber-400', title: tt(t.siteMap.experiments_title), desc: tt(t.siteMap.experiments_desc) },
+        { icon: Shapes, color: 'text-amber-400', title: tt(t.siteMap.geometry_title), desc: tt(t.siteMap.geometry_desc) },
+        { icon: Grid3x3, color: 'text-amber-400', title: tt(t.siteMap.linearAlgebra_title), desc: tt(t.siteMap.linearAlgebra_desc) },
+        { icon: Dices, color: 'text-amber-400', title: tt(t.siteMap.probability_title), desc: tt(t.siteMap.probability_desc) },
+        { icon: Boxes, color: 'text-amber-400', title: tt(t.siteMap.modeling_title), desc: tt(t.siteMap.modeling_desc) },
+      ],
+    },
+    {
+      label: 'AI & Tools',
+      modules: [
+        { icon: Bot, color: 'text-violet-400', title: tt(t.siteMap.aiTutorCard_title), desc: tt(t.siteMap.aiTutorCard_desc) },
+        { icon: Sparkles, color: 'text-violet-400', title: tt(t.siteMap.aiSolver_title), desc: tt(t.siteMap.aiSolver_desc) },
+        { icon: Wrench, color: 'text-violet-400', title: tt(t.siteMap.tools_title), desc: tt(t.siteMap.tools_desc) },
+      ],
+    },
+    {
+      label: 'Applied & Real World',
+      modules: [
+        { icon: FlaskRound, color: 'text-orange-400', title: tt(t.siteMap.appliedLab_title), desc: tt(t.siteMap.appliedLab_desc) },
+        { icon: Globe, color: 'text-orange-400', title: tt(t.siteMap.applied_title), desc: tt(t.siteMap.applied_desc) },
+        { icon: Building2, color: 'text-orange-400', title: tt(t.siteMap.realLife_title), desc: tt(t.siteMap.realLife_desc) },
+        { icon: Briefcase, color: 'text-orange-400', title: tt(t.siteMap.careerPath_title), desc: tt(t.siteMap.careerPath_desc) },
+        { icon: Telescope, color: 'text-orange-400', title: tt(t.siteMap.research_title), desc: tt(t.siteMap.research_desc) },
+      ],
+    },
+    {
+      label: 'Explore & Community',
+      modules: [
+        { icon: Gamepad2, color: 'text-sky-400', title: tt(t.siteMap.games_title), desc: tt(t.siteMap.games_desc) },
+        { icon: PuzzleIcon, color: 'text-sky-400', title: tt(t.siteMap.puzzles_title), desc: tt(t.siteMap.puzzles_desc) },
+        { icon: Users, color: 'text-sky-400', title: tt(t.siteMap.community_title), desc: tt(t.siteMap.community_desc) },
+        { icon: Orbit, color: 'text-sky-400', title: tt(t.siteMap.experienceZone_title), desc: tt(t.siteMap.experienceZone_desc) },
+        { icon: ScrollText, color: 'text-sky-400', title: tt(t.siteMap.foundation_title), desc: tt(t.siteMap.foundation_desc) },
+        { icon: Map, color: 'text-sky-400', title: tt(t.siteMap.map_title), desc: tt(t.siteMap.map_desc) },
+        { icon: BarChart3, color: 'text-sky-400', title: tt(t.siteMap.statistics_title), desc: tt(t.siteMap.statistics_desc) },
+      ],
+    },
   ]
 
   return (
     <section className="py-20 px-4 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-3">{tt(t.home.everythingInOnePlace)}</h2>
-          <p className="text-white/40">{tt(t.home.noMoreSwitching)}</p>
+          <h2 className="text-3xl font-bold text-white mb-3">{tt(t.siteMap.heading)}</h2>
+          <p className="text-white/40">{tt(t.siteMap.subheading)}</p>
         </div>
 
-        <FeatureCategory title={tt(t.home.categoryLearn)} features={learnPractice} onStartLearning={onStartLearning} loginToExplore={loginToExplore} />
-        <FeatureCategory title={tt(t.home.categoryExplore)} features={exploreVisualize} onStartLearning={onStartLearning} loginToExplore={loginToExplore} />
-        <FeatureCategory title={tt(t.home.categoryCenters)} features={centers} onStartLearning={onStartLearning} loginToExplore={loginToExplore} />
-        <FeatureCategory title={tt(t.home.categoryMore)} features={communityMore} onStartLearning={onStartLearning} loginToExplore={loginToExplore} />
+        <div className="space-y-10">
+          {GROUPS.map(group => (
+            <div key={group.label}>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-white/30 mb-4">
+                {group.label}
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {group.modules.map(m => (
+                  <div
+                    key={m.title}
+                    className="select-none rounded-xl border border-white/10 bg-white/[0.02] p-4"
+                  >
+                    <div className={`mb-2 ${m.color}`}><m.icon className="w-6 h-6" /></div>
+                    <h4 className="text-sm font-semibold text-white mb-1">{m.title}</h4>
+                    <p className="text-xs text-white/40 leading-relaxed">{m.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -256,7 +252,7 @@ export default function HomePage() {
       <LandingNav />
       <main className="pb-10">
         <Hero onStartLearning={handleStartLearning} />
-        <FeaturesGrid onStartLearning={handleStartLearning} />
+        <SiteSummary />
         <Stats />
         <CTABanner onStartLearning={handleStartLearning} />
       </main>
