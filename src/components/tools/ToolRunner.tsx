@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { ToolMeta } from '@/lib/data/tools'
+import { getToolBySlug } from '@/lib/data/tools'
 
 function Spinner({ label }: { label: string }) {
   return (
@@ -14,8 +14,10 @@ function Spinner({ label }: { label: string }) {
   )
 }
 
-export function ToolRunner({ tool }: { tool: ToolMeta }) {
+export function ToolRunner({ slug }: { slug: string }) {
   const { tt } = useLanguage()
+  const tool = getToolBySlug(slug)
+  if (!tool) return null
   const ToolComponent = tool.component
 
   return (

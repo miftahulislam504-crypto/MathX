@@ -13,5 +13,5 @@ export default async function AssessmentDetailPage({ params }: Props) {
   const assessment = getAssessmentBySlug(slug)
   if (!assessment) notFound()
 
-  return <AssessmentRunner assessment={assessment} />
+  return <AssessmentRunner slug={slug} />
 }

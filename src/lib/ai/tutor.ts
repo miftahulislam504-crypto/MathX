@@ -1,9 +1,23 @@
 import OpenAI from 'openai'
 import { TutorMessage } from '@/types'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+let openaiInstance: OpenAI | null = null
+
+// Lazily construct the client on first real use. The OpenAI SDK's constructor
+// throws synchronously if no API key is present, which would otherwise crash
+// Next.js during build-time page-data collection (this module is imported by
+// an API route, so it gets evaluated even before any request comes in).
+function getOpenAI(): OpenAI {
+  if (!openaiInstance) {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error(
+        'OPENAI_API_KEY is not set. Add it to your environment variables to use the AI tutor.'
+      )
+    }
+    openaiInstance = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  }
+  return openaiInstance
+}
 
 const SYSTEM_PROMPT = `You are MathX AI Tutor — an expert mathematics teacher. 
 Your role:
@@ -29,7 +43,7 @@ export async function askTutor(
     ? `${SYSTEM_PROMPT}\n\nCurrent topic: ${topicContext}`
     : SYSTEM_PROMPT
 
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [
       { role: 'system', content: systemContent },
@@ -50,7 +64,7 @@ export async function generatePracticeProblems(
   level: string,
   count = 5
 ): Promise<string> {
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [
       { role: 'system', content: SYSTEM_PROMPT },
@@ -70,7 +84,7 @@ Use LaTeX for math expressions. Return only the JSON array, no markdown.`,
 }
 
 export async function explainConcept(concept: string, level: string): Promise<string> {
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [
       { role: 'system', content: SYSTEM_PROMPT },

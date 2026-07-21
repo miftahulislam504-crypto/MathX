@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getStorage } from 'firebase/storage'
+import { getAuth, type Auth } from 'firebase/auth'
+import { getStorage, type FirebaseStorage } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,6 +13,27 @@ const firebaseConfig = {
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp()
 
-export const auth = getAuth(app)
-export const storage = getStorage(app)
+let authInstance: Auth | null = null
+let storageInstance: FirebaseStorage | null = null
+
+// getAuth()/getStorage() validate the config and throw synchronously if the
+// API key is missing or malformed. Evaluating that eagerly at module scope
+// crashes Next.js during static prerendering of any page that imports this
+// module (even indirectly), before a real request ever happens. Lazy access
+// defers that validation to first real use, matching getOpenAI() in
+// src/lib/ai/tutor.ts.
+export function getFirebaseAuth(): Auth {
+  if (!authInstance) {
+    authInstance = getAuth(app)
+  }
+  return authInstance
+}
+
+export function getFirebaseStorage(): FirebaseStorage {
+  if (!storageInstance) {
+    storageInstance = getStorage(app)
+  }
+  return storageInstance
+}
+
 export default app

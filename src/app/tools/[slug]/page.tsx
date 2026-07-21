@@ -13,5 +13,5 @@ export default async function ToolDetailPage({ params }: Props) {
   const tool = getToolBySlug(slug)
   if (!tool) notFound()
 
-  return <ToolRunner tool={tool} />
+  return <ToolRunner slug={slug} />
 }

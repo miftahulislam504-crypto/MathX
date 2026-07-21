@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { GeometryCenterMeta } from '@/lib/data/geometryCenter'
+import { getGeometryCenterToolBySlug } from '@/lib/data/geometryCenter'
 
 function Spinner({ label }: { label: string }) {
   return (
@@ -14,8 +14,10 @@ function Spinner({ label }: { label: string }) {
   )
 }
 
-export function GeometryCenterRunner({ tool }: { tool: GeometryCenterMeta }) {
+export function GeometryCenterRunner({ slug }: { slug: string }) {
   const { tt } = useLanguage()
+  const tool = getGeometryCenterToolBySlug(slug)
+  if (!tool) return null
   const ToolComponent = tool.component
 
   return (

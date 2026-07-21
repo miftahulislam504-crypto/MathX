@@ -13,5 +13,5 @@ export default async function LabDetailPage({ params }: Props) {
   const lab = getLabBySlug(slug)
   if (!lab) notFound()
 
-  return <LabRunner lab={lab} />
+  return <LabRunner slug={slug} />
 }

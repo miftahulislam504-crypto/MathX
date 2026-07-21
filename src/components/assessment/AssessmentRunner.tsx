@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { AssessmentMeta } from '@/lib/data/assessments'
+import { getAssessmentBySlug } from '@/lib/data/assessments'
 
 function Spinner({ label }: { label: string }) {
   return (
@@ -14,8 +14,10 @@ function Spinner({ label }: { label: string }) {
   )
 }
 
-export function AssessmentRunner({ assessment }: { assessment: AssessmentMeta }) {
+export function AssessmentRunner({ slug }: { slug: string }) {
   const { tt } = useLanguage()
+  const assessment = getAssessmentBySlug(slug)
+  if (!assessment) return null
   const AssessmentComponent = assessment.component
 
   return (

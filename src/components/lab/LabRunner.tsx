@@ -3,7 +3,7 @@ import { useEffect, useRef, Suspense } from 'react'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { useLanguage, t } from '@/lib/i18n/LanguageContext'
-import { LabMeta, LABS } from '@/lib/data/labs'
+import { LABS, getLabBySlug } from '@/lib/data/labs'
 import { addXP, updateStats, getStats, updateStreak, checkAchievements, recordSession } from '@/lib/data/user-progress'
 
 function Spinner({ label }: { label: string }) {
@@ -15,10 +15,10 @@ function Spinner({ label }: { label: string }) {
   )
 }
 
-export function LabRunner({ lab }: { lab: LabMeta }) {
+export function LabRunner({ slug }: { slug: string }) {
   const { tt } = useLanguage()
+  const lab = getLabBySlug(slug)
   const trackedRef = useRef(false)
-  const LabComponent = lab.component
 
   useEffect(() => {
     if (trackedRef.current) return
@@ -26,10 +26,13 @@ export function LabRunner({ lab }: { lab: LabMeta }) {
     updateStreak()
     updateStats({ labExperiments: getStats().labExperiments + 1 })
     addXP(15)
-    recordSession(lab.slug, 2)
+    recordSession(slug, 2)
     checkAchievements()
-  }, [lab.slug])
+  }, [slug])
 
+  if (!lab) return null
+
+  const LabComponent = lab.component
   const otherLabs = LABS.filter((l) => l.slug !== lab.slug)
 
   return (

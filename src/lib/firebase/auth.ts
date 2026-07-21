@@ -7,19 +7,19 @@ import {
   onAuthStateChanged,
   User as FirebaseUser,
 } from 'firebase/auth'
-import { auth } from './config'
+import { getFirebaseAuth } from './config'
 
 const googleProvider = new GoogleAuthProvider()
 
-export const signInWithGoogle = () => signInWithPopup(auth, googleProvider)
+export const signInWithGoogle = () => signInWithPopup(getFirebaseAuth(), googleProvider)
 
 export const signInWithEmail = (email: string, password: string) =>
-  signInWithEmailAndPassword(auth, email, password)
+  signInWithEmailAndPassword(getFirebaseAuth(), email, password)
 
 export const signUpWithEmail = (email: string, password: string) =>
-  createUserWithEmailAndPassword(auth, email, password)
+  createUserWithEmailAndPassword(getFirebaseAuth(), email, password)
 
-export const logOut = () => signOut(auth)
+export const logOut = () => signOut(getFirebaseAuth())
 
 export const onAuthChange = (callback: (user: FirebaseUser | null) => void) =>
-  onAuthStateChanged(auth, callback)
+  onAuthStateChanged(getFirebaseAuth(), callback)

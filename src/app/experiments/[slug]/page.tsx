@@ -13,5 +13,5 @@ export default async function ExperimentDetailPage({ params }: Props) {
   const experiment = getExperimentBySlug(slug)
   if (!experiment) notFound()
 
-  return <ExperimentRunner experiment={experiment} />
+  return <ExperimentRunner slug={slug} />
 }

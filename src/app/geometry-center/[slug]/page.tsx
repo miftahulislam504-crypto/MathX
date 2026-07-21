@@ -1,17 +1,17 @@
 import { notFound } from 'next/navigation'
-import { GEOMETRY_CENTER_TOOLS, getGeometryCenterToolBySlug } from '@/lib/data/geometryCenter'
-import { GeometryCenterRunner } from '@/components/geometry-center/GeometryCenterRunner'
+import { LABS, getLabBySlug } from '@/lib/data/labs'
+import { LabRunner } from '@/components/lab/LabRunner'
 
 export async function generateStaticParams() {
-  return GEOMETRY_CENTER_TOOLS.map((g) => ({ slug: g.slug }))
+  return LABS.map((l) => ({ slug: l.slug }))
 }
 
 interface Props { params: Promise<{ slug: string }> }
 
-export default async function GeometryCenterDetailPage({ params }: Props) {
+export default async function LabDetailPage({ params }: Props) {
   const { slug } = await params
-  const tool = getGeometryCenterToolBySlug(slug)
-  if (!tool) notFound()
+  const lab = getLabBySlug(slug)
+  if (!lab) notFound()
 
-  return <GeometryCenterRunner tool={tool} />
+  return <LabRunner slug={slug} />
 }
