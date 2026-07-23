@@ -1,40 +1,21 @@
 import { Topic, Level } from '@/types'
+import { ARITHMETIC_TOPICS } from './arithmetic-topics'
+import { ALGEBRA_TOPICS } from './algebra-topics'
+import { GEOMETRY_TOPICS } from './geometry-topics'
+import { TRIGONOMETRY_TOPICS } from './trigonometry-topics'
 
 export const TOPICS: Topic[] = [
-  // ── ARITHMETIC (School) ─────────────────────────────────────────
-  { id: 'ar-01', slug: 'natural-numbers',      title: 'Natural Numbers',      titleBn: 'স্বাভাবিক সংখ্যা',   branchId: '1', level: 'SCHOOL',     order: 1 },
-  { id: 'ar-02', slug: 'integers',             title: 'Integers',             titleBn: 'পূর্ণসংখ্যা',        branchId: '1', level: 'SCHOOL',     order: 2 },
-  { id: 'ar-03', slug: 'fractions',            title: 'Fractions',            titleBn: 'ভগ্নাংশ',            branchId: '1', level: 'SCHOOL',     order: 3 },
-  { id: 'ar-04', slug: 'decimals',             title: 'Decimals',             titleBn: 'দশমিক',              branchId: '1', level: 'SCHOOL',     order: 4 },
-  { id: 'ar-05', slug: 'percentages',          title: 'Percentages',          titleBn: 'শতকরা',              branchId: '1', level: 'SCHOOL',     order: 5 },
-  { id: 'ar-06', slug: 'ratio-proportion',     title: 'Ratio & Proportion',   titleBn: 'অনুপাত ও সমানুপাত', branchId: '1', level: 'SCHOOL',     order: 6 },
-  { id: 'ar-07', slug: 'hcf-lcm',             title: 'HCF & LCM',           titleBn: 'গ.সা.গু ও ল.সা.গু',  branchId: '1', level: 'SCHOOL',     order: 7 },
-  { id: 'ar-08', slug: 'number-systems',       title: 'Number Systems',       titleBn: 'সংখ্যা পদ্ধতি',      branchId: '1', level: 'SCHOOL',     order: 8 },
+  // ── ARITHMETIC (full outline — see arithmetic-topics.ts) ─────────
+  ...ARITHMETIC_TOPICS,
 
-  // ── ALGEBRA (School → University) ───────────────────────────────
-  { id: 'al-01', slug: 'algebraic-expressions',title: 'Algebraic Expressions',titleBn: 'বীজগাণিতিক রাশি',   branchId: '2', level: 'SCHOOL',     order: 1 },
-  { id: 'al-02', slug: 'linear-equations',     title: 'Linear Equations',     titleBn: 'রৈখিক সমীকরণ',      branchId: '2', level: 'SCHOOL',     order: 2 },
-  { id: 'al-03', slug: 'quadratic-equations',  title: 'Quadratic Equations',  titleBn: 'দ্বিঘাত সমীকরণ',    branchId: '2', level: 'SCHOOL',     order: 3 },
-  { id: 'al-04', slug: 'polynomials',          title: 'Polynomials',          titleBn: 'বহুপদী রাশি',        branchId: '2', level: 'COLLEGE',    order: 4 },
-  { id: 'al-05', slug: 'sequences-series',     title: 'Sequences & Series',   titleBn: 'অনুক্রম ও ধারা',    branchId: '2', level: 'COLLEGE',    order: 5 },
-  { id: 'al-06', slug: 'binomial-theorem',     title: 'Binomial Theorem',     titleBn: 'দ্বিপদী উপপাদ্য',   branchId: '2', level: 'COLLEGE',    order: 6 },
-  { id: 'al-07', slug: 'matrices-determinants',title: 'Matrices & Determinants',titleBn:'ম্যাট্রিক্স ও নির্ণায়ক',branchId:'2',level:'COLLEGE', order: 7 },
-  { id: 'al-08', slug: 'complex-numbers',      title: 'Complex Numbers',      titleBn: 'জটিল সংখ্যা',        branchId: '2', level: 'COLLEGE',    order: 8 },
+  // ── ALGEBRA (full outline — see algebra-topics.ts) ────────────────
+  ...ALGEBRA_TOPICS,
 
-  // ── GEOMETRY (School → University) ──────────────────────────────
-  { id: 'ge-01', slug: 'basic-geometry',       title: 'Basic Geometry',       titleBn: 'মৌলিক জ্যামিতি',    branchId: '3', level: 'SCHOOL',     order: 1 },
-  { id: 'ge-02', slug: 'triangles',            title: 'Triangles',            titleBn: 'ত্রিভুজ',            branchId: '3', level: 'SCHOOL',     order: 2 },
-  { id: 'ge-03', slug: 'circles',              title: 'Circles',              titleBn: 'বৃত্ত',              branchId: '3', level: 'SCHOOL',     order: 3 },
-  { id: 'ge-04', slug: 'coordinate-geometry',  title: 'Coordinate Geometry',  titleBn: 'স্থানাঙ্ক জ্যামিতি', branchId: '3', level: 'COLLEGE',    order: 4 },
-  { id: 'ge-05', slug: 'conic-sections',       title: 'Conic Sections',       titleBn: 'কোণিক ছেদ',          branchId: '3', level: 'COLLEGE',    order: 5 },
-  { id: 'ge-06', slug: '3d-geometry',          title: '3D Geometry',          titleBn: 'ত্রিমাত্রিক জ্যামিতি',branchId:'3', level: 'COLLEGE',    order: 6 },
+  // ── GEOMETRY (full outline — see geometry-topics.ts) ──────────────
+  ...GEOMETRY_TOPICS,
 
-  // ── TRIGONOMETRY ────────────────────────────────────────────────
-  { id: 'tr-01', slug: 'trig-ratios',          title: 'Trigonometric Ratios', titleBn: 'ত্রিকোণমিতিক অনুপাত',branchId:'4', level: 'SCHOOL',     order: 1 },
-  { id: 'tr-02', slug: 'trig-identities',      title: 'Trig Identities',      titleBn: 'ত্রিকোণমিতিক সমতা', branchId: '4', level: 'SCHOOL',     order: 2 },
-  { id: 'tr-03', slug: 'trig-equations',       title: 'Trig Equations',       titleBn: 'ত্রিকোণমিতিক সমীকরণ',branchId:'4', level: 'COLLEGE',    order: 3 },
-  { id: 'tr-04', slug: 'inverse-trig',         title: 'Inverse Trigonometry', titleBn: 'বিপরীত ত্রিকোণমিতি', branchId: '4', level: 'COLLEGE',    order: 4 },
-
+  // ── TRIGONOMETRY (full outline — see trigonometry-topics.ts) ─────
+  ...TRIGONOMETRY_TOPICS,
   // ── CALCULUS ────────────────────────────────────────────────────
   { id: 'ca-01', slug: 'limits',               title: 'Limits',               titleBn: 'সীমা',               branchId: '5', level: 'COLLEGE',    order: 1 },
   { id: 'ca-02', slug: 'continuity',           title: 'Continuity',           titleBn: 'সাতত্য',             branchId: '5', level: 'COLLEGE',    order: 2 },
@@ -215,6 +196,11 @@ export function getTopicsByBranch(branchId: string): Topic[] {
 
 export function getTopicBySlug(slug: string): Topic | undefined {
   return TOPICS.find((t) => t.slug === slug)
+}
+
+export function getSubTopicBySlug(topicSlug: string, subTopicSlug: string) {
+  const topic = getTopicBySlug(topicSlug)
+  return topic?.subTopics?.find((s) => s.slug === subTopicSlug)
 }
 
 export function getTopicsByLevel(level: Level): Topic[] {

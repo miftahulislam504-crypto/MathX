@@ -14,6 +14,13 @@ export interface Branch {
   color?: string
 }
 
+export interface SubTopic {
+  id: string
+  slug: string
+  title: string
+  order: number
+}
+
 export interface Topic {
   id: string
   slug: string
@@ -25,6 +32,7 @@ export interface Topic {
   order: number
   parentId?: string
   children?: Topic[]
+  subTopics?: SubTopic[]
 }
 
 export interface Formula {
